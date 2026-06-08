@@ -633,6 +633,7 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     flex-shrink: 0;
     width: 50px;
     height: 50px;
+    color: var(--ds-bg);
 }
 .ds-services-split__sub-icon img,
 .ds-services-split__sub-icon svg {
@@ -771,7 +772,7 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     display: flex; align-items: center; justify-content: center;
 }
 .ds-cta-feature__icon img,
-.ds-cta-feature__icon svg { width: 100%; height: 100%; display: block; filter: brightness(0); }
+.ds-cta-feature__icon svg { width: 100%; height: 100%; display: block; filter: brightness(0) invert(1); }
 .ds-cta-feature__title {
     font-family: var(--font-heading);
     font-size: 1rem;
@@ -780,9 +781,9 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     letter-spacing: 0.05em;
     margin: 0 0 0.25em;
     text-align: left;
-    color: #020B24;
+    color: var(--ds-white);
 }
-.ds-cta-feature__text { font-size: 1em; margin: 0; line-height: 1.6; color: #020B24; opacity: 0.85; text-align: left; }
+.ds-cta-feature__text { font-size: 1em; margin: 0; line-height: 1.6; color: var(--ds-white); opacity: 0.85; text-align: left; }
 .ds-cta-feature__body { text-align: left; }
 
 @media (max-width: 1024px) {
@@ -883,10 +884,15 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 @media (max-width: 768px) {
     .ds-steps-cards { grid-template-columns: repeat(2, 1fr); }
-    .ds-step-card { height: 240px; }
+    .ds-step-card { height: 280px; }
+    .ds-step-card__back { padding: 1.25em; }
+    .ds-step-card__title { font-size: 1em; }
+    .ds-step-card__text { font-size: 0.85em; margin-top: 0.5em; }
 }
 @media (max-width: 480px) {
     .ds-steps-cards { grid-template-columns: 1fr; }
+    .ds-step-card { height: auto; min-height: 240px; }
+    .ds-step-card__back { padding: 1.5em; }
 }
 
 /* - Testimonial Carousel - */
@@ -2329,8 +2335,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-testimonial-carousel__btn { display: none; }
     .ds-cta-split__right { padding: 0; }
     .ds-contact__info { border-radius: 0; }
-    .ds-cta-feature__icon img, .ds-cta-feature__icon svg { filter: brightness(0) invert(1); }
-    .ds-cta-feature__title, .ds-cta-feature__text { color: var(--ds-white); }
     .ds-anchor-nav ul { flex-direction: column; gap: 0.5em; }
     .ds-service-card { border-radius: 0; }
     .ds-accordion__header { font-weight: 400; }
