@@ -653,6 +653,21 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     line-height: 1.6;
     font-size: 0.95em;
 }
+.ds-services-split__sub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: 0.5em;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--ds-accent);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+}
+.ds-services-split__sub-link:hover {
+    gap: 0.7em;
+    text-decoration: underline;
+}
 .ds-services-split__cta {
     margin-top: 2em;
 }

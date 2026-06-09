@@ -858,6 +858,7 @@ acf_add_local_field_group([
                                         ['key' => 'field_sa_ss_icon_color', 'label' => 'Icon Color', 'name' => 'icon_color', 'type' => 'select', 'choices' => $ds_icon_color_choices, 'default_value' => '', 'wrapper' => ['width' => '25']],
                                         ['key' => 'field_sa_ss_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
                                         ['key' => 'field_sa_ss_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 3],
+                                        ['key' => 'field_sa_ss_link', 'label' => 'Link', 'name' => 'link', 'type' => 'link', 'return_format' => 'array', 'instructions' => 'Optional link displayed at the end of this sub-service.'],
                                     ],
                                 ],
                                 ['key' => 'field_sa_s_cta', 'label' => 'CTA Button', 'name' => 'cta_button', 'type' => 'link', 'return_format' => 'array'],
