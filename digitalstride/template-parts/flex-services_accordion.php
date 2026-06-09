@@ -24,6 +24,7 @@ if (have_rows('services')) :
                     'icon_color' => get_sub_field('icon_color'),
                     'title'      => get_sub_field('title'),
                     'desc'       => get_sub_field('description'),
+                    'link'       => get_sub_field('link'),
                 ];
             endwhile;
         endif;
@@ -69,6 +70,9 @@ endif;
                                                 <div>
                                                     <h6 class="ds-services-split__sub-title"><?php echo esc_html($sub['title']); ?></h6>
                                                     <p class="ds-services-split__sub-text"><?php echo esc_html($sub['desc']); ?></p>
+                                                    <?php if (!empty($sub['link'])) : ?>
+                                                        <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right"></i></a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -99,6 +103,9 @@ endif;
                                             <div>
                                                 <h6 class="ds-services-split__sub-title"><?php echo esc_html($sub['title']); ?></h6>
                                                 <p class="ds-services-split__sub-text"><?php echo esc_html($sub['desc']); ?></p>
+                                                <?php if (!empty($sub['link'])) : ?>
+                                                    <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right"></i></a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
