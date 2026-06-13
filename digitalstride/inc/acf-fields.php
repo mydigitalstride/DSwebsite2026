@@ -818,6 +818,18 @@ acf_add_local_field_group([
                     ],
                 ],
 
+                // ── Shortcode ─────────────────────────
+                'layout_shortcode' => [
+                    'key'        => 'layout_shortcode',
+                    'name'       => 'shortcode',
+                    'label'      => 'Shortcode',
+                    'display'    => 'block',
+                    'sub_fields' => [
+                        ['key' => 'field_shortcode_heading', 'label' => 'Heading (optional)', 'name' => 'heading', 'type' => 'text'],
+                        ['key' => 'field_shortcode_code', 'label' => 'Shortcode', 'name' => 'shortcode', 'type' => 'textarea', 'rows' => 3, 'instructions' => 'Enter a WordPress shortcode, e.g. [contact-form-7 id="123"]. It will be rendered/executed on the page.'],
+                    ],
+                ],
+
                 // ── Split Content ─────────────────────
                 'layout_split_content' => [
                     'key'        => 'layout_split_content',
