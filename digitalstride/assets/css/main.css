@@ -133,6 +133,8 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-btn--outline:hover { border-color: transparent; color: var(--ds-bg); position: relative; z-index: 1; }
 .ds-btn--outline:hover::after { opacity: 1; }
 
+.ds-btn--nav { font-size: 1em; padding: 0.6em 1.5em; white-space: nowrap; }
+
 /* - Header - */
 .ds-header {
     --ds-header-height: 80px;
@@ -2299,6 +2301,8 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-nav.is-open { display: block; }
     .ds-nav__list { flex-direction: column; align-items: flex-start; padding: 1em 0; }
     .ds-nav__link { padding: 0.5em 2em; }
+    .ds-nav__item--btn { padding: 0.5em 2em; }
+    .ds-nav__item--btn .ds-btn--nav { display: block; width: 100%; }
     .ds-mega-menu { display: none; position: static; transform: none; width: 100vw; min-width: 100vw; border: none; border-top: 2px solid var(--ds-blue-gradient); padding: 1rem; }
     .ds-nav__item--mega:hover .ds-nav__arrow { transform: none; }
     .ds-nav__item--mega.is-open .ds-mega-menu { display: block; }
