@@ -59,6 +59,24 @@
                         <?php endif; ?>
                     </li>
                 <?php endwhile; endif; ?>
+
+                <?php $header_btn_1 = get_field('header_btn_1', 'option'); ?>
+                <?php if ($header_btn_1) : ?>
+                    <li class="ds-nav__item ds-nav__item--btn">
+                        <a href="<?php echo esc_url($header_btn_1['url']); ?>"<?php echo $header_btn_1['target'] ? ' target="' . esc_attr($header_btn_1['target']) . '"' : ''; ?> class="ds-btn ds-btn--primary ds-btn--nav">
+                            <?php echo esc_html($header_btn_1['title']); ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php $header_btn_2 = get_field('header_btn_2', 'option'); ?>
+                <?php if ($header_btn_2) : ?>
+                    <li class="ds-nav__item ds-nav__item--btn">
+                        <a href="<?php echo esc_url($header_btn_2['url']); ?>"<?php echo $header_btn_2['target'] ? ' target="' . esc_attr($header_btn_2['target']) . '"' : ''; ?> class="ds-btn ds-btn--outline ds-btn--nav">
+                            <?php echo esc_html($header_btn_2['title']); ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </nav>
     </div>
