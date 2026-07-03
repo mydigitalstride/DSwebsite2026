@@ -23,7 +23,7 @@ get_header();
 </section>
 
 <article class="ds-section ds-section--article">
-    <div class="ds-container ds-container--narrow">
+    <div class="ds-container">
         <div class="ds-post-content">
             <?php the_content(); ?>
         </div>
