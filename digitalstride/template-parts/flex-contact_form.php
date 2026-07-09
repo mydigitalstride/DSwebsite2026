@@ -69,11 +69,11 @@ $heading = get_sub_field('heading');
                     <?php endif; ?>
                     <?php $email = get_sub_field('email'); ?>
                     <?php if ($email) : ?>
-                        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></li>
+                        <li><i class="fa-solid fa-envelope"></i> <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><?php echo esc_html($email); ?></a></li>
                     <?php endif; ?>
                     <?php $phone = get_sub_field('phone'); ?>
                     <?php if ($phone) : ?>
-                        <li><i class="fa-solid fa-phone"></i> <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>"><?php echo esc_html($phone); ?></a></li>
+                        <li><i class="fa-solid fa-phone"></i> <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><?php echo esc_html($phone); ?></a></li>
                     <?php endif; ?>
                     <?php $address = get_sub_field('address'); $map = get_sub_field('map_url'); ?>
                     <?php if ($address) : ?>
