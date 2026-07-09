@@ -19,8 +19,8 @@
                 <?php $email = get_field('footer_email', 'option') ?: 'Results@MyDigitalStride.com'; ?>
                 <?php $phone = get_field('footer_phone', 'option') ?: '(717) 727-1400'; ?>
                 <?php $address = get_field('footer_address', 'option') ?: '410 Kings Mill Rd, Suite 115, York, PA 17402'; ?>
-                <a href="mailto:<?php echo esc_attr($email); ?>"><i class="fa-solid fa-envelope"></i> <?php echo esc_html($email); ?></a>
-                <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>"><i class="fa-solid fa-phone"></i> <?php echo esc_html($phone); ?></a>
+                <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><i class="fa-solid fa-envelope"></i> <?php echo esc_html($email); ?></a>
+                <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><i class="fa-solid fa-phone"></i> <?php echo esc_html($phone); ?></a>
                 <p><i class="fa-solid fa-location-dot"></i> <?php echo esc_html($address); ?></p>
             </div>
             </div>
