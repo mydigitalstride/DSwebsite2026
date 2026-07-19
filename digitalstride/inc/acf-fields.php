@@ -241,6 +241,62 @@ acf_add_local_field_group([
 ]);
 
 // ═══════════════════════════════════════════════════════
+// OPTIONS: AI Quote Settings
+// ═══════════════════════════════════════════════════════
+acf_add_local_field_group([
+    'key'    => 'group_ai_quote',
+    'title'  => 'AI Quote Settings',
+    'fields' => [
+        [
+            'key'           => 'field_aiq_enabled',
+            'label'         => 'Enable AI Quotes',
+            'name'          => 'ai_quote_enabled',
+            'type'          => 'true_false',
+            'ui'            => 1,
+            'default_value' => 0,
+            'instructions'  => 'When on (and an API key is configured), survey respondents receive an AI-generated preliminary plan and quote on the thank-you screen. Each quote is also saved to the Survey Entry.',
+        ],
+        [
+            'key'          => 'field_aiq_api_key',
+            'label'        => 'Anthropic API Key',
+            'name'         => 'ai_quote_api_key',
+            'type'         => 'text',
+            'instructions' => 'Prefer defining DS_ANTHROPIC_API_KEY in wp-config.php (it overrides this field and keeps the key out of the database). Get a key at platform.claude.com.',
+        ],
+        [
+            'key'           => 'field_aiq_model',
+            'label'         => 'Model',
+            'name'          => 'ai_quote_model',
+            'type'          => 'select',
+            'choices'       => [
+                'claude-opus-4-8'  => 'Claude Opus 4.8 (recommended)',
+                'claude-sonnet-5'  => 'Claude Sonnet 5 (faster / cheaper)',
+                'claude-haiku-4-5' => 'Claude Haiku 4.5 (fastest / cheapest)',
+            ],
+            'default_value' => 'claude-opus-4-8',
+        ],
+        [
+            'key'          => 'field_aiq_menu',
+            'label'        => 'Service Menu & Pricing',
+            'name'         => 'ai_quote_service_menu',
+            'type'         => 'textarea',
+            'rows'         => 14,
+            'instructions' => 'The ONLY services and prices the AI is allowed to quote from. One service per line with a short description and price, e.g. "Local SEO & Google Business Profile management — $750–$1,200/mo — ongoing optimization, reviews, citations". If left blank, quotes use budget-consistent ranges labeled as estimates.',
+        ],
+        [
+            'key'          => 'field_aiq_instructions',
+            'label'        => 'Additional Instructions',
+            'name'         => 'ai_quote_instructions',
+            'type'         => 'textarea',
+            'rows'         => 5,
+            'instructions' => 'Optional guidance appended to the prompt, e.g. "Always recommend a website rebuild before paid ads for prospects without a working site" or minimum engagement rules.',
+        ],
+    ],
+    'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'acf-options-ai-quote']]],
+    'active'   => true,
+]);
+
+// ═══════════════════════════════════════════════════════
 // PAGES: Flexible Content — "Page Sections"
 // ═══════════════════════════════════════════════════════
 acf_add_local_field_group([

@@ -8,6 +8,7 @@
  */
 
 require_once __DIR__ . '/survey-analysis.php';
+require_once __DIR__ . '/survey-ai-quote.php';
 
 /**
  * Survey definition.
@@ -455,9 +456,20 @@ function ds_survey_handle_submit() {
     $headers = ['Reply-To: ' . $answers['contact_name'] . ' <' . $answers['contact_email'] . '>'];
     wp_mail($notify, $subject, $body, $headers);
 
+    // If AI quotes are enabled, mint a short-lived token so this visitor's
+    // browser can request the generated quote for this entry.
+    $quote = null;
+    if ($entry_id && !is_wp_error($entry_id) && ds_survey_ai_enabled()) {
+        $token = wp_generate_password(32, false);
+        update_post_meta($entry_id, '_ds_quote_token', $token);
+        update_post_meta($entry_id, '_ds_quote_token_expires', time() + 30 * MINUTE_IN_SECONDS);
+        $quote = ['entry' => $entry_id, 'token' => $token];
+    }
+
     // Prospects see the top gaps only; the email/admin entry keep the full list.
     wp_send_json_success([
         'message'  => 'Thanks!',
+        'quote'    => $quote,
         'analysis' => [
             'score' => $analysis['score'],
             'label' => $analysis['label'],

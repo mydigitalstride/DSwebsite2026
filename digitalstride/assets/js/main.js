@@ -738,6 +738,68 @@
             box.hidden = false;
         }
 
+        // AI quote: second request after submit; loading card while Claude works.
+        function el(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text) node.textContent = text;
+            return node;
+        }
+
+        function fetchQuote(grant) {
+            var box = el('div', 'ds-survey__quote');
+            var loading = el('div', 'ds-survey__quote-loading');
+            loading.appendChild(el('span', 'ds-survey__quote-spinner'));
+            loading.appendChild(el('p', '', 'Building your custom plan and preliminary quote…'));
+            box.appendChild(loading);
+            success.appendChild(box);
+
+            var body = new FormData();
+            body.append('action', 'ds_survey_quote');
+            body.append('entry', grant.entry);
+            body.append('token', grant.token);
+
+            fetch(form.getAttribute('action'), { method: 'POST', body: body })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (!data.success) throw data;
+                    box.removeChild(loading);
+                    renderQuote(box, data.data.quote);
+                })
+                .catch(function () {
+                    loading.innerHTML = '';
+                    loading.appendChild(el('p', 'ds-survey__quote-fallback',
+                        "We couldn't build your quote automatically — no problem, we'll include it when we reach out."));
+                });
+        }
+
+        function renderQuote(box, quote) {
+            box.appendChild(el('h4', 'ds-survey__quote-heading', 'Your preliminary game plan'));
+            box.appendChild(el('p', 'ds-survey__quote-summary', quote.summary));
+
+            var list = el('div', 'ds-survey__quote-recs');
+            (quote.recommendations || []).forEach(function (rec) {
+                var card = el('div', 'ds-survey__quote-rec');
+                var top = el('div', 'ds-survey__quote-rec-top');
+                top.appendChild(el('strong', '', rec.service));
+                top.appendChild(el('span', 'ds-survey__quote-price', rec.investment));
+                card.appendChild(top);
+                card.appendChild(el('p', '', rec.rationale));
+                list.appendChild(card);
+            });
+            box.appendChild(list);
+
+            var total = el('p', 'ds-survey__quote-total');
+            total.appendChild(el('span', '', 'Recommended investment: '));
+            total.appendChild(el('strong', '', quote.total_monthly_investment));
+            box.appendChild(total);
+
+            box.appendChild(el('p', 'ds-survey__quote-outcomes', quote.expected_outcomes));
+            box.appendChild(el('p', 'ds-survey__quote-next', quote.next_step));
+            box.appendChild(el('p', 'ds-survey__analysis-note',
+                'This is a preliminary, AI-assisted estimate based on your answers — your final proposal comes after we talk.'));
+        }
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             if (!validateStep(current)) return;
@@ -754,6 +816,7 @@
                     survey.querySelector('.ds-survey__progress').hidden = true;
                     success.hidden = false;
                     if (data.data && data.data.analysis) renderAnalysis(data.data.analysis);
+                    if (data.data && data.data.quote) fetchQuote(data.data.quote);
                 })
                 .catch(function (err) {
                     submitBtn.disabled = false;
