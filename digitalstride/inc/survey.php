@@ -7,6 +7,8 @@
  * share a single source of truth for names, labels, options, and routing.
  */
 
+require_once __DIR__ . '/survey-analysis.php';
+
 /**
  * Survey definition.
  *
@@ -415,13 +417,20 @@ function ds_survey_handle_submit() {
     }
     $summary = implode("\n\n", $lines);
 
+    // Automated gap analysis — shown to the prospect and sent to the team.
+    $analysis = ds_survey_analyze($answers);
+    $summary .= "\n\n" . ds_survey_analysis_text($analysis);
+
     // Store the entry in the admin.
     $entry_id = wp_insert_post([
         'post_type'    => 'ds_survey_entry',
         'post_status'  => 'private',
         'post_title'   => sprintf('%s — %s', $answers['company'], $answers['contact_name']),
         'post_content' => $summary,
-        'meta_input'   => ['_ds_survey_answers' => $answers],
+        'meta_input'   => [
+            '_ds_survey_answers' => $answers,
+            '_ds_survey_score'   => $analysis['score'],
+        ],
     ]);
 
     // Resolve the notification email from the survey section on the source page
@@ -446,5 +455,15 @@ function ds_survey_handle_submit() {
     $headers = ['Reply-To: ' . $answers['contact_name'] . ' <' . $answers['contact_email'] . '>'];
     wp_mail($notify, $subject, $body, $headers);
 
-    wp_send_json_success(['message' => 'Thanks!']);
+    // Prospects see the top gaps only; the email/admin entry keep the full list.
+    wp_send_json_success([
+        'message'  => 'Thanks!',
+        'analysis' => [
+            'score' => $analysis['score'],
+            'label' => $analysis['label'],
+            'gaps'  => array_map(function ($gap) {
+                return ['title' => $gap['title'], 'detail' => $gap['detail']];
+            }, array_slice($analysis['gaps'], 0, 5)),
+        ],
+    ]);
 }

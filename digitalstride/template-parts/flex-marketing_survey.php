@@ -114,6 +114,7 @@ $survey_id   = 'ds-survey-' . get_row_index();
                 <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
                 <h3><?php echo esc_html($success_heading ?: 'Thanks — your assessment is on its way!'); ?></h3>
                 <p><?php echo esc_html($success_message ?: "We'll review your answers and reach out within one business day with our honest read on your biggest opportunities."); ?></p>
+                <div class="ds-survey__analysis" hidden></div>
             </div>
         </div>
     </div>

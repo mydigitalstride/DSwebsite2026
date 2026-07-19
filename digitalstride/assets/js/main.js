@@ -689,6 +689,55 @@
             }
         });
 
+        // Instant gap snapshot rendered into the success panel.
+        // Built with createElement/textContent — server strings, but never trust markup.
+        function renderAnalysis(analysis) {
+            var box = survey.querySelector('.ds-survey__analysis');
+            if (!box) return;
+            var gaps = analysis.gaps || [];
+
+            var score = document.createElement('div');
+            score.className = 'ds-survey__score';
+            var num = document.createElement('span');
+            num.className = 'ds-survey__score-num';
+            num.textContent = analysis.score + '/100';
+            var label = document.createElement('span');
+            label.className = 'ds-survey__score-label';
+            label.textContent = analysis.label;
+            score.appendChild(num);
+            score.appendChild(label);
+            box.appendChild(score);
+
+            if (gaps.length) {
+                var heading = document.createElement('h4');
+                heading.className = 'ds-survey__analysis-heading';
+                heading.textContent = 'What we spotted right away';
+                box.appendChild(heading);
+
+                var list = document.createElement('ol');
+                list.className = 'ds-survey__gaps';
+                gaps.forEach(function (gap) {
+                    var item = document.createElement('li');
+                    var title = document.createElement('strong');
+                    title.textContent = gap.title;
+                    var detail = document.createElement('span');
+                    detail.textContent = gap.detail;
+                    item.appendChild(title);
+                    item.appendChild(detail);
+                    list.appendChild(item);
+                });
+                box.appendChild(list);
+            }
+
+            var note = document.createElement('p');
+            note.className = 'ds-survey__analysis-note';
+            note.textContent = gaps.length
+                ? "This is our automated first pass based on your answers — we'll go deeper on each of these when we talk."
+                : "You've got the fundamentals covered — we'll dig into optimization opportunities when we talk.";
+            box.appendChild(note);
+            box.hidden = false;
+        }
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             if (!validateStep(current)) return;
@@ -704,6 +753,7 @@
                     form.hidden = true;
                     survey.querySelector('.ds-survey__progress').hidden = true;
                     success.hidden = false;
+                    if (data.data && data.data.analysis) renderAnalysis(data.data.analysis);
                 })
                 .catch(function (err) {
                     submitBtn.disabled = false;
