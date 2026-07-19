@@ -92,6 +92,12 @@ add_action('acf/init', function () {
         'menu_slug'   => 'acf-options-global-core-values',
         'parent_slug' => 'theme-settings',
     ]);
+    acf_add_options_sub_page([
+        'page_title'  => 'AI Quote Settings',
+        'menu_title'  => 'AI Quote',
+        'menu_slug'   => 'acf-options-ai-quote',
+        'parent_slug' => 'theme-settings',
+    ]);
 
     // Register field groups
     require_once DS_DIR . '/inc/acf-fields.php';
@@ -112,3 +118,4 @@ add_action('init', function () {
 
 // ── Includes ─────────────────────────────────────────
 require_once DS_DIR . '/inc/helpers.php';
+require_once DS_DIR . '/inc/survey.php';
