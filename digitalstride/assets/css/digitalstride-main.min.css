@@ -2372,3 +2372,135 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-accordion__header { font-weight: 400; }
     .ds-footer__social { width: auto; }
 }
+/* - Marketing Needs Survey - */
+.ds-survey [hidden] { display: none !important; }
+.ds-survey { max-width: 900px; margin: 2em auto 0; }
+.ds-survey__intro { text-align: center; max-width: 700px; margin: 0 auto; }
+
+.ds-survey__progress { margin-bottom: 2em; }
+.ds-survey__progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--ds-transparent-white);
+    overflow: hidden;
+}
+.ds-survey__progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    transition: width 0.4s ease;
+}
+.ds-survey__progress-label {
+    display: block;
+    margin-top: 0.5em;
+    font-family: var(--font-heading);
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ds-white);
+    opacity: 0.8;
+}
+
+.ds-survey__form {
+    background: var(--ds-transparent-white);
+    border-radius: 12px;
+    padding: 2.5em;
+}
+.ds-survey__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.ds-survey__step { display: none; }
+.ds-survey__step.is-active { display: block; }
+.ds-survey__step-title { margin-bottom: 1em; }
+.ds-survey__step-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin-top: 0.35em;
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+}
+
+.ds-survey__q { border: none; margin-bottom: 2em; }
+.ds-survey__q[hidden] { display: none; }
+.ds-survey__label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-bottom: 0.6em;
+}
+.ds-survey__optional { font-weight: 300; font-size: 0.8em; opacity: 0.7; margin-left: 0.35em; }
+.ds-survey__help { font-size: 0.9em; opacity: 0.75; margin: -0.35em 0 0.75em; }
+
+.ds-survey__options { display: flex; flex-wrap: wrap; gap: 0.6em; }
+.ds-survey__option {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.6em 1em;
+    border: 1px solid rgba(242, 245, 251, 0.35);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1.35;
+}
+.ds-survey__option:hover { border-color: var(--ds-orange); }
+.ds-survey__option:has(input:checked) {
+    border-color: var(--ds-orange);
+    background: rgba(243, 110, 33, 0.15);
+}
+.ds-survey__option input,
+.ds-survey__consent input { accent-color: var(--ds-orange); width: 1.1em; height: 1.1em; flex-shrink: 0; }
+
+.ds-survey__input {
+    width: 100%;
+    max-width: 560px;
+    padding: 0.75em 1em;
+    font-family: var(--font-body);
+    font-size: 1em;
+    color: var(--ds-white);
+    background: rgba(2, 11, 36, 0.5);
+    border: 1px solid rgba(242, 245, 251, 0.35);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+.ds-survey__input:focus { outline: none; border-color: var(--ds-orange); }
+.ds-survey__input::placeholder { color: rgba(242, 245, 251, 0.5); }
+textarea.ds-survey__input { max-width: 100%; resize: vertical; }
+
+.ds-survey__consent { display: flex; align-items: flex-start; gap: 0.6em; cursor: pointer; }
+.ds-survey__consent input { margin-top: 0.25em; }
+
+.ds-survey__error,
+.ds-survey__form-error { color: var(--ds-yellow); font-size: 0.9em; margin-top: 0.5em; }
+.ds-survey__q.has-error .ds-survey__option,
+.ds-survey__q.has-error .ds-survey__input { border-color: var(--ds-yellow); }
+
+.ds-survey__nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 1em;
+}
+.ds-survey__nav .ds-survey__next,
+.ds-survey__nav .ds-survey__submit { margin-left: auto; }
+.ds-survey__submit:disabled { opacity: 0.6; cursor: wait; }
+
+.ds-survey__success {
+    text-align: center;
+    background: var(--ds-transparent-white);
+    border-radius: 12px;
+    padding: 3.5em 2.5em;
+}
+.ds-survey__success i { font-size: 3em; color: var(--ds-yellow); margin-bottom: 0.4em; }
+.ds-survey__success p { max-width: 560px; margin: 0.75em auto 0; }
+
+@media (max-width: 768px) {
+    .ds-survey__form { padding: 1.5em 1.25em; border-radius: 8px; }
+    .ds-survey__options { flex-direction: column; }
+    .ds-survey__option { width: 100%; }
+    .ds-survey__nav { flex-direction: column-reverse; }
+    .ds-survey__nav .ds-btn { width: 100%; margin-left: 0; }
+}

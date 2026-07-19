@@ -574,6 +574,150 @@
         });
     })();
 
+    // Marketing Needs Survey — multi-step form with conditional routing
+    document.querySelectorAll('.ds-survey').forEach(function (survey) {
+        var form      = survey.querySelector('.ds-survey__form');
+        var steps     = Array.from(survey.querySelectorAll('.ds-survey__step'));
+        var backBtn   = survey.querySelector('.ds-survey__back');
+        var nextBtn   = survey.querySelector('.ds-survey__next');
+        var submitBtn = survey.querySelector('.ds-survey__submit');
+        var fill      = survey.querySelector('.ds-survey__progress-fill');
+        var progLabel = survey.querySelector('.ds-survey__progress-label');
+        var formError = survey.querySelector('.ds-survey__form-error');
+        var success   = survey.querySelector('.ds-survey__success');
+        var current   = 0;
+
+        if (!form || !steps.length) return;
+
+        function answerFor(name) {
+            var values = [];
+            form.querySelectorAll('[name="' + name + '"], [name="' + name + '[]"]').forEach(function (input) {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    if (input.checked) values.push(input.value);
+                } else if (input.value.trim() !== '') {
+                    values.push(input.value.trim());
+                }
+            });
+            return values;
+        }
+
+        // Show/hide conditional questions; clear answers of hidden ones.
+        function applyConditions() {
+            survey.querySelectorAll('.ds-survey__q[data-show-if]').forEach(function (q) {
+                var cond = JSON.parse(q.dataset.showIf);
+                var met = answerFor(cond.field).some(function (v) {
+                    return cond.values.indexOf(v) !== -1;
+                });
+                q.hidden = !met;
+                if (!met) {
+                    q.querySelectorAll('input, textarea, select').forEach(function (input) {
+                        if (input.type === 'radio' || input.type === 'checkbox') {
+                            input.checked = false;
+                        } else {
+                            input.value = '';
+                        }
+                    });
+                }
+            });
+        }
+
+        function validateStep(index) {
+            var ok = true;
+            steps[index].querySelectorAll('.ds-survey__q').forEach(function (q) {
+                var error = q.querySelector('.ds-survey__error');
+                error.hidden = true;
+                q.classList.remove('has-error');
+                if (q.hidden || !q.dataset.required) return;
+
+                var answered;
+                var input = q.querySelector('.ds-survey__input');
+                if (input) {
+                    var val = input.value.trim();
+                    answered = val !== '';
+                    if (answered && input.type === 'email') {
+                        answered = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+                    }
+                } else {
+                    answered = !!q.querySelector('input:checked');
+                }
+
+                if (!answered) {
+                    ok = false;
+                    error.hidden = false;
+                    q.classList.add('has-error');
+                }
+            });
+            return ok;
+        }
+
+        function show(index) {
+            current = index;
+            applyConditions();
+            steps.forEach(function (step, i) {
+                step.classList.toggle('is-active', i === index);
+            });
+            backBtn.hidden = index === 0;
+            nextBtn.hidden = index === steps.length - 1;
+            submitBtn.hidden = index !== steps.length - 1;
+            fill.style.width = ((index + 1) / steps.length * 100) + '%';
+            progLabel.textContent = 'Step ' + (index + 1) + ' of ' + steps.length + ' — ' + steps[index].dataset.stepTitle;
+            var top = survey.getBoundingClientRect().top + window.pageYOffset - 120;
+            if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+
+        nextBtn.addEventListener('click', function () {
+            if (validateStep(current)) show(current + 1);
+        });
+        backBtn.addEventListener('click', function () { show(current - 1); });
+
+        form.addEventListener('change', function (e) {
+            applyConditions();
+            // Exclusive checkbox (e.g. "not actively marketing") clears its siblings.
+            var target = e.target;
+            if (target.type === 'checkbox') {
+                var group = target.closest('.ds-survey__options');
+                if (!group) return;
+                if (target.dataset.exclusive && target.checked) {
+                    group.querySelectorAll('input:checked').forEach(function (input) {
+                        if (input !== target) input.checked = false;
+                    });
+                } else if (target.checked) {
+                    group.querySelectorAll('input[data-exclusive]').forEach(function (input) {
+                        input.checked = false;
+                    });
+                }
+            }
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!validateStep(current)) return;
+            formError.hidden = true;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+
+            // getAttribute: the "action" ajax field shadows form.action (DOM clobbering)
+            fetch(form.getAttribute('action'), { method: 'POST', body: new FormData(form) })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (!data.success) throw data;
+                    form.hidden = true;
+                    survey.querySelector('.ds-survey__progress').hidden = true;
+                    success.hidden = false;
+                })
+                .catch(function (err) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Get My Assessment';
+                    formError.textContent = (err && err.data && err.data.message)
+                        ? err.data.message
+                        : 'Something went wrong sending your answers. Please try again, or email us directly.';
+                    formError.hidden = false;
+                });
+        });
+
+        show(0);
+    });
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function (e) {

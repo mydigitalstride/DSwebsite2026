@@ -642,6 +642,21 @@ acf_add_local_field_group([
                     ],
                 ],
 
+                // ── Marketing Survey ──────────────────
+                'layout_marketing_survey' => [
+                    'key'        => 'layout_marketing_survey',
+                    'name'       => 'marketing_survey',
+                    'label'      => 'Marketing Needs Survey',
+                    'display'    => 'block',
+                    'sub_fields' => [
+                        ['key' => 'field_ms_heading', 'label' => 'Heading', 'name' => 'heading', 'type' => 'text', 'default_value' => 'MARKETING NEEDS ASSESSMENT'],
+                        ['key' => 'field_ms_intro', 'label' => 'Intro Text', 'name' => 'intro', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Answer a few quick questions about your business and marketing — it takes about 3 minutes — and we\'ll follow up with an honest read on your biggest opportunities for growth.'],
+                        ['key' => 'field_ms_notify_email', 'label' => 'Notification Email', 'name' => 'notification_email', 'type' => 'email', 'default_value' => 'Results@MyDigitalStride.com', 'instructions' => 'Where completed surveys are sent. Entries are also saved under "Survey Entries" in the admin.'],
+                        ['key' => 'field_ms_success_heading', 'label' => 'Success Heading', 'name' => 'success_heading', 'type' => 'text', 'default_value' => 'Thanks — your assessment is on its way!'],
+                        ['key' => 'field_ms_success_message', 'label' => 'Success Message', 'name' => 'success_message', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'We\'ll review your answers and reach out within one business day with our honest read on your biggest opportunities.'],
+                    ],
+                ],
+
                 // ── Partner Logos ─────────────────────
                 'layout_partner_logos' => [
                     'key'        => 'layout_partner_logos',
