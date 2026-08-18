@@ -2,8 +2,8 @@
 /**
  * Flex Layout: Hero
  * Split hero: left side has gradient background with text content,
- * right side has an auto-rotating image carousel spanning full height.
- * Falls back to full-width text hero when no carousel images are set.
+ * right side has an auto-rotating image/video carousel spanning full height.
+ * Falls back to full-width text hero when no carousel slides are set.
  */
 $heading    = get_sub_field('heading');
 $subheading = get_sub_field('subheading');
@@ -40,22 +40,8 @@ $has_carousel = !empty($slides) && is_array($slides);
         </div>
 
         <?php if ($has_carousel) : ?>
-            <div class="ds-hero__carousel" aria-label="Image carousel">
-                <div class="ds-hero__carousel-track">
-                    <?php foreach ($slides as $i => $slide) : ?>
-                        <div class="ds-hero__slide <?php echo $i === 0 ? 'is-active' : ''; ?>" aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>">
-                            <?php if (!empty($slide['image'])) : ?>
-                                <img src="<?php echo esc_url($slide['image']['url']); ?>"
-                                     alt="<?php echo esc_attr($slide['image']['alt'] ?: ($slide['caption'] ?: '')); ?>"
-                                     loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>">
-                            <?php endif; ?>
-                            <?php if (!empty($slide['caption'])) : ?>
-                                <p class="ds-hero__slide-caption"><?php echo esc_html($slide['caption']); ?></p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+            <?php ds_render_media_carousel($slides, ['label' => 'Hero media carousel']); ?>
         <?php endif; ?>
+
     </div>
 </section>

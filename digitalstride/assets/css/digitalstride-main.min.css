@@ -357,14 +357,39 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     position: absolute;
     inset: 0;
     opacity: 0;
+    /* Hidden slides must not swallow clicks meant for the active one's controls. */
+    pointer-events: none;
     transition: opacity 0.6s ease;
 }
-.ds-hero__slide.is-active { opacity: 1; }
-.ds-hero__slide img {
+.ds-hero__slide.is-active { opacity: 1; pointer-events: auto; z-index: 1; }
+.ds-hero__slide img,
+.ds-hero__slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
+/* Embedded players keep their 16:9 ratio, scaled up to crop like object-fit: cover. */
+.ds-hero__slide-embed {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #000;
+}
+.ds-hero__slide-embed iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+}
+/* Native controls need to sit above the caption gradient. */
+.ds-hero__slide--video video[controls] { position: relative; z-index: 2; }
 .ds-hero__slide-caption {
     position: absolute;
     bottom: 0;
@@ -2372,6 +2397,7 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-accordion__header { font-weight: 400; }
     .ds-footer__social { width: auto; }
 }
+
 /* - Marketing Needs Survey - */
 .ds-survey [hidden] { display: none !important; }
 .ds-survey { max-width: 900px; margin: 2em auto 0; }
