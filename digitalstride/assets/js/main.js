@@ -417,41 +417,124 @@
         });
     }
 
-    // Hero carousel
+    // Hero carousel — supports image, uploaded-video and embedded-video slides
     document.querySelectorAll('.ds-hero__carousel').forEach(function (carousel) {
         var slides = carousel.querySelectorAll('.ds-hero__slide');
+        if (!slides.length) return;
+
         var dots = carousel.querySelectorAll('.ds-hero__carousel-dot');
         var prevBtn = carousel.querySelector('.ds-hero__carousel-btn--prev');
         var nextBtn = carousel.querySelector('.ds-hero__carousel-btn--next');
+        var interval = parseInt(carousel.dataset.interval, 10) || 5000;
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var current = 0;
         var timer;
 
+        // Visitors who ask for reduced motion get a paused video with controls,
+        // and the carousel keeps to its normal timer instead of waiting on playback.
+        if (reduceMotion) {
+            slides.forEach(function (slide) {
+                slide.dataset.wait = '0';
+                var video = slide.querySelector('video');
+                if (video) {
+                    video.dataset.autoplay = '0';
+                    video.controls = true;
+                }
+                var frame = slide.querySelector('iframe[data-src]');
+                if (frame) frame.dataset.src = frame.dataset.src.replace(/([?&])autoplay=1/, '$1autoplay=0');
+            });
+        }
+
+        // Stop whatever is playing so audio/bandwidth never runs on a hidden slide.
+        function stopMedia(slide) {
+            var video = slide.querySelector('video');
+            if (video) {
+                video.pause();
+                try { video.currentTime = 0; } catch (e) {}
+            }
+            var frame = slide.querySelector('iframe[data-src]');
+            if (frame && frame.getAttribute('src')) frame.removeAttribute('src');
+        }
+
+        function startMedia(slide) {
+            var video = slide.querySelector('video');
+            if (video) {
+                video.preload = 'auto';
+                if (video.dataset.autoplay === '1') {
+                    var attempt = video.play();
+                    if (attempt && attempt.catch) {
+                        attempt.catch(function () {
+                            // Some browsers only honour autoplay once muted is set in script.
+                            video.muted = true;
+                            var retry = video.play();
+                            if (retry && retry.catch) {
+                                // Still refused (e.g. low power mode) — fall back to the timer.
+                                retry.catch(function () {
+                                    slide.dataset.wait = '0';
+                                    video.controls = true;
+                                    if (slide === slides[current]) schedule();
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+            // Embeds only get their src once visible, so they load and play on cue.
+            var frame = slide.querySelector('iframe[data-src]');
+            if (frame) frame.setAttribute('src', frame.dataset.src);
+        }
+
+        // Slides marked data-wait play through and advance on 'ended' instead of on a timer.
+        function schedule() {
+            clearTimeout(timer);
+            if (slides.length < 2) return;
+            if (slides[current].dataset.wait === '1') return;
+            timer = setTimeout(function () { goTo(current + 1); }, interval);
+        }
+
         function goTo(index) {
+            var next = (index + slides.length) % slides.length;
+            if (next === current) return;
+
             slides[current].classList.remove('is-active');
             slides[current].setAttribute('aria-hidden', 'true');
             if (dots.length) dots[current].classList.remove('is-active');
-            current = (index + slides.length) % slides.length;
+            stopMedia(slides[current]);
+
+            current = next;
             slides[current].classList.add('is-active');
             slides[current].setAttribute('aria-hidden', 'false');
             if (dots.length) dots[current].classList.add('is-active');
+            startMedia(slides[current]);
+
+            schedule();
         }
 
-        function startAuto() {
-            timer = setInterval(function () { goTo(current + 1); }, 5000);
-        }
+        slides.forEach(function (slide, i) {
+            var video = slide.querySelector('video');
+            if (!video) return;
 
-        function resetAuto() {
-            clearInterval(timer);
-            startAuto();
-        }
+            video.addEventListener('ended', function () {
+                if (i === current && slide.dataset.wait === '1') goTo(current + 1);
+            });
+            // A broken source must not stall the carousel.
+            video.addEventListener('error', function () {
+                if (slide.dataset.wait === '1') {
+                    slide.dataset.wait = '0';
+                    if (i === current) schedule();
+                }
+            });
+        });
+
+        startMedia(slides[current]);
 
         if (slides.length > 1) {
-            if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); resetAuto(); });
-            if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); resetAuto(); });
+            if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); });
+            if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); });
             dots.forEach(function (dot) {
-                dot.addEventListener('click', function () { goTo(parseInt(this.dataset.slide, 10)); resetAuto(); });
+                dot.addEventListener('click', function () { goTo(parseInt(this.dataset.slide, 10)); });
             });
-            startAuto();
+            schedule();
         }
     });
 
