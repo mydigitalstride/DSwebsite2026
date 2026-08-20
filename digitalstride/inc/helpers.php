@@ -306,3 +306,178 @@ function ds_render_media_carousel( $slides, $args = [] ) {
     </div>
     <?php
 }
+
+/**
+ * Helper: normalise a podcast share URL into an embeddable player.
+ *
+ * Editors paste the public "share" link they copy out of Spotify, Apple
+ * Podcasts or their hosting provider; this resolves the matching embed URL,
+ * player height and iframe permissions so templates never have to know which
+ * service a URL came from.
+ *
+ * @param string $url  Public podcast / episode URL (or a direct audio file).
+ * @param array  $args 'compact' => bool (small player), 'theme' => 'dark'|'light'.
+ * @return array|null  ['provider','src','height','allow','sandbox','label'],
+ *                     or null when the URL is not a recognised podcast source.
+ */
+function ds_podcast_embed( $url, $args = [] ) {
+    $url = trim( (string) $url );
+    if ( ! $url ) return null;
+
+    $args = wp_parse_args( $args, [
+        'compact' => false,
+        'theme'   => 'dark',
+    ] );
+
+    // Editors often paste "open.spotify.com/..." without a scheme.
+    if ( ! preg_match( '~^https?://~i', $url ) ) $url = 'https://' . ltrim( $url, '/' );
+
+    // ── Spotify ── open.spotify.com/{type}/{id}, optional /intl-xx/ locale segment.
+    if ( preg_match( '~open\.spotify\.com/(?:intl-[a-z-]{2,7}/)?(?:embed/)?(show|episode|playlist|album|track)/([A-Za-z0-9]+)~i', $url, $m ) ) {
+        $type = strtolower( $m[1] );
+        // theme=0 is Spotify's dark player, which matches the site background.
+        $src  = add_query_arg(
+            'theme',
+            $args['theme'] === 'light' ? '1' : '0',
+            'https://open.spotify.com/embed/' . $type . '/' . $m[2]
+        );
+
+        return [
+            'provider' => 'spotify',
+            'src'      => $src,
+            'height'   => $args['compact'] ? 152 : ( $type === 'episode' ? 232 : 352 ),
+            'allow'    => 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture',
+            'sandbox'  => '',
+            'label'    => __( 'Spotify player', 'digitalstride' ),
+        ];
+    }
+
+    // ── Apple Podcasts / Apple Music ── the embed host is the same URL prefixed with "embed.".
+    if ( preg_match( '~(?:embed\.)?(podcasts|music)\.apple\.com/(.+)$~i', $url, $m ) ) {
+        return [
+            'provider' => 'apple',
+            'src'      => 'https://embed.' . strtolower( $m[1] ) . '.apple.com/' . ltrim( $m[2], '/' ),
+            'height'   => $args['compact'] ? 175 : 450,
+            'allow'    => 'autoplay *; encrypted-media *; clipboard-write',
+            // Required by Apple's embed; without it the player refuses to load.
+            'sandbox'  => 'allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation',
+            'label'    => __( 'Apple Podcasts player', 'digitalstride' ),
+        ];
+    }
+
+    // ── Other hosts ── allow-listed player URLs pasted straight from the host's
+    // "embed" tab. Anything not listed here is rejected rather than iframed.
+    $players = [
+        'podcasters.spotify.com' => 232,
+        'player.megaphone.fm'    => 200,
+        'player.simplecast.com'  => 200,
+        'player.captivate.fm'    => 200,
+        'share.transistor.fm'    => 180,
+        'www.buzzsprout.com'     => 200,
+        'player.podbean.com'     => 200,
+        'widget.spreaker.com'    => 200,
+        'w.soundcloud.com'       => 166,
+        'embed.acast.com'        => 190,
+        'playlist.megaphone.fm'  => 200,
+        'music.amazon.com'       => 240,
+        'www.iheart.com'         => 200,
+    ];
+
+    $host = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+
+    if ( isset( $players[ $host ] ) ) {
+        return [
+            'provider' => 'embed',
+            'src'      => $url,
+            'height'   => $args['compact'] ? 152 : $players[ $host ],
+            'allow'    => 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture',
+            'sandbox'  => '',
+            'label'    => __( 'Podcast player', 'digitalstride' ),
+        ];
+    }
+
+    // ── Direct audio file ── fall back to the browser's own player.
+    $ext = strtolower( pathinfo( (string) wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
+    if ( in_array( $ext, [ 'mp3', 'm4a', 'mp4', 'ogg', 'oga', 'wav', 'aac', 'flac' ], true ) ) {
+        return [
+            'provider' => 'audio',
+            'src'      => $url,
+            'height'   => 0,
+            'allow'    => '',
+            'sandbox'  => '',
+            'label'    => __( 'Audio player', 'digitalstride' ),
+        ];
+    }
+
+    return null;
+}
+
+/**
+ * Helper: render a podcast player for a share URL.
+ *
+ * Returns markup (does not echo) so it can be used from templates and from the
+ * [ds_podcast] shortcode alike.
+ *
+ * @param string $url  Public podcast / episode URL.
+ * @param array  $args 'title' => accessible player name, plus ds_podcast_embed() args.
+ * @return string
+ */
+function ds_podcast_player( $url, $args = [] ) {
+    $args  = wp_parse_args( $args, [ 'title' => '', 'compact' => false, 'theme' => 'dark' ] );
+    $embed = ds_podcast_embed( $url, $args );
+
+    if ( ! $embed ) {
+        // Silent on the front end; editors get told why nothing rendered.
+        if ( current_user_can( 'edit_posts' ) ) {
+            return '<p class="ds-podcast__notice">'
+                . esc_html__( 'Podcast URL not recognised. Paste a Spotify or Apple Podcasts share link, a player embed URL, or a direct audio file URL.', 'digitalstride' )
+                . '</p>';
+        }
+        return '';
+    }
+
+    $title = $args['title']
+        ? sprintf( '%s — %s', $args['title'], $embed['label'] )
+        : $embed['label'];
+
+    if ( $embed['provider'] === 'audio' ) {
+        return '<div class="ds-podcast__player ds-podcast__player--audio">'
+            . '<audio class="ds-podcast__audio" controls preload="none"'
+            . ' src="' . esc_url( $embed['src'] ) . '"'
+            . ' title="' . esc_attr( $title ) . '"></audio>'
+            . '</div>';
+    }
+
+    return '<div class="ds-podcast__player ds-podcast__player--' . esc_attr( $embed['provider'] ) . '">'
+        . '<iframe class="ds-podcast__frame"'
+        . ' src="' . esc_url( $embed['src'] ) . '"'
+        . ' width="100%" height="' . (int) $embed['height'] . '"'
+        . ' style="height:' . (int) $embed['height'] . 'px"'
+        . ' title="' . esc_attr( $title ) . '"'
+        . ' frameborder="0" loading="lazy"'
+        . ' allow="' . esc_attr( $embed['allow'] ) . '"'
+        . ( $embed['sandbox'] ? ' sandbox="' . esc_attr( $embed['sandbox'] ) . '"' : '' )
+        . ' allowfullscreen></iframe>'
+        . '</div>';
+}
+
+/**
+ * Shortcode: [ds_podcast url="..." title="..." compact="0" theme="dark"]
+ *
+ * Lets a podcast be dropped into any WYSIWYG field or the Shortcode section,
+ * not just the dedicated "Podcast" page section.
+ */
+add_shortcode( 'ds_podcast', function ( $atts ) {
+    $atts = shortcode_atts( [
+        'url'     => '',
+        'title'   => '',
+        'compact' => '0',
+        'theme'   => 'dark',
+    ], $atts, 'ds_podcast' );
+
+    return ds_podcast_player( $atts['url'], [
+        'title'   => $atts['title'],
+        'compact' => filter_var( $atts['compact'], FILTER_VALIDATE_BOOLEAN ),
+        'theme'   => $atts['theme'],
+    ] );
+} );

@@ -748,6 +748,40 @@ acf_add_local_field_group([
                     ],
                 ],
 
+                // ── Podcast Embed ─────────────────────
+                'layout_podcast_embed' => [
+                    'key'        => 'layout_podcast_embed',
+                    'name'       => 'podcast_embed',
+                    'label'      => 'Podcast Embed',
+                    'display'    => 'block',
+                    'sub_fields' => [
+                        ['key' => 'field_pod_heading', 'label' => 'Heading', 'name' => 'heading', 'type' => 'text', 'default_value' => 'LISTEN IN'],
+                        ['key' => 'field_pod_intro', 'label' => 'Intro Text', 'name' => 'intro', 'type' => 'wysiwyg', 'toolbar' => 'basic', 'media_upload' => 0, 'tabs' => 'visual'],
+                        [
+                            'key' => 'field_pod_episodes', 'label' => 'Podcasts / Episodes', 'name' => 'episodes',
+                            'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add Podcast',
+                            'instructions' => 'Paste the share link from Spotify or Apple Podcasts. Spotify: ••• → Share → Copy link. Apple Podcasts: ••• → Copy Link. Player embed URLs from other hosts (Buzzsprout, Megaphone, Simplecast, Captivate, Transistor, Podbean, Spreaker, Acast, SoundCloud, Amazon Music, iHeart) and direct .mp3 links also work.',
+                            'sub_fields' => [
+                                ['key' => 'field_pod_e_url', 'label' => 'Podcast / Episode URL', 'name' => 'podcast_url', 'type' => 'url', 'required' => 1, 'placeholder' => 'https://open.spotify.com/episode/...'],
+                                ['key' => 'field_pod_e_title', 'label' => 'Title (optional)', 'name' => 'episode_title', 'type' => 'text', 'instructions' => 'Shown above the player. Leave blank to show the player on its own.'],
+                                ['key' => 'field_pod_e_desc', 'label' => 'Description (optional)', 'name' => 'description', 'type' => 'textarea', 'rows' => 3],
+                            ],
+                        ],
+                        [
+                            'key' => 'field_pod_size', 'label' => 'Player Size', 'name' => 'player_size', 'type' => 'select',
+                            'choices' => ['standard' => 'Standard (full player with artwork)', 'compact' => 'Compact (single bar)'],
+                            'default_value' => 'standard', 'return_format' => 'value',
+                        ],
+                        [
+                            'key' => 'field_pod_cols', 'label' => 'Columns', 'name' => 'columns', 'type' => 'select',
+                            'choices' => [1 => '1 (full width)', 2 => '2'],
+                            'default_value' => 1, 'return_format' => 'value',
+                            'instructions' => 'How many players sit side by side on desktop.',
+                        ],
+                        ['key' => 'field_pod_cta', 'label' => 'CTA Button (optional)', 'name' => 'cta_button', 'type' => 'link', 'return_format' => 'array'],
+                    ],
+                ],
+
                 // ── Portfolio Showcase ────────────────
                 'layout_portfolio_showcase' => [
                     'key'        => 'layout_portfolio_showcase',

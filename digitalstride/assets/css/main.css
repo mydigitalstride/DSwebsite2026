@@ -2675,3 +2675,49 @@ textarea.ds-survey__input { max-width: 100%; resize: vertical; }
 }
 .ds-survey__quote-outcomes,
 .ds-survey__quote-next { max-width: 720px; margin: 0.75em auto 0; text-align: center; font-size: 0.95em; }
+
+/* - Podcast Embed - */
+.ds-podcasts {
+    display: grid;
+    gap: 2em;
+    margin-top: 2.5em;
+}
+.ds-podcasts--cols-1 { grid-template-columns: 1fr; max-width: 900px; margin-left: auto; margin-right: auto; }
+.ds-podcasts--cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+.ds-podcast {
+    background: rgba(2, 11, 36, 0.5);
+    border: 1px solid rgba(242, 245, 251, 0.2);
+    border-left: 3px solid var(--ds-orange);
+    border-radius: 8px;
+    padding: 1.5em;
+}
+.ds-podcast__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    font-weight: 600;
+    margin-bottom: 0.35em;
+}
+.ds-podcast__desc { font-size: 0.95em; opacity: 0.9; margin-bottom: 1em; }
+
+.ds-podcast__player { line-height: 0; }
+.ds-podcast__frame {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+.ds-podcast__player--audio { line-height: normal; }
+.ds-podcast__audio { width: 100%; }
+
+.ds-podcast__notice {
+    padding: 1em 1.25em;
+    border: 1px dashed rgba(242, 245, 251, 0.35);
+    border-radius: 8px;
+    font-size: 0.95em;
+    opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+    .ds-podcasts--cols-2 { grid-template-columns: 1fr; }
+}
