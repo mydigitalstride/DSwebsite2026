@@ -2373,11 +2373,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-container { padding: 0 1.5rem; }
     .ds-header__inner { padding: 1.5rem 1.5rem; }
     .ds-header__logo img { max-width: 150px; }
-    .ds-hero { min-height: auto; padding: 3em 0; }
+    .ds-hero { min-height: auto; padding: 3em 0 0 0; }
     .ds-hero__content { max-width: 100%; padding: 0; }
     .ds-hero--split .ds-hero__content { padding: 0 1rem; }
     .ds-hero__subheading { font-size: 1.5em; }
-    .ds-hero__carousel { min-height: 250px; margin-right: 0; }
+    .ds-hero__carousel { min-height: 350px; margin-right: 0; }
     .ds-hero__carousel-track { min-height: 250px; }
     .ds-cta-banner--split .ds-hero__carousel { min-height: 250px; }
     .ds-section { padding: 3em 0; }
