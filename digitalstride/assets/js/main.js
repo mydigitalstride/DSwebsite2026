@@ -468,8 +468,13 @@
                             video.muted = true;
                             var retry = video.play();
                             if (retry && retry.catch) {
-                                // Still refused (e.g. low power mode) — fall back to the timer.
                                 retry.catch(function () {
+                                    if (video.error) {
+                                        markUnplayable(slide, video);
+                                        return;
+                                    }
+                                    // Autoplay refused (e.g. low power mode) — let the
+                                    // visitor start it and fall back to the timer.
                                     slide.dataset.wait = '0';
                                     video.controls = true;
                                     if (slide === slides[current]) schedule();
@@ -482,6 +487,16 @@
             // Embeds only get their src once visible, so they load and play on cue.
             var frame = slide.querySelector('iframe[data-src]');
             if (frame) frame.setAttribute('src', frame.dataset.src);
+        }
+
+        // A source the browser can't decode (a .mov in Chrome, say) must not stall
+        // the rotation or leave a black rectangle where the slide should be.
+        function markUnplayable(slide, video) {
+            if (slide.classList.contains('is-media-error')) return;
+            slide.classList.add('is-media-error');
+            slide.dataset.wait = '0';
+            video.controls = false;
+            if (slide === slides[current]) schedule();
         }
 
         // Slides marked data-wait play through and advance on 'ended' instead of on a timer.
@@ -517,12 +532,8 @@
             video.addEventListener('ended', function () {
                 if (i === current && slide.dataset.wait === '1') goTo(current + 1);
             });
-            // A broken source must not stall the carousel.
             video.addEventListener('error', function () {
-                if (slide.dataset.wait === '1') {
-                    slide.dataset.wait = '0';
-                    if (i === current) schedule();
-                }
+                markUnplayable(slide, video);
             });
         });
 
