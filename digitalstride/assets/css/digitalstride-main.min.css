@@ -390,6 +390,8 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 /* Native controls need to sit above the caption gradient. */
 .ds-hero__slide--video video[controls] { position: relative; z-index: 2; }
+/* A video the browser can't decode keeps its poster, or gets out of the way. */
+.ds-hero__slide.is-media-error video:not([poster]) { display: none; }
 .ds-hero__slide-caption {
     position: absolute;
     bottom: 0;

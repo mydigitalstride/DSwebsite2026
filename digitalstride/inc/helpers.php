@@ -146,6 +146,24 @@ function ds_video_embed_url( $url, $args = [] ) {
 }
 
 /**
+ * Helper: pick the <source type> value a browser should be given.
+ *
+ * A type the browser does not recognise makes it skip the source without
+ * looking at the file, so anything outside the web-native containers is
+ * returned as '' and left for the browser to sniff. That matters most for
+ * .mov uploads, which WordPress reports as video/quicktime: Chrome and
+ * Firefox reject that MIME outright, even when the file inside is H.264.
+ *
+ * @param string $mime Attachment MIME type.
+ * @return string      MIME to declare, or '' to omit the attribute.
+ */
+function ds_video_source_type( $mime ) {
+    $web_native = [ 'video/mp4', 'video/webm', 'video/ogg' ];
+
+    return in_array( strtolower( (string) $mime ), $web_native, true ) ? $mime : '';
+}
+
+/**
  * Helper: normalise one carousel repeater row into a predictable array.
  *
  * Rows saved before video support existed have no 'media_type', so anything
@@ -188,7 +206,7 @@ function ds_carousel_slide( $slide ) {
         return $base + [
             'type' => 'video-file',
             'url'  => $slide['video_file']['url'],
-            'mime' => $slide['video_file']['mime_type'] ?? '',
+            'mime' => ds_video_source_type( $slide['video_file']['mime_type'] ?? '' ),
             'alt'  => $slide['video_file']['title'] ?? '',
         ];
     }
