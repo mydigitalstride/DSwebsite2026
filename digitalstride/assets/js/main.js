@@ -936,4 +936,21 @@
             }
         });
     });
+
+    // Podcast & Video Feed — swap a YouTube thumbnail for the player on click
+    document.querySelectorAll('.ds-video-card__play[data-video-id]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var id = this.getAttribute('data-video-id');
+            if (!/^[A-Za-z0-9_-]{6,}$/.test(id)) return;
+            var media = this.closest('.ds-video-card__media');
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1';
+            iframe.title = this.getAttribute('aria-label') || 'YouTube video';
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+            iframe.setAttribute('allowfullscreen', '');
+            media.replaceChild(iframe, this);
+            iframe.focus();
+        });
+    });
+
 })();

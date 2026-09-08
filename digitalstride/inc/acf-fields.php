@@ -748,6 +748,26 @@ acf_add_local_field_group([
                     ],
                 ],
 
+                // ── Podcast & Video Feed ──────────
+                'layout_podcast_feed' => [
+                    'key'        => 'layout_podcast_feed',
+                    'name'       => 'podcast_feed',
+                    'label'      => 'Podcast & Video Feed',
+                    'display'    => 'block',
+                    'sub_fields' => [
+                        ['key' => 'field_pod_heading', 'label' => 'Heading', 'name' => 'heading', 'type' => 'text', 'default_value' => 'PODCAST & VIDEO'],
+                        ['key' => 'field_pod_intro', 'label' => 'Intro Text', 'name' => 'intro', 'type' => 'textarea', 'rows' => 3],
+                        ['key' => 'field_pod_spotify_url', 'label' => 'Spotify Show URL', 'name' => 'spotify_url', 'type' => 'url', 'default_value' => 'https://open.spotify.com/show/033uzGmCceJj47Lh966Oqy', 'instructions' => 'The show link from Spotify (https://open.spotify.com/show/…). Powers the embedded player and the "Follow on Spotify" button.', 'wrapper' => ['width' => '50']],
+                        ['key' => 'field_pod_rss_url', 'label' => 'Podcast RSS Feed URL (optional)', 'name' => 'rss_url', 'type' => 'url', 'instructions' => 'The RSS feed from your podcast host (Spotify for Creators, Buzzsprout, etc.). Spotify itself doesn\'t provide one. Leave blank to auto-detect via Apple Podcasts; fill in if episodes don\'t appear.', 'wrapper' => ['width' => '50']],
+                        ['key' => 'field_pod_show_player', 'label' => 'Show Spotify Player', 'name' => 'show_player', 'type' => 'true_false', 'default_value' => 1, 'ui' => 1, 'wrapper' => ['width' => '34']],
+                        ['key' => 'field_pod_episodes_heading', 'label' => 'Episodes Heading', 'name' => 'episodes_heading', 'type' => 'text', 'default_value' => 'LATEST EPISODES', 'wrapper' => ['width' => '33']],
+                        ['key' => 'field_pod_episodes_count', 'label' => 'Episodes to Show', 'name' => 'episodes_count', 'type' => 'number', 'default_value' => 6, 'min' => 1, 'max' => 30, 'wrapper' => ['width' => '33']],
+                        ['key' => 'field_pod_youtube_url', 'label' => 'YouTube Channel URL', 'name' => 'youtube_url', 'type' => 'url', 'default_value' => 'https://www.youtube.com/@mydigitalstride', 'instructions' => 'Any channel link works (@handle, /c/, /user/ or /channel/UC…). Leave blank to hide the videos block.', 'wrapper' => ['width' => '34']],
+                        ['key' => 'field_pod_videos_heading', 'label' => 'Videos Heading', 'name' => 'videos_heading', 'type' => 'text', 'default_value' => 'LATEST VIDEOS', 'wrapper' => ['width' => '33']],
+                        ['key' => 'field_pod_videos_count', 'label' => 'Videos to Show', 'name' => 'videos_count', 'type' => 'number', 'default_value' => 6, 'min' => 1, 'max' => 15, 'wrapper' => ['width' => '33']],
+                    ],
+                ],
+
                 // ── Portfolio Showcase ────────────────
                 'layout_portfolio_showcase' => [
                     'key'        => 'layout_portfolio_showcase',
