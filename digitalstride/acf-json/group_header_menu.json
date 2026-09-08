@@ -1,0 +1,122 @@
+{
+    "key": "group_header_menu",
+    "title": "Header & Mega Menu",
+    "fields": [
+        {
+            "key": "field_header_logo",
+            "label": "Site Logo",
+            "name": "header_logo",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "instructions": "White-text logo for the dark header. Recommended: PNG with transparency."
+        },
+        {
+            "key": "field_nav_items",
+            "label": "Navigation Items",
+            "name": "nav_items",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Menu Item",
+            "instructions": "Build the main navigation. Enable mega menu on Services to show a 3-column dropdown.",
+            "sub_fields": [
+                {
+                    "key": "field_nav_link",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_nav_mega",
+                    "label": "Enable Mega Menu Dropdown",
+                    "name": "enable_mega_menu",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "instructions": "Turn on for the Services item to display a 3-column mega dropdown."
+                },
+                {
+                    "key": "field_nav_mega_cols",
+                    "label": "Mega Menu Columns",
+                    "name": "mega_columns",
+                    "type": "repeater",
+                    "layout": "block",
+                    "button_label": "Add Column",
+                    "max": 3,
+                    "instructions": "Each column has a heading and a list of links.",
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_nav_mega",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "sub_fields": [
+                        {
+                            "key": "field_mega_col_heading",
+                            "label": "Column Heading",
+                            "name": "column_heading",
+                            "type": "text",
+                            "instructions": "e.g. \"Digital Foundation\", \"Revenue Generation\", \"Brand Awareness\""
+                        },
+                        {
+                            "key": "field_mega_col_links",
+                            "label": "Column Links",
+                            "name": "column_links",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Add Link",
+                            "sub_fields": [
+                                {
+                                    "key": "field_mega_link",
+                                    "label": "Link",
+                                    "name": "link",
+                                    "type": "link",
+                                    "return_format": "array"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_header_btn_1",
+            "label": "Header Button 1 (Gradient Fill)",
+            "name": "header_btn_1",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "Displayed in the nav next to the menu items, orange/yellow gradient fill."
+        },
+        {
+            "key": "field_header_btn_2",
+            "label": "Header Button 2 (Outline)",
+            "name": "header_btn_2",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "Displayed in the nav next to the menu items, white outline."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-header-menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1788890352
+}

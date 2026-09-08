@@ -1,0 +1,71 @@
+{
+    "key": "group_global_core_values",
+    "title": "Global Core Values",
+    "fields": [
+        {
+            "key": "field_gcv_heading",
+            "label": "Heading",
+            "name": "gcv_heading",
+            "type": "text",
+            "default_value": "OUR CORE VALUES"
+        },
+        {
+            "key": "field_gcv_image",
+            "label": "Image",
+            "name": "gcv_image",
+            "type": "image",
+            "return_format": "array",
+            "instructions": "Displayed below the heading/accent line and above the button in the left column."
+        },
+        {
+            "key": "field_gcv_link",
+            "label": "Button",
+            "name": "gcv_link",
+            "type": "link",
+            "return_format": "array"
+        },
+        {
+            "key": "field_gcv_values",
+            "label": "Values",
+            "name": "gcv_values",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Value",
+            "sub_fields": [
+                {
+                    "key": "field_gcv_v_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_gcv_v_desc",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "wysiwyg",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-global-core-values"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1788890352
+}

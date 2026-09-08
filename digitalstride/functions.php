@@ -39,16 +39,21 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('digitalstride-main', DS_URI . '/assets/js/main.js', [], DS_VERSION, true);
 });
 
-// ── ACF JSON Sync ────────────────────────────────────
+// ── ACF Local JSON ───────────────────────────────────
+// Field groups are defined in /acf-json/*.json (one file per group).
+// ACF loads them from there and writes admin edits back to the same
+// files, so the field definitions can be edited in the WP admin
+// (ACF > Field Groups) or in git. See inc/acf-json-sync.php.
 add_filter('acf/settings/save_json', function () {
     return DS_DIR . '/acf-json';
 });
 add_filter('acf/settings/load_json', function ($paths) {
     $paths[] = DS_DIR . '/acf-json';
-    return $paths;
+    return array_unique($paths);
 });
+require_once DS_DIR . '/inc/acf-json-sync.php';
 
-// ── ACF Init: Options Pages + Fields ─────────────────
+// ── ACF Init: Options Pages ──────────────────────────
 add_action('acf/init', function () {
     // Options pages
     acf_add_options_page([
@@ -98,9 +103,6 @@ add_action('acf/init', function () {
         'menu_slug'   => 'acf-options-ai-quote',
         'parent_slug' => 'theme-settings',
     ]);
-
-    // Register field groups
-    require_once DS_DIR . '/inc/acf-fields.php';
 });
 
 // ── Disable Gutenberg + classic editor body for pages ─
