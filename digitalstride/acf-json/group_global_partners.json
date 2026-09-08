@@ -1,0 +1,56 @@
+{
+    "key": "group_global_partners",
+    "title": "Global Partners / Client Logos",
+    "fields": [
+        {
+            "key": "field_gp_heading",
+            "label": "Section Heading",
+            "name": "gp_heading",
+            "type": "text",
+            "default_value": "OUR PARTNERS"
+        },
+        {
+            "key": "field_gp_logos",
+            "label": "Logos",
+            "name": "gp_logos",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Logo",
+            "sub_fields": [
+                {
+                    "key": "field_gp_l_logo",
+                    "label": "Logo",
+                    "name": "logo",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail"
+                },
+                {
+                    "key": "field_gp_l_link",
+                    "label": "Link (optional)",
+                    "name": "link",
+                    "type": "url"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-global-partners"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1788890352
+}

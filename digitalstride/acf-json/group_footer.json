@@ -1,0 +1,97 @@
+{
+    "key": "group_footer",
+    "title": "Footer Settings",
+    "fields": [
+        {
+            "key": "field_footer_logo",
+            "label": "Footer Logo",
+            "name": "footer_logo",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_footer_bg_image",
+            "label": "Background Image",
+            "name": "footer_bg_image",
+            "type": "image",
+            "return_format": "array",
+            "instructions": "Blueprint sketch background for the footer."
+        },
+        {
+            "key": "field_footer_email",
+            "label": "Email",
+            "name": "footer_email",
+            "type": "email",
+            "default_value": "Results@MyDigitalStride.com"
+        },
+        {
+            "key": "field_footer_phone",
+            "label": "Phone",
+            "name": "footer_phone",
+            "type": "text",
+            "default_value": "(717) 727-1400"
+        },
+        {
+            "key": "field_footer_address",
+            "label": "Address",
+            "name": "footer_address",
+            "type": "text",
+            "default_value": "410 Kings Mill Rd, Suite 115, York, PA 17402"
+        },
+        {
+            "key": "field_footer_links",
+            "label": "Footer Links",
+            "name": "footer_links",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Link",
+            "sub_fields": [
+                {
+                    "key": "field_fl_link",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array"
+                }
+            ]
+        },
+        {
+            "key": "field_footer_cta",
+            "label": "CTA Button",
+            "name": "footer_cta",
+            "type": "link",
+            "return_format": "array"
+        },
+        {
+            "key": "field_footer_linkedin",
+            "label": "LinkedIn URL",
+            "name": "footer_linkedin",
+            "type": "url"
+        },
+        {
+            "key": "field_footer_privacy",
+            "label": "Privacy Policy URL",
+            "name": "footer_privacy_url",
+            "type": "url"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-footer"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1788890352
+}

@@ -1,0 +1,61 @@
+{
+    "key": "group_global_testimonials",
+    "title": "Global Testimonials",
+    "fields": [
+        {
+            "key": "field_gtm_heading",
+            "label": "Section Heading",
+            "name": "gtm_heading",
+            "type": "text",
+            "default_value": "OUR CLIENTS"
+        },
+        {
+            "key": "field_gtm_items",
+            "label": "Testimonials",
+            "name": "gtm_items",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Testimonial",
+            "sub_fields": [
+                {
+                    "key": "field_gtm_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "type": "textarea",
+                    "rows": 4
+                },
+                {
+                    "key": "field_gtm_name",
+                    "label": "Name",
+                    "name": "name",
+                    "type": "text"
+                },
+                {
+                    "key": "field_gtm_title",
+                    "label": "Title & Company",
+                    "name": "title_company",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-global-testimonials"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1788890352
+}
