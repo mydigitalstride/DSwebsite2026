@@ -8,6 +8,8 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php ds_render_audience_bar(); ?>
+
 <header class="ds-header" id="ds-header">
     <div class="ds-header__inner">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="ds-header__logo">

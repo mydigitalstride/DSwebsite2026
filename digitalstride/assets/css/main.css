@@ -2798,3 +2798,113 @@ textarea.ds-survey__input { max-width: 100%; resize: vertical; }
     .ds-episode { flex-direction: column; }
     .ds-episode__art { width: 72px; height: 72px; }
 }
+
+/* - Audience journeys (AEC / Home Services) - */
+/* Sections tagged for one industry hide once the visitor picks the other. */
+html[data-audience="aec"] .ds-audience--home_services,
+html[data-audience="home_services"] .ds-audience--aec { display: none !important; }
+
+/* Switcher bar above the header */
+.ds-audience-bar {
+    background: var(--ds-bg);
+    border-bottom: 1px solid rgba(242,245,251,0.12);
+    font-family: var(--font-heading);
+    font-size: 0.85em;
+}
+.ds-audience-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75em;
+    padding: 0.4em 10%;
+    flex-wrap: wrap;
+}
+.ds-audience-bar__label { color: rgba(242,245,251,0.7); }
+.ds-audience-bar__options { display: inline-flex; border: 1px solid rgba(242,245,251,0.35); border-radius: 999px; overflow: hidden; }
+.ds-audience-bar__btn {
+    background: transparent;
+    border: none;
+    color: var(--ds-white);
+    font: inherit;
+    font-weight: 600;
+    padding: 0.35em 1em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.ds-audience-bar__btn:hover { background: var(--ds-transparent-white); color: var(--ds-white); }
+.ds-audience-bar__btn.is-active {
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    color: var(--ds-bg);
+}
+.ds-audience-bar__clear {
+    background: none;
+    border: none;
+    color: rgba(242,245,251,0.6);
+    font: inherit;
+    cursor: pointer;
+    padding: 0.35em 0.5em;
+    text-decoration: underline;
+    display: none;
+}
+html.ds-audience-picked .ds-audience-bar__clear { display: inline-block; }
+.ds-audience-bar__clear:hover { color: var(--ds-white); }
+
+/* <button> and <a> variants must render the same size */
+button.ds-audience-btn { line-height: inherit; font-family: inherit; }
+.ds-btn.ds-audience-btn { font-family: var(--font-heading); }
+
+/* Hero buttons */
+.ds-hero__audience { display: flex; flex-wrap: wrap; gap: 0.75em; margin-top: 1.25em; }
+.ds-hero__audience .ds-audience-btn.is-active { border-color: transparent; color: var(--ds-bg); }
+.ds-hero__audience .ds-audience-btn.is-active::after { opacity: 1; }
+
+/* Picker section */
+.ds-audience-picker { text-align: center; }
+.ds-audience-picker__intro { max-width: 640px; margin: 0 auto 2em; line-height: 1.8; }
+.ds-audience-picker__options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5em;
+    max-width: 820px;
+    margin: 0 auto;
+}
+.ds-audience-picker__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    padding: 2em 1.5em;
+    background: var(--ds-transparent-white);
+    border: 2px solid rgba(242,245,251,0.35);
+    color: var(--ds-white);
+    font-family: var(--font-heading);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.3s, border-color 0.3s, transform 0.2s;
+}
+.ds-audience-picker__btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+}
+.ds-audience-picker__btn:hover,
+.ds-audience-picker__btn:focus-visible { transform: translateY(-2px); border-color: rgba(242,245,251,0.7); color: var(--ds-white); }
+.ds-audience-picker__btn.is-active { border-color: transparent; color: var(--ds-bg); }
+.ds-audience-picker__btn.is-active::after { opacity: 1; }
+.ds-audience-picker__btn .ds-audience-btn__label { font-size: 1.5em; font-weight: 700; }
+.ds-audience-picker__btn .ds-audience-btn__desc { font-family: var(--font-body); font-size: 0.95em; opacity: 0.85; }
+
+@media (max-width: 640px) {
+    .ds-audience-picker__options { grid-template-columns: 1fr; }
+    .ds-audience-bar__inner { justify-content: center; padding-left: 4%; padding-right: 4%; }
+    .ds-audience-bar__label { display: none; }
+}
