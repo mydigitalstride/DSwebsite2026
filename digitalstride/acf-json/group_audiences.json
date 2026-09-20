@@ -1,0 +1,103 @@
+{
+    "key": "group_audiences",
+    "title": "Audiences",
+    "fields": [
+        {
+            "key": "field_aud_enable_bar",
+            "label": "Show audience switcher bar above the header",
+            "name": "audience_bar_enabled",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 1,
+            "instructions": "A slim bar with the two industry buttons so visitors can pick or change their industry from any page."
+        },
+        {
+            "key": "field_aud_bar_label",
+            "label": "Switcher bar label",
+            "name": "audience_bar_label",
+            "type": "text",
+            "default_value": "I'm in:"
+        },
+        {
+            "key": "field_aud_aec",
+            "label": "AEC",
+            "name": "audience_aec",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_aud_aec_label",
+                    "label": "Button label",
+                    "name": "label",
+                    "type": "text",
+                    "default_value": "AEC"
+                },
+                {
+                    "key": "field_aud_aec_desc",
+                    "label": "Short description",
+                    "name": "description",
+                    "type": "text",
+                    "default_value": "Architecture, engineering & construction firms"
+                },
+                {
+                    "key": "field_aud_aec_link",
+                    "label": "Industry page",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array",
+                    "instructions": "The dedicated AEC page. Used as the button's link so search engines can follow it."
+                }
+            ]
+        },
+        {
+            "key": "field_aud_hs",
+            "label": "Home Services",
+            "name": "audience_home_services",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_aud_hs_label",
+                    "label": "Button label",
+                    "name": "label",
+                    "type": "text",
+                    "default_value": "Home Services"
+                },
+                {
+                    "key": "field_aud_hs_desc",
+                    "label": "Short description",
+                    "name": "description",
+                    "type": "text",
+                    "default_value": "HVAC, plumbing, electrical, roofing & more"
+                },
+                {
+                    "key": "field_aud_hs_link",
+                    "label": "Industry page",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array",
+                    "instructions": "The dedicated Home Services page. Used as the button's link so search engines can follow it."
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-audiences"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Labels, descriptions and destination pages for the AEC / Home Services journeys.",
+    "show_in_rest": 0,
+    "modified": 1789862001
+}

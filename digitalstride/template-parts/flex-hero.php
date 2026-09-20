@@ -12,6 +12,8 @@ $cta        = get_sub_field('cta_button');
 $bg         = get_sub_field('background_image');
 $slides     = get_sub_field('carousel_images');
 $has_carousel = !empty($slides) && is_array($slides);
+$audience_btns = get_sub_field('show_audience_buttons');
+$audience_mode = get_sub_field('audience_on_select') ?: 'reveal';
 ?>
 
 <section class="ds-hero <?php echo $has_carousel ? 'ds-hero--split' : ''; ?>"<?php if ($bg) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
@@ -33,6 +35,17 @@ $has_carousel = !empty($slides) && is_array($slides);
                         <?php endif; ?>
                         <?php if ($cta) : ?>
                             <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-btn--hero"><?php echo esc_html($cta['title']); ?></a>
+                        <?php endif; ?>
+                        <?php if ($audience_btns) : ?>
+                            <div class="ds-hero__audience" role="group" aria-label="<?php esc_attr_e('Choose your industry', 'digitalstride'); ?>">
+                                <?php foreach (array_keys(ds_audiences()) as $slug) : ?>
+                                    <?php ds_audience_button($slug, [
+                                        'class'            => 'ds-btn ds-btn--outline ds-btn--hero',
+                                        'on_select'        => $audience_mode,
+                                        'show_description' => false,
+                                    ]); ?>
+                                <?php endforeach; ?>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>

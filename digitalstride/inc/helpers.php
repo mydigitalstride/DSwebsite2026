@@ -75,7 +75,11 @@ function ds_render_flex($field_name = 'page_sections', $post_id = false) {
     while (have_rows($field_name, $post_id)) {
         the_row();
         $layout = get_row_layout();
+        // Sections tagged AEC / Home Services get a wrapper the audience
+        // toggle can hide. See inc/audiences.php.
+        $wrapped = ds_audience_wrap_open();
         get_template_part('template-parts/flex', $layout);
+        ds_audience_wrap_close($wrapped);
     }
 }
 

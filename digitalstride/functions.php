@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.1.0');
+define('DS_VERSION', '2.2.0');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
@@ -120,6 +120,7 @@ add_action('init', function () {
 
 // ── Includes ─────────────────────────────────────────
 require_once DS_DIR . '/inc/helpers.php';
+require_once DS_DIR . '/inc/audiences.php';
 require_once DS_DIR . '/inc/survey.php';
 require_once DS_DIR . '/inc/reimbursements.php';
 require_once DS_DIR . '/inc/podcast.php';

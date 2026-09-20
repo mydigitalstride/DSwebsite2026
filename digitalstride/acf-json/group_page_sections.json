@@ -16,6 +16,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_action_plan",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ap_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -73,6 +95,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_article_grid",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ag_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -122,6 +166,28 @@
                     "label": "Case Studies",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_case_studies",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_cs_heading",
                             "label": "Heading",
@@ -182,6 +248,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_community_logos",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_cl_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -221,6 +309,28 @@
                     "label": "Contact Form",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_contact_form",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_cf_heading",
                             "label": "Section Heading",
@@ -300,6 +410,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_core_values",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_cv_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -345,6 +477,28 @@
                     "label": "CTA Banner",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_cta_banner",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_cta_heading",
                             "label": "Heading",
@@ -582,6 +736,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_faq",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_faq_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -620,6 +796,28 @@
                     "label": "Feature Strip",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_feature_strip",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_fs_features",
                             "label": "Features",
@@ -677,6 +875,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_fullwidth_carousel",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_fwc_heading",
                             "label": "Heading (optional)",
                             "name": "heading",
@@ -715,6 +935,28 @@
                     "label": "Gallery Grid",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_gallery_grid",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_gg_heading",
                             "label": "Heading",
@@ -788,6 +1030,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_geo_callout",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_geo_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -816,28 +1080,120 @@
                     "name": "global_core_values",
                     "label": "Global Core Values",
                     "display": "block",
-                    "sub_fields": []
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_global_core_values",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        }
+                    ]
                 },
                 "layout_global_cta": {
                     "key": "layout_global_cta",
                     "name": "global_cta",
                     "label": "Global CTA Block",
                     "display": "block",
-                    "sub_fields": []
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_global_cta",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        }
+                    ]
                 },
                 "layout_global_partners": {
                     "key": "layout_global_partners",
                     "name": "global_partners",
                     "label": "Global Partners / Client Logos",
                     "display": "block",
-                    "sub_fields": []
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_global_partners",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        }
+                    ]
                 },
                 "layout_global_testimonials": {
                     "key": "layout_global_testimonials",
                     "name": "global_testimonials",
                     "label": "Global Testimonials",
                     "display": "block",
-                    "sub_fields": []
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_global_testimonials",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        }
+                    ]
                 },
                 "layout_hero": {
                     "key": "layout_hero",
@@ -845,6 +1201,28 @@
                     "label": "Hero",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_hero",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_hero_heading",
                             "label": "Heading",
@@ -872,6 +1250,37 @@
                             "name": "cta_button",
                             "type": "link",
                             "return_format": "array"
+                        },
+                        {
+                            "key": "field_hero_audience_buttons",
+                            "label": "Show AEC / Home Services buttons",
+                            "name": "show_audience_buttons",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 0,
+                            "instructions": "Adds the two industry buttons under the hero text. Labels and links come from Theme Settings > Audiences."
+                        },
+                        {
+                            "key": "field_hero_audience_on_select",
+                            "label": "When a visitor picks an industry",
+                            "name": "audience_on_select",
+                            "type": "radio",
+                            "choices": {
+                                "reveal": "Reveal that industry's sections on this page",
+                                "navigate": "Send them to that industry's page"
+                            },
+                            "default_value": "reveal",
+                            "layout": "vertical",
+                            "return_format": "value",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hero_audience_buttons",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
                         },
                         {
                             "key": "field_hero_bg",
@@ -1076,6 +1485,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_icon_list",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_il_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1159,6 +1590,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_pain_point_cards",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ig_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1220,6 +1673,28 @@
                     "label": "Industry Tabs",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_industry_tabs",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_it_heading",
                             "label": "Heading",
@@ -1312,6 +1787,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_marketing_survey",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ms_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1358,6 +1855,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_partner_logos",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_pl_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1396,6 +1915,28 @@
                     "label": "Podcast & Video Feed",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_podcast_feed",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_pod_heading",
                             "label": "Heading",
@@ -1506,6 +2047,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_portfolio_showcase",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ps2_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1579,6 +2142,28 @@
                     "label": "Pricing Feature Table",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_pricing_feature_table",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_pft_heading",
                             "label": "Heading",
@@ -1693,6 +2278,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_pricing_stack",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_pstack_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1770,6 +2377,28 @@
                     "label": "Pricing Tables",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_pricing_tables",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_pt_tables",
                             "label": "Tables",
@@ -1855,6 +2484,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_process_steps",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_ps_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -1908,6 +2559,28 @@
                     "label": "Service Detail Blocks",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_service_detail_blocks",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_sdb_heading",
                             "label": "Heading",
@@ -2018,6 +2691,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_shortcode",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_shortcode_heading",
                             "label": "Heading (optional)",
                             "name": "heading",
@@ -2039,6 +2734,28 @@
                     "label": "Split Content",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_split_content",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_sc_heading",
                             "label": "Heading",
@@ -2092,6 +2809,28 @@
                     "label": "Services Accordion",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_services_accordion",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_sa_heading",
                             "label": "Heading",
@@ -2219,6 +2958,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_stats_bar",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_sb_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -2281,6 +3042,28 @@
                     "label": "Team Grid",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_audience_team_grid",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
                         {
                             "key": "field_tg_heading",
                             "label": "Heading",
@@ -2364,6 +3147,28 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_audience_text_block",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_tb_heading",
                             "label": "Heading",
                             "name": "heading",
@@ -2376,6 +3181,79 @@
                             "type": "wysiwyg",
                             "toolbar": "full",
                             "media_upload": 1
+                        }
+                    ]
+                },
+                "layout_audience_picker": {
+                    "key": "layout_audience_picker",
+                    "name": "audience_picker",
+                    "label": "Audience Picker (AEC / Home Services)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_audience_picker",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_apk_subheading",
+                            "label": "Subheading",
+                            "name": "subheading",
+                            "type": "text",
+                            "default_value": "WHO ARE YOU?"
+                        },
+                        {
+                            "key": "field_apk_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Tell us about your business"
+                        },
+                        {
+                            "key": "field_apk_intro",
+                            "label": "Intro Text",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "instructions": "Optional. Shown under the heading."
+                        },
+                        {
+                            "key": "field_apk_on_select",
+                            "label": "When a visitor picks an industry",
+                            "name": "on_select",
+                            "type": "radio",
+                            "choices": {
+                                "reveal": "Reveal that industry's sections on this page",
+                                "navigate": "Send them to that industry's page (set under Theme Settings > Audiences)"
+                            },
+                            "default_value": "reveal",
+                            "layout": "vertical",
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_apk_show_desc",
+                            "label": "Show industry descriptions under the buttons",
+                            "name": "show_descriptions",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 1
                         }
                     ]
                 }
@@ -2407,5 +3285,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1788890352
+    "modified": 1789862001
 }

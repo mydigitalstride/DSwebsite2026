@@ -953,4 +953,114 @@
         });
     });
 
+    // Audience journeys (AEC / Home Services) — see inc/audiences.php
+    // The pick lives on <html data-audience="…">; CSS hides the other
+    // industry's sections. The head script applied any stored pick before
+    // first paint; this handles clicks, persistence, URL params and analytics.
+    (function () {
+        var cfg   = window.dsAudienceConfig || {};
+        var KEY   = cfg.storageKey || 'ds_audience';
+        var PARAM = cfg.param || 'industry';
+        var VALID = ['aec', 'home_services'];
+        var root  = document.documentElement;
+
+        function current() { return root.getAttribute('data-audience') || ''; }
+
+        function persist(value) {
+            try {
+                if (value) localStorage.setItem(KEY, value); else localStorage.removeItem(KEY);
+            } catch (e) {}
+            // Mirror to a first-party cookie for server-side tools (1 year).
+            var expires = value ? 'max-age=31536000' : 'max-age=0';
+            document.cookie = KEY + '=' + (value || '') + '; path=/; SameSite=Lax; ' + expires;
+        }
+
+        function syncButtons() {
+            var value = current();
+            document.querySelectorAll('[data-audience-set]').forEach(function (btn) {
+                var on = btn.getAttribute('data-audience-set') === value;
+                btn.classList.toggle('is-active', on);
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            root.classList.toggle('ds-audience-picked', !!value);
+        }
+
+        // Fill any same-origin form field that wants the audience
+        // (e.g. a hidden input named "audience" or data-audience-field).
+        function syncForms() {
+            var value = current();
+            document.querySelectorAll('input[name="audience"], input[name="industry"], [data-audience-field]').forEach(function (input) {
+                input.value = value;
+            });
+        }
+
+        function track(value, source) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'audience_selected', audience: value || 'all', audience_source: source || 'click' });
+        }
+
+        function apply(value, opts) {
+            opts = opts || {};
+            if (value && VALID.indexOf(value) === -1) return;
+            if (value) root.setAttribute('data-audience', value); else root.removeAttribute('data-audience');
+            persist(value);
+            syncButtons();
+            syncForms();
+            if (!opts.silent) track(value, opts.source);
+            document.dispatchEvent(new CustomEvent('ds:audience', { detail: { audience: value || '' } }));
+        }
+
+        // Bring the first newly-revealed section into view so the change is obvious.
+        function revealFrom(trigger, value) {
+            var section = trigger.closest('.ds-section, .ds-hero');
+            if (!section) return;
+            var next = section.nextElementSibling;
+            while (next) {
+                var tagged = next.getAttribute('data-audience');
+                if (!tagged || tagged === value) break;
+                next = next.nextElementSibling;
+            }
+            if (next && next !== section) {
+                var header = document.getElementById('ds-header');
+                var offset = header ? header.getBoundingClientRect().height : 0;
+                var top = next.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            var clear = e.target.closest('[data-audience-clear]');
+            if (clear) {
+                e.preventDefault();
+                apply('', { source: 'clear' });
+                return;
+            }
+            var btn = e.target.closest('[data-audience-set]');
+            if (!btn) return;
+            var value = btn.getAttribute('data-audience-set');
+            var mode  = btn.getAttribute('data-audience-on-select') || 'reveal';
+            var isLink = btn.tagName === 'A' && btn.getAttribute('href');
+
+            if (mode === 'navigate' && isLink) {
+                // Save first, then let the browser follow the link.
+                apply(value, { source: 'navigate' });
+                return;
+            }
+            e.preventDefault();
+            var changed = value !== current();
+            apply(value, { source: 'reveal', silent: !changed });
+            if (changed) revealFrom(btn, value);
+        });
+
+        // A pick arriving via ?industry=… was applied by the head script; record it.
+        var fromUrl = new RegExp('[?&]' + PARAM + '=([^&#]+)').exec(location.search);
+        if (fromUrl && current()) {
+            persist(current());
+            track(current(), 'url');
+        }
+        syncButtons();
+        syncForms();
+        window.dsAudience = { get: current, set: function (v) { apply(v, { source: 'api' }); }, clear: function () { apply('', { source: 'api' }); } };
+    })();
+
 })();
