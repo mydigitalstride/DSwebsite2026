@@ -3256,6 +3256,95 @@
                             "default_value": 1
                         }
                     ]
+                },
+                "layout_site_audit": {
+                    "key": "layout_site_audit",
+                    "name": "site_audit",
+                    "label": "Free Site & AI Search Audit",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_site_audit",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_sa_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "IS YOUR WEBSITE READY FOR AI SEARCH?"
+                        },
+                        {
+                            "key": "field_sa_intro",
+                            "label": "Intro Text",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "default_value": "Get a free instant audit powered by Google Lighthouse. See how your site scores on speed, SEO and accessibility — and whether ChatGPT, Google AI and other assistants can find and understand your business."
+                        },
+                        {
+                            "key": "field_sa_button",
+                            "label": "Button Label",
+                            "name": "button_label",
+                            "type": "text",
+                            "default_value": "Run My Free Audit"
+                        },
+                        {
+                            "key": "field_sa_notify",
+                            "label": "Notification Email",
+                            "name": "notification_email",
+                            "type": "email",
+                            "default_value": "Results@MyDigitalStride.com",
+                            "instructions": "Where audit leads are sent. Leads are also saved under \"Audit Leads\" in the admin."
+                        },
+                        {
+                            "key": "field_sa_cta_heading",
+                            "label": "Results CTA Heading",
+                            "name": "cta_heading",
+                            "type": "text",
+                            "default_value": "Want help fixing these?"
+                        },
+                        {
+                            "key": "field_sa_cta_text",
+                            "label": "Results CTA Text",
+                            "name": "cta_text",
+                            "type": "textarea",
+                            "rows": 2,
+                            "default_value": "Book a free 20-minute walkthrough and we'll show you exactly what to fix first — and what it's worth to your business."
+                        },
+                        {
+                            "key": "field_sa_cta_label",
+                            "label": "Results CTA Button Label",
+                            "name": "cta_label",
+                            "type": "text",
+                            "default_value": "Book My Free Walkthrough"
+                        },
+                        {
+                            "key": "field_sa_cta_url",
+                            "label": "Results CTA Button URL",
+                            "name": "cta_url",
+                            "type": "url",
+                            "instructions": "Shown under the results and in the prospect's email (e.g. your booking page). Leave blank to hide the button."
+                        }
+                    ]
                 }
             }
         }
@@ -3285,5 +3374,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1789862001
+    "modified": 1790125102
 }

@@ -103,6 +103,12 @@ add_action('acf/init', function () {
         'menu_slug'   => 'acf-options-ai-quote',
         'parent_slug' => 'theme-settings',
     ]);
+    acf_add_options_sub_page([
+        'page_title'  => 'Site Audit Settings',
+        'menu_title'  => 'Site Audit',
+        'menu_slug'   => 'acf-options-site-audit',
+        'parent_slug' => 'theme-settings',
+    ]);
 });
 
 // ── Disable Gutenberg + classic editor body for pages ─
@@ -122,5 +128,6 @@ add_action('init', function () {
 require_once DS_DIR . '/inc/helpers.php';
 require_once DS_DIR . '/inc/audiences.php';
 require_once DS_DIR . '/inc/survey.php';
+require_once DS_DIR . '/inc/site-audit.php';
 require_once DS_DIR . '/inc/reimbursements.php';
 require_once DS_DIR . '/inc/podcast.php';

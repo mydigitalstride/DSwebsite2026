@@ -1,0 +1,50 @@
+{
+    "key": "group_site_audit",
+    "title": "Site Audit Settings",
+    "fields": [
+        {
+            "key": "field_sa_psi_key",
+            "label": "Google PageSpeed Insights API Key",
+            "name": "site_audit_psi_key",
+            "type": "text",
+            "instructions": "Required for reliable results — without a key Google heavily rate-limits requests. Create one in Google Cloud Console (enable the \"PageSpeed Insights API\"). Prefer defining DS_PSI_API_KEY in wp-config.php (it overrides this field and keeps the key out of the database)."
+        },
+        {
+            "key": "field_sa_email_prospect",
+            "label": "Email the report to the prospect",
+            "name": "site_audit_email_prospect",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 1,
+            "instructions": "Sends the visitor a plain-text copy of their results. The team is always notified at the address set on the Site Audit section."
+        },
+        {
+            "key": "field_sa_ai_summary",
+            "label": "Add an AI-written summary",
+            "name": "site_audit_ai_summary",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 0,
+            "instructions": "Uses Claude to turn the scores into a plain-English verdict and top 3 fixes. Uses the API key and model from Theme Settings → AI Quote (the AI Quote toggle itself doesn't need to be on). Adds roughly 10–20 seconds to the audit."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-site-audit"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1790125102
+}
