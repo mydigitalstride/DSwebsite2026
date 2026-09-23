@@ -925,6 +925,240 @@
         show(0);
     });
 
+    // Free Site & AI Search Audit — capture lead, then run Lighthouse + AI checks.
+    // See inc/site-audit.php. Server strings are rendered with textContent only.
+    document.querySelectorAll('.ds-audit').forEach(function (audit) {
+        var form      = audit.querySelector('.ds-audit__form');
+        var submitBtn = audit.querySelector('.ds-audit__submit');
+        var formError = audit.querySelector('.ds-survey__form-error');
+        var loading   = audit.querySelector('.ds-audit__loading');
+        var loadText  = audit.querySelector('.ds-audit__loading-text');
+        var results   = audit.querySelector('.ds-audit__results');
+        var cta       = audit.querySelector('.ds-audit__cta');
+        var btnLabel  = submitBtn.textContent;
+        var endpoint  = form.getAttribute('action'); // "action" field shadows form.action
+        var ticker;
+
+        function el(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text) node.textContent = text;
+            return node;
+        }
+
+        function band(score) {
+            return score >= 90 ? 'good' : (score >= 50 ? 'ok' : 'poor');
+        }
+
+        function validate() {
+            var ok = true;
+            form.querySelectorAll('.ds-audit__field[data-required]').forEach(function (field) {
+                var input = field.querySelector('input');
+                var value = input.type === 'checkbox' ? input.checked : input.value.trim() !== '';
+                if (value && input.type === 'email') value = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+                if (value && field.getAttribute('data-name') === 'website_url') value = /\.[a-z]{2,}/i.test(input.value);
+                field.classList.toggle('has-error', !value);
+                field.querySelector('.ds-survey__error').hidden = value;
+                if (!value && ok) { input.focus(); ok = false; }
+            });
+            return ok;
+        }
+
+        function markFields(names) {
+            (names || []).forEach(function (name) {
+                var field = form.querySelector('.ds-audit__field[data-name="' + name + '"]');
+                if (!field) return;
+                field.classList.add('has-error');
+                field.querySelector('.ds-survey__error').hidden = false;
+            });
+        }
+
+        function fail(message) {
+            clearInterval(ticker);
+            loading.hidden = true;
+            form.hidden = false;
+            submitBtn.disabled = false;
+            submitBtn.textContent = btnLabel;
+            formError.textContent = message || 'Something went wrong running your audit. Please try again, or contact us directly.';
+            formError.hidden = false;
+        }
+
+        function startTicker() {
+            var steps = [
+                'Running Google Lighthouse on your site…',
+                'Measuring mobile speed and Core Web Vitals…',
+                'Checking SEO and accessibility…',
+                'Checking whether AI crawlers can reach you…',
+                'Looking for structured data and llms.txt…',
+                'Putting your report together…'
+            ];
+            var i = 0;
+            loadText.textContent = steps[0];
+            ticker = setInterval(function () {
+                i = Math.min(i + 1, steps.length - 1);
+                loadText.textContent = steps[i];
+            }, 8000);
+        }
+
+        function gauge(label, score, featured) {
+            var item = el('div', 'ds-audit__gauge ds-audit__gauge--' + band(score) + (featured ? ' ds-audit__gauge--featured' : ''));
+            var ring = el('div', 'ds-audit__ring');
+            ring.style.setProperty('--score', score);
+            ring.setAttribute('role', 'img');
+            ring.setAttribute('aria-label', label + ': ' + score + ' out of 100');
+            ring.appendChild(el('span', 'ds-audit__ring-num', String(score)));
+            item.appendChild(ring);
+            item.appendChild(el('span', 'ds-audit__gauge-label', label));
+            return item;
+        }
+
+        function render(report) {
+            var lh = report.lighthouse || {};
+            var scores = lh.scores || {};
+            results.innerHTML = '';
+
+            var summary = report.ai_summary;
+            if (summary) {
+                var card = el('div', 'ds-audit__summary');
+                card.appendChild(el('h3', 'ds-audit__headline', summary.headline));
+                card.appendChild(el('p', '', summary.summary));
+                var fixes = el('ol', 'ds-survey__gaps');
+                (summary.top_fixes || []).forEach(function (fix) {
+                    var li = el('li');
+                    li.appendChild(el('strong', '', fix.title));
+                    li.appendChild(el('span', '', fix.why));
+                    fixes.appendChild(li);
+                });
+                card.appendChild(fixes);
+                results.appendChild(card);
+            }
+
+            var gauges = el('div', 'ds-audit__gauges');
+            gauges.appendChild(gauge('AI Search Readiness', report.ai_readiness.score, true));
+            ['performance', 'seo', 'accessibility', 'best-practices', 'agentic-browsing'].forEach(function (id) {
+                if (scores[id]) gauges.appendChild(gauge(scores[id].title, scores[id].score));
+            });
+            results.appendChild(gauges);
+
+            if (report.lighthouse_error) {
+                results.appendChild(el('p', 'ds-audit__notice', report.lighthouse_error + ' Your AI readiness checks are below, and we will follow up with the rest.'));
+            }
+
+            // AI search readiness checklist (our checks + Lighthouse Agentic Browsing audits)
+            results.appendChild(el('h3', 'ds-audit__section-title', 'AI search readiness'));
+            var checks = el('ul', 'ds-audit__checks');
+            var icons = { pass: 'fa-circle-check', warn: 'fa-circle-exclamation', fail: 'fa-circle-xmark' };
+            report.ai_readiness.checks.forEach(function (check) {
+                var li = el('li', 'ds-audit__check ds-audit__check--' + check.status);
+                var icon = el('i', 'fa-solid ' + icons[check.status]);
+                icon.setAttribute('aria-hidden', 'true');
+                li.appendChild(icon);
+                var body = el('div');
+                body.appendChild(el('strong', '', check.label));
+                body.appendChild(el('span', '', check.detail));
+                li.appendChild(body);
+                checks.appendChild(li);
+            });
+            (lh.agentic || []).forEach(function (a) {
+                var status = a.passed ? 'pass' : 'fail';
+                var li = el('li', 'ds-audit__check ds-audit__check--' + status);
+                var icon = el('i', 'fa-solid ' + icons[status]);
+                icon.setAttribute('aria-hidden', 'true');
+                li.appendChild(icon);
+                var body = el('div');
+                body.appendChild(el('strong', '', a.title));
+                body.appendChild(el('span', '', 'Google Lighthouse agentic browsing check' + (a.detail ? ' — ' + a.detail : '')));
+                li.appendChild(body);
+                checks.appendChild(li);
+            });
+            results.appendChild(checks);
+
+            if (lh.metrics && lh.metrics.length) {
+                results.appendChild(el('h3', 'ds-audit__section-title', 'Mobile speed'));
+                var metrics = el('div', 'ds-audit__metrics');
+                lh.metrics.forEach(function (m) {
+                    var tile = el('div', 'ds-audit__metric ds-audit__metric--' + (m.score === null ? 'ok' : band(m.score * 100)));
+                    tile.appendChild(el('span', 'ds-audit__metric-value', m.value));
+                    tile.appendChild(el('span', 'ds-audit__metric-label', m.label));
+                    metrics.appendChild(tile);
+                });
+                results.appendChild(metrics);
+            }
+
+            if (lh.opportunities && lh.opportunities.length) {
+                results.appendChild(el('h3', 'ds-audit__section-title', 'Top issues Google found'));
+                var list = el('ul', 'ds-audit__issues');
+                lh.opportunities.forEach(function (o) {
+                    var li = el('li');
+                    li.appendChild(el('strong', '', o.title));
+                    li.appendChild(el('span', '', o.category + (o.detail ? ' · ' + o.detail : '')));
+                    list.appendChild(li);
+                });
+                results.appendChild(list);
+            }
+
+            results.appendChild(el('p', 'ds-survey__analysis-note',
+                'Scores come from Google Lighthouse' + (lh.lighthouse_version ? ' ' + lh.lighthouse_version : '') +
+                ' (mobile, via PageSpeed Insights) and our AI search readiness checks. They measure how well your site is built to be found and understood — not your current rankings. A copy is on its way to your inbox.'));
+
+            loading.hidden = true;
+            results.hidden = false;
+            if (cta) cta.hidden = false;
+            var top = audit.getBoundingClientRect().top + window.pageYOffset - 120;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+
+        form.addEventListener('input', function (e) {
+            var field = e.target.closest('.ds-audit__field');
+            if (field && field.classList.contains('has-error')) {
+                field.classList.remove('has-error');
+                field.querySelector('.ds-survey__error').hidden = true;
+            }
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            formError.hidden = true;
+            if (!validate()) return;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Starting…';
+
+            fetch(endpoint, { method: 'POST', body: new FormData(form) })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (!data.success) throw data;
+                    form.hidden = true;
+                    loading.hidden = false;
+                    startTicker();
+
+                    var body = new FormData();
+                    body.append('action', 'ds_site_audit_run');
+                    body.append('lead', data.data.lead);
+                    body.append('token', data.data.token);
+                    return fetch(endpoint, { method: 'POST', body: body })
+                        .then(function (res) { return res.json(); })
+                        .then(function (run) {
+                            clearInterval(ticker);
+                            if (!run.success) throw run;
+                            render(run.data.report);
+                        })
+                        .catch(function () {
+                            // Lead is already saved and the server keeps working if
+                            // this request drops, so don't invite a duplicate submit.
+                            clearInterval(ticker);
+                            loading.querySelector('.ds-survey__quote-spinner').hidden = true;
+                            loadText.textContent = "Your audit is taking longer than usual — no problem, we've got your request and will email your report shortly.";
+                            loading.querySelector('.ds-audit__loading-note').hidden = true;
+                            if (cta) cta.hidden = false;
+                        });
+                })
+                .catch(function (err) {
+                    if (err && err.data && err.data.fields) markFields(err.data.fields);
+                    fail(err && err.data && err.data.message);
+                });
+        });
+    });
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function (e) {
