@@ -2908,3 +2908,69 @@ button.ds-audience-btn { line-height: inherit; font-family: inherit; }
     .ds-audience-bar__inner { justify-content: center; padding-left: 4%; padding-right: 4%; }
     .ds-audience-bar__label { display: none; }
 }
+
+/* ============================================================
+   CUSTOM CODE + CODE SNIPPET (flex layouts)
+   ============================================================ */
+.ds-section--custom-code-full .ds-section__heading { margin-bottom: 1em; }
+.ds-custom-code > :last-child { margin-bottom: 0; }
+
+.ds-code-snippet__intro { margin-bottom: 1.5em; }
+.ds-code-snippet {
+    margin: 0;
+    background: #0B1230;
+    border: 1px solid rgba(242,245,251,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+.ds-code-snippet__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    padding: 0.6em 1em;
+    background: var(--ds-brand-gradient);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+}
+.ds-code-snippet__name { color: var(--ds-white); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ds-code-snippet__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    flex-shrink: 0;
+    padding: 0.35em 0.8em;
+    background: rgba(2,11,36,0.45);
+    border: 1px solid rgba(242,245,251,0.35);
+    border-radius: 6px;
+    color: var(--ds-white);
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.ds-code-snippet__copy:hover,
+.ds-code-snippet__copy:focus-visible { background: var(--ds-orange); border-color: var(--ds-orange); color: var(--ds-bg); }
+.ds-code-snippet__copy.is-copied { background: var(--ds-teal); border-color: var(--ds-teal); color: var(--ds-white); }
+.ds-code-snippet pre.ds-code-snippet__pre {
+    margin: 0;
+    padding: 1.25em 1.5em;
+    max-height: 70vh;
+    overflow: auto;
+    background: transparent;
+    border-radius: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    tab-size: 4;
+    color: #E6E9F2;
+}
+.ds-code-snippet pre.ds-code-snippet__pre.line-numbers { padding-left: 3.8em; }
+.ds-code-snippet pre.ds-code-snippet__pre code { font: inherit; background: none; padding: 0; white-space: pre; }
+.ds-code-snippet pre.ds-code-snippet__pre:focus-visible { outline: 2px solid var(--ds-orange); outline-offset: -2px; }
+
+@media (max-width: 640px) {
+    .ds-code-snippet pre.ds-code-snippet__pre { padding: 1em; font-size: 0.8rem; }
+    .ds-code-snippet pre.ds-code-snippet__pre.line-numbers { padding-left: 3.2em; }
+    .ds-code-snippet__copy-label { display: none; }
+}

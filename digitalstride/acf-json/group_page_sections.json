@@ -2728,6 +2728,187 @@
                         }
                     ]
                 },
+                "layout_code_snippet": {
+                    "key": "layout_code_snippet",
+                    "name": "code_snippet",
+                    "label": "Code Snippet (display)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_code_snippet",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_cs_heading",
+                            "label": "Heading (optional)",
+                            "name": "heading",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_cs_intro",
+                            "label": "Intro (optional)",
+                            "name": "intro",
+                            "type": "wysiwyg",
+                            "toolbar": "basic",
+                            "media_upload": 0
+                        },
+                        {
+                            "key": "field_cs_language",
+                            "label": "Language",
+                            "name": "language",
+                            "type": "select",
+                            "instructions": "Used for syntax highlighting and the label on the code window.",
+                            "choices": {
+                                "plain": "Plain text",
+                                "markup": "HTML / XML",
+                                "css": "CSS",
+                                "scss": "SCSS",
+                                "javascript": "JavaScript",
+                                "typescript": "TypeScript",
+                                "jsx": "JSX / React",
+                                "json": "JSON",
+                                "php": "PHP",
+                                "python": "Python",
+                                "bash": "Bash / Shell",
+                                "sql": "SQL",
+                                "yaml": "YAML",
+                                "markdown": "Markdown"
+                            },
+                            "default_value": "markup",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "array",
+                            "wrapper": {
+                                "width": "33",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_cs_filename",
+                            "label": "File name (optional)",
+                            "name": "filename",
+                            "type": "text",
+                            "instructions": "Shown in the code window's title bar, e.g. functions.php.",
+                            "wrapper": {
+                                "width": "33",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_cs_line_numbers",
+                            "label": "Line numbers",
+                            "name": "line_numbers",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 0,
+                            "wrapper": {
+                                "width": "34",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_cs_code",
+                            "label": "Code",
+                            "name": "code",
+                            "type": "textarea",
+                            "rows": 14,
+                            "new_lines": "",
+                            "instructions": "Paste the code to show. It is displayed as text, never run, and visitors get a Copy button.",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-code-field",
+                                "id": ""
+                            }
+                        }
+                    ]
+                },
+                "layout_custom_code": {
+                    "key": "layout_custom_code",
+                    "name": "custom_code",
+                    "label": "Custom Code (HTML / CSS / JS)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_custom_code",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_cc_heading",
+                            "label": "Heading (optional)",
+                            "name": "heading",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_cc_width",
+                            "label": "Width",
+                            "name": "width",
+                            "type": "select",
+                            "choices": {
+                                "contained": "Contained (site width)",
+                                "full": "Full width (edge to edge)"
+                            },
+                            "default_value": "contained",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_cc_code",
+                            "label": "Code",
+                            "name": "code",
+                            "type": "textarea",
+                            "rows": 14,
+                            "new_lines": "",
+                            "instructions": "Raw HTML, <style> and <script> are output exactly as entered and run on the page (embeds, widgets, tracking snippets, custom markup). Nothing is escaped, so only paste code from a trusted source. To show code as text instead, use the Code Snippet section.",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-code-field",
+                                "id": ""
+                            }
+                        }
+                    ]
+                },
                 "layout_split_content": {
                     "key": "layout_split_content",
                     "name": "split_content",
@@ -3285,5 +3466,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1789862001
+    "modified": 1790124343
 }
