@@ -129,5 +129,19 @@ require_once DS_DIR . '/inc/helpers.php';
 require_once DS_DIR . '/inc/audiences.php';
 require_once DS_DIR . '/inc/survey.php';
 require_once DS_DIR . '/inc/site-audit.php';
-require_once DS_DIR . '/inc/reimbursements.php';
 require_once DS_DIR . '/inc/podcast.php';
+
+// ── Retired: medical receipt reimbursements ──────────
+// The reimbursement portal was removed from the theme. Drop the capability
+// and role it registered so they don't linger in wp-admin. Stored claims
+// (ds_reimbursement posts) and files in uploads/ds-receipts/ are left in
+// place on purpose — delete or archive them per your retention policy.
+add_action('admin_init', function () {
+    if (get_option('ds_reimb_retired')) return;
+    $admin = get_role('administrator');
+    if ($admin) $admin->remove_cap('ds_manage_reimbursements');
+    if (get_role('ds_finance') && !get_users(['role' => 'ds_finance', 'number' => 1, 'fields' => 'ID'])) {
+        remove_role('ds_finance');
+    }
+    update_option('ds_reimb_retired', 1);
+});

@@ -56,17 +56,17 @@ endif;
 
             <!-- Controls -->
             <button class="ds-project-carousel__btn ds-project-carousel__btn--prev" aria-label="Previous project">
-                <i class="fa-solid fa-chevron-left"></i>
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
             </button>
             <button class="ds-project-carousel__btn ds-project-carousel__btn--next" aria-label="Next project">
-                <i class="fa-solid fa-chevron-right"></i>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
             </button>
 
             <!-- Dots -->
             <?php if (count($studies) > 1) : ?>
                 <div class="ds-project-carousel__dots" aria-hidden="true">
                     <?php foreach ($studies as $i => $study) : ?>
-                        <button class="ds-project-carousel__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" data-slide="<?php echo $i; ?>"></button>
+                        <button type="button" class="ds-project-carousel__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" aria-label="<?php printf(esc_attr__('Go to slide %d', 'digitalstride'), $i + 1); ?>" data-slide="<?php echo $i; ?>"></button>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>

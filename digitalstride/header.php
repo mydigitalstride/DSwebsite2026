@@ -7,6 +7,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<a class="ds-skip-link" href="#main"><?php esc_html_e('Skip to main content', 'digitalstride'); ?></a>
 
 <?php ds_render_audience_bar(); ?>
 
@@ -21,20 +22,20 @@
             <?php endif; ?>
         </a>
 
-        <button class="ds-header__hamburger" id="ds-hamburger" aria-label="Toggle menu">
+        <button type="button" class="ds-header__hamburger" id="ds-hamburger" aria-label="<?php esc_attr_e('Menu', 'digitalstride'); ?>" aria-expanded="false" aria-controls="ds-nav">
             <span></span><span></span><span></span>
         </button>
 
-        <nav class="ds-nav" id="ds-nav">
+        <nav class="ds-nav" id="ds-nav" aria-label="<?php esc_attr_e('Primary', 'digitalstride'); ?>">
             <ul class="ds-nav__list">
                 <?php if (have_rows('nav_items', 'option')) : while (have_rows('nav_items', 'option')) : the_row(); ?>
                     <?php $has_mega = get_sub_field('enable_mega_menu'); ?>
                     <li class="ds-nav__item<?php echo $has_mega ? ' ds-nav__item--mega' : ''; ?>">
                         <?php $link = get_sub_field('link'); ?>
-                        <a href="<?php echo esc_url($link['url']); ?>" class="ds-nav__link">
+                        <a href="<?php echo esc_url($link['url']); ?>" class="ds-nav__link"<?php echo $has_mega ? ' aria-haspopup="true" aria-expanded="false"' : ''; ?>>
                             <?php echo esc_html($link['title']); ?>
                             <?php if ($has_mega) : ?>
-                                <i class="fa-solid fa-chevron-down ds-nav__arrow"></i>
+                                <i class="fa-solid fa-chevron-down ds-nav__arrow" aria-hidden="true"></i>
                             <?php endif; ?>
                         </a>
 
@@ -43,7 +44,7 @@
                                 <div class="ds-mega-menu__inner">
                                     <?php while (have_rows('mega_columns')) : the_row(); ?>
                                         <div class="ds-mega-menu__column">
-                                            <h6 class="ds-mega-menu__heading"><?php echo esc_html(get_sub_field('column_heading')); ?></h6>
+                                            <p class="ds-mega-menu__heading"><?php echo esc_html(get_sub_field('column_heading')); ?></p>
                                             <?php if (have_rows('column_links')) : ?>
                                                 <ul class="ds-mega-menu__links">
                                                     <?php while (have_rows('column_links')) : the_row(); ?>
@@ -84,4 +85,4 @@
     </div>
 </header>
 
-<main class="ds-main">
+<main id="main" class="ds-main" tabindex="-1">

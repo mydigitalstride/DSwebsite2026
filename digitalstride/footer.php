@@ -19,9 +19,9 @@
                 <?php $email = get_field('footer_email', 'option') ?: 'Results@MyDigitalStride.com'; ?>
                 <?php $phone = get_field('footer_phone', 'option') ?: '(717) 727-1400'; ?>
                 <?php $address = get_field('footer_address', 'option') ?: '410 Kings Mill Rd, Suite 115, York, PA 17402'; ?>
-                <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><i class="fa-solid fa-envelope"></i> <?php echo esc_html($email); ?></a>
-                <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><i class="fa-solid fa-phone"></i> <?php echo esc_html($phone); ?></a>
-                <p><i class="fa-solid fa-location-dot"></i> <?php echo esc_html($address); ?></p>
+                <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><i class="fa-solid fa-envelope" aria-hidden="true"></i> <?php echo esc_html($email); ?></a>
+                <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><i class="fa-solid fa-phone" aria-hidden="true"></i> <?php echo esc_html($phone); ?></a>
+                <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <?php echo esc_html($address); ?></p>
             </div>
             </div>
 
@@ -46,7 +46,7 @@
                 <?php $linkedin = get_field('footer_linkedin', 'option'); ?>
                 <?php if ($linkedin) : ?>
                     <a href="<?php echo esc_url($linkedin); ?>" class="ds-footer__social" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <i class="fa-brands fa-linkedin"></i>
+                        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
                     </a>
                 <?php endif; ?>
             </div>

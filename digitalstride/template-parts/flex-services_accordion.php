@@ -54,7 +54,7 @@ endif;
                                     <?php endif; ?>
                                     <?php echo esc_html($service['title']); ?>
                                 </span>
-                                <i class="fa-solid fa-chevron-down ds-accordion__chevron ds-services-split__chevron"></i>
+                                <i class="fa-solid fa-chevron-down ds-accordion__chevron ds-services-split__chevron" aria-hidden="true"></i>
                             </button>
 
                             <div class="ds-services-split__mobile-body">
@@ -71,7 +71,7 @@ endif;
                                                     <h6 class="ds-services-split__sub-title"><?php echo esc_html($sub['title']); ?></h6>
                                                     <p class="ds-services-split__sub-text"><?php echo esc_html($sub['desc']); ?></p>
                                                     <?php if (!empty($sub['link'])) : ?>
-                                                        <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right"></i></a>
+                                                        <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
@@ -104,7 +104,7 @@ endif;
                                                 <h6 class="ds-services-split__sub-title"><?php echo esc_html($sub['title']); ?></h6>
                                                 <p class="ds-services-split__sub-text"><?php echo esc_html($sub['desc']); ?></p>
                                                 <?php if (!empty($sub['link'])) : ?>
-                                                    <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right"></i></a>
+                                                    <a href="<?php echo esc_url($sub['link']['url']); ?>" class="ds-services-split__sub-link" <?php echo !empty($sub['link']['target']) ? 'target="' . esc_attr($sub['link']['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($sub['link']['title']); ?> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                                                 <?php endif; ?>
                                             </div>
                                         </div>

@@ -45,9 +45,9 @@ $uid = 'fwc-' . get_the_ID() . '-' . uniqid();
         </div>
 
         <!-- Dot navigation -->
-        <div class="ds-fwc__dots" aria-hidden="true">
+        <div class="ds-fwc__dots">
             <?php foreach ($slides as $i => $slide) : ?>
-                <button class="ds-fwc__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" data-index="<?php echo $i; ?>"></button>
+                <button type="button" class="ds-fwc__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" aria-label="<?php printf(esc_attr__('Go to slide %d', 'digitalstride'), $i + 1); ?>" data-index="<?php echo $i; ?>"></button>
             <?php endforeach; ?>
         </div>
 

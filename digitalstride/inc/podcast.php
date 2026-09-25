@@ -450,7 +450,7 @@ function ds_render_podcast_feed( $args = [] ) {
                                         data-video-id="<?php echo esc_attr( $v['id'] ); ?>"
                                         aria-label="Play: <?php echo esc_attr( $v['title'] ); ?>">
                                     <img class="ds-video-card__thumb" src="<?php echo esc_url( $v['thumbnail'] ); ?>" alt="" loading="lazy" width="480" height="360">
-                                    <span class="ds-video-card__icon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                                    <span class="ds-video-card__icon" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
                                 </button>
                             </div>
                             <div class="ds-video-card__body">

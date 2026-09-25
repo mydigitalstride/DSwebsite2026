@@ -74,6 +74,7 @@ function ds_render_industry_content( $item ) { ?>
 <?php }
 ?>
 
+<?php $uid = wp_unique_id('industry-'); ?>
 <section class="ds-section ds-section--industry-tabs">
     <div class="ds-container">
         <?php if ($subheading) : ?>
@@ -93,14 +94,17 @@ function ds_render_industry_content( $item ) { ?>
                             class="ds-industry-tabs__tab <?php echo $i === 0 ? 'is-active' : ''; ?>"
                             role="tab"
                             aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                            aria-controls="industry-panel-<?php echo $i; ?>"
+                            id="<?php echo esc_attr($uid); ?>-tab-<?php echo $i; ?>"
+                            tabindex="<?php echo $i === 0 ? '0' : '-1'; ?>"
+                            type="button"
+                            aria-controls="<?php echo esc_attr($uid); ?>-panel-<?php echo $i; ?>"
                             data-tab="<?php echo $i; ?>">
                             <?php echo esc_html($item['title']); ?>
                         </button>
 
                         <!-- Mobile accordion body -->
                         <div class="ds-industry-tabs__mobile-panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
-                             id="industry-mobile-<?php echo $i; ?>">
+                             id="<?php echo esc_attr($uid); ?>-mobile-<?php echo $i; ?>">
                             <?php if ($item['image']) : ?>
                                 <div class="ds-industry-tabs__img-wrap">
                                     <img src="<?php echo esc_url($item['image']['url']); ?>"
@@ -117,7 +121,9 @@ function ds_render_industry_content( $item ) { ?>
                     <?php foreach ($items as $i => $item) : ?>
                         <div class="ds-industry-tabs__panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
                              role="tabpanel"
-                             id="industry-panel-<?php echo $i; ?>"
+                             id="<?php echo esc_attr($uid); ?>-panel-<?php echo $i; ?>"
+                 aria-labelledby="<?php echo esc_attr($uid); ?>-tab-<?php echo $i; ?>"
+                 tabindex="0"
                              aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>">
 
                             <div class="ds-industry-tabs__panel-inner">

@@ -39,10 +39,10 @@ $fallback_img = get_template_directory_uri() . '/assets/img/fallback-article.svg
         </div>
         <div class="ds-article-card__footer">
             <a href="<?php the_permalink(); ?>" class="ds-article-card__readmore">
-                Read More <i class="fa-solid fa-arrow-right"></i>
+                Read More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
             <time class="ds-article-card__date" datetime="<?php echo get_the_date('c'); ?>">
-                <i class="fa-regular fa-calendar"></i>
+                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
                 <?php echo get_the_date('F j, Y'); ?>
             </time>
         </div>

@@ -18,7 +18,7 @@
                             <?php endif; ?>
                             <?php echo esc_html(get_sub_field('title')); ?>
                         </span>
-                        <i class="fa-solid fa-chevron-down ds-accordion__icon"></i>
+                        <i class="fa-solid fa-chevron-down ds-accordion__icon" aria-hidden="true"></i>
                     </button>
                     <div class="ds-accordion__body">
                         <?php if (have_rows('sub_services')) : ?>

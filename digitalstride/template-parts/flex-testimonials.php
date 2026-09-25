@@ -45,15 +45,15 @@ endif;
 
                 <?php if (count($items) > 1) : ?>
                     <button class="ds-testimonial-carousel__btn ds-testimonial-carousel__btn--prev" aria-label="Previous testimonial">
-                        <i class="fa-solid fa-chevron-left"></i>
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                     </button>
                     <button class="ds-testimonial-carousel__btn ds-testimonial-carousel__btn--next" aria-label="Next testimonial">
-                        <i class="fa-solid fa-chevron-right"></i>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     </button>
 
                     <div class="ds-testimonial-carousel__dots" aria-hidden="true">
                         <?php foreach ($items as $i => $item) : ?>
-                            <button class="ds-testimonial-carousel__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" data-slide="<?php echo $i; ?>"></button>
+                            <button type="button" class="ds-testimonial-carousel__dot <?php echo $i === 0 ? 'is-active' : ''; ?>" aria-label="<?php printf(esc_attr__('Go to slide %d', 'digitalstride'), $i + 1); ?>" data-slide="<?php echo $i; ?>"></button>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

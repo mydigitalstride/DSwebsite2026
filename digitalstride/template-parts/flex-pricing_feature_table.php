@@ -44,6 +44,7 @@ if (!$tabs) return;
 $tier_count = count($tabs[0]['tier_names']);
 ?>
 
+<?php $uid = wp_unique_id('pft-'); ?>
 <section class="ds-section ds-section--pft">
     <div class="ds-container">
         <?php if ($heading) : ?>
@@ -56,7 +57,10 @@ $tier_count = count($tabs[0]['tier_names']);
                 <button class="ds-pft__tab <?php echo $i === 0 ? 'is-active' : ''; ?>"
                         role="tab"
                         aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                        aria-controls="pft-panel-<?php echo $i; ?>"
+                        id="<?php echo esc_attr($uid); ?>-tab-<?php echo $i; ?>"
+                        tabindex="<?php echo $i === 0 ? '0' : '-1'; ?>"
+                        type="button"
+                        aria-controls="<?php echo esc_attr($uid); ?>-panel-<?php echo $i; ?>"
                         data-tab="<?php echo $i; ?>">
                     <?php echo esc_html($tab['name']); ?>
                 </button>
@@ -67,7 +71,9 @@ $tier_count = count($tabs[0]['tier_names']);
         <?php foreach ($tabs as $i => $tab) : ?>
             <div class="ds-pft__panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
                  role="tabpanel"
-                 id="pft-panel-<?php echo $i; ?>"
+                 id="<?php echo esc_attr($uid); ?>-panel-<?php echo $i; ?>"
+                 aria-labelledby="<?php echo esc_attr($uid); ?>-tab-<?php echo $i; ?>"
+                 tabindex="0"
                  aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>">
 
                 <!-- Desktop table -->
@@ -97,7 +103,7 @@ $tier_count = count($tabs[0]['tier_names']);
                                                     </svg>
                                                 </span>
                                             <?php elseif ($lower === 'no' || $lower === '✗' || $lower === 'x' || $lower === '') : ?>
-                                                <span class="ds-pft__no"><i class="fa-solid fa-ban"></i></span>
+                                                <span class="ds-pft__no"><i class="fa-solid fa-ban" aria-hidden="true"></i></span>
                                             <?php else : ?>
                                                 <span class="ds-pft__text"><?php echo esc_html($val); ?></span>
                                             <?php endif; ?>
@@ -126,9 +132,9 @@ $tier_count = count($tabs[0]['tier_names']);
                                     <li class="ds-pft-card__item <?php echo $is_yes ? 'ds-pft-card__item--yes' : ''; ?><?php echo $is_no ? 'ds-pft-card__item--no' : ''; ?><?php echo (!$is_yes && !$is_no) ? 'ds-pft-card__item--text' : ''; ?>">
                                         <span class="ds-pft-card__feature"><?php echo esc_html($row['feature']); ?></span>
                                         <?php if ($is_yes) : ?>
-                                            <span class="ds-pft-card__val ds-pft-card__val--yes"><i class="fa-solid fa-check"></i></span>
+                                            <span class="ds-pft-card__val ds-pft-card__val--yes"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
                                         <?php elseif ($is_no) : ?>
-                                            <span class="ds-pft-card__val ds-pft-card__val--no"><i class="fa-solid fa-ban"></i></span>
+                                            <span class="ds-pft-card__val ds-pft-card__val--no"><i class="fa-solid fa-ban" aria-hidden="true"></i></span>
                                         <?php else : ?>
                                             <span class="ds-pft-card__val ds-pft-card__val--custom"><?php echo esc_html($val); ?></span>
                                         <?php endif; ?>
