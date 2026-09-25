@@ -3526,6 +3526,92 @@
                             "instructions": "Shown under the results and in the prospect's email (e.g. your booking page). Leave blank to hide the button."
                         }
                     ]
+                },
+                "layout_proposal_templates": {
+                    "key": "layout_proposal_templates",
+                    "name": "proposal_templates",
+                    "label": "Proposal Templates",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_proposal_templates",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_pt_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Free RFP, RFQ & Proposal Templates"
+                        },
+                        {
+                            "key": "field_pt_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_pt_industries",
+                            "label": "Industries",
+                            "name": "industries",
+                            "type": "checkbox",
+                            "instructions": "Leave all unchecked to show every industry. Templates are files in the theme's /proposal-templates/ folder — see the README there.",
+                            "choices": {
+                                "architecture": "Architecture",
+                                "engineering": "Engineering",
+                                "construction": "Construction / GC",
+                                "hvac": "HVAC",
+                                "plumbing": "Plumbing",
+                                "electrical": "Electrical",
+                                "roofing": "Roofing"
+                            },
+                            "layout": "horizontal",
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_pt_type",
+                            "label": "Template type",
+                            "name": "template_type",
+                            "type": "select",
+                            "choices": {
+                                "all": "All",
+                                "rfp": "RFP / RFQ responses",
+                                "proposal": "Proposals"
+                            },
+                            "default_value": "all",
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_pt_filters",
+                            "label": "Show industry filter buttons",
+                            "name": "show_filters",
+                            "type": "true_false",
+                            "default_value": 1,
+                            "ui": 1
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             }
         }
@@ -3555,5 +3641,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1790128863
+    "modified": 1790300340
 }
