@@ -328,3 +328,26 @@ function ds_render_media_carousel( $slides, $args = [] ) {
     </div>
     <?php
 }
+
+/**
+ * Helper: load Prism syntax highlighting for the Code Snippet layout.
+ *
+ * Called from the template part, so the assets only load on pages that use
+ * it; they print in the footer. The autoloader fetches each language's
+ * grammar from the CDN on demand.
+ */
+function ds_enqueue_code_highlighting() {
+    $cdn = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0';
+    wp_enqueue_style('prism-theme', $cdn . '/themes/prism-tomorrow.min.css', [], '1.29.0');
+    wp_enqueue_style('prism-line-numbers', $cdn . '/plugins/line-numbers/prism-line-numbers.min.css', ['prism-theme'], '1.29.0');
+    wp_enqueue_script('prism-core', $cdn . '/components/prism-core.min.js', [], '1.29.0', true);
+    wp_enqueue_script('prism-autoloader', $cdn . '/plugins/autoloader/prism-autoloader.min.js', ['prism-core'], '1.29.0', true);
+    wp_enqueue_script('prism-line-numbers', $cdn . '/plugins/line-numbers/prism-line-numbers.min.js', ['prism-core'], '1.29.0', true);
+}
+
+/**
+ * Admin: monospace, no-wrap editing for the Custom Code / Code Snippet fields.
+ */
+add_action('acf/input/admin_head', function () {
+    echo '<style>.ds-code-field textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;white-space:pre;tab-size:4;}</style>';
+});

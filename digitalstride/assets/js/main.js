@@ -1297,4 +1297,35 @@
         window.dsAudience = { get: current, set: function (v) { apply(v, { source: 'api' }); }, clear: function () { apply('', { source: 'api' }); } };
     })();
 
+    // Code Snippet: copy button
+    document.querySelectorAll('[data-ds-copy-code]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var code = btn.closest('.ds-code-snippet').querySelector('pre code');
+            var label = btn.querySelector('.ds-code-snippet__copy-label');
+            var text = code ? code.textContent : '';
+            var done = function () {
+                btn.classList.add('is-copied');
+                if (label) label.textContent = 'Copied!';
+                clearTimeout(btn._dsCopyTimer);
+                btn._dsCopyTimer = setTimeout(function () {
+                    btn.classList.remove('is-copied');
+                    if (label) label.textContent = 'Copy';
+                }, 2000);
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(done);
+                return;
+            }
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { if (document.execCommand('copy')) done(); } catch (e) {}
+            document.body.removeChild(ta);
+        });
+    });
+
 })();
