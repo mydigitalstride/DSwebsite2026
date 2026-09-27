@@ -55,7 +55,7 @@ if (!$images) return;
                         <?php if ($cap) : ?>
                             <div class="ds-gallery__caption"><?php echo esc_html($cap); ?></div>
                         <?php endif; ?>
-                        <div class="ds-gallery__overlay"><i class="fa-solid fa-expand"></i></div>
+                        <div class="ds-gallery__overlay"><i class="fa-solid fa-expand" aria-hidden="true"></i></div>
                 </a>
             </div>
         <?php endforeach; ?>
@@ -63,10 +63,10 @@ if (!$images) return;
 </section>
 
 <!-- Lightbox -->
-<div class="ds-lightbox" id="ds-lightbox" aria-hidden="true">
-    <button class="ds-lightbox__close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <button class="ds-lightbox__prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-    <button class="ds-lightbox__next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+<div class="ds-lightbox" id="ds-lightbox" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Image viewer', 'digitalstride'); ?>" aria-hidden="true">
+    <button type="button" class="ds-lightbox__close" aria-label="<?php esc_attr_e('Close', 'digitalstride'); ?>"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <button type="button" class="ds-lightbox__prev" aria-label="<?php esc_attr_e('Previous image', 'digitalstride'); ?>"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+    <button type="button" class="ds-lightbox__next" aria-label="<?php esc_attr_e('Next image', 'digitalstride'); ?>"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
     <div class="ds-lightbox__inner">
         <img class="ds-lightbox__img" src="" alt="">
         <p class="ds-lightbox__caption"></p>

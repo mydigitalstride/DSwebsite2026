@@ -48,7 +48,7 @@ $rows = array_chunk($steps, 3);
                 <?php if ($row_i > 0) : ?>
                     <!-- Down connector — anchored to far right (under last col of prev row) -->
                     <div class="ds-action-plan__connector">
-                        <i class="fa-solid fa-angles-down ds-action-plan__down-icon"></i>
+                        <i class="fa-solid fa-angles-down ds-action-plan__down-icon" aria-hidden="true"></i>
                     </div>
                 <?php endif; ?>
 
@@ -71,7 +71,7 @@ $rows = array_chunk($steps, 3);
 
                         <?php if ($s_i < count($display_row) - 1) : ?>
                             <div class="ds-action-plan__arrow">
-                                <i class="fa-solid <?php echo $arrow_icon; ?>"></i>
+                                <i class="fa-solid <?php echo $arrow_icon; ?>" aria-hidden="true"></i>
                             </div>
                         <?php endif; ?>
 
@@ -87,7 +87,7 @@ $rows = array_chunk($steps, 3);
                 <div class="ds-accordion__item">
                     <button class="ds-accordion__header" aria-expanded="false">
                         <span><?php echo esc_html($step['label']); ?></span>
-                        <i class="fa-solid fa-chevron-down ds-accordion__chevron"></i>
+                        <i class="fa-solid fa-chevron-down ds-accordion__chevron" aria-hidden="true"></i>
                     </button>
                     <div class="ds-accordion__body">
                         <?php if ($step['description']) : ?>

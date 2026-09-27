@@ -65,20 +65,20 @@ $heading = get_sub_field('heading');
                 <ul class="ds-contact__details">
                     <?php $hours = get_sub_field('business_hours'); ?>
                     <?php if ($hours) : ?>
-                        <li><i class="fa-solid fa-clock"></i> <?php echo esc_html($hours); ?></li>
+                        <li><i class="fa-solid fa-clock" aria-hidden="true"></i> <?php echo esc_html($hours); ?></li>
                     <?php endif; ?>
                     <?php $email = get_sub_field('email'); ?>
                     <?php if ($email) : ?>
-                        <li><i class="fa-solid fa-envelope"></i> <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><?php echo esc_html($email); ?></a></li>
+                        <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="<?php echo esc_url('mailto:' . $email); ?>" rel="nofollow"><?php echo esc_html($email); ?></a></li>
                     <?php endif; ?>
                     <?php $phone = get_sub_field('phone'); ?>
                     <?php if ($phone) : ?>
-                        <li><i class="fa-solid fa-phone"></i> <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><?php echo esc_html($phone); ?></a></li>
+                        <li><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="<?php echo esc_url('tel:' . preg_replace('/[^0-9+]/', '', $phone)); ?>" rel="nofollow"><?php echo esc_html($phone); ?></a></li>
                     <?php endif; ?>
                     <?php $address = get_sub_field('address'); $map = get_sub_field('map_url'); ?>
                     <?php if ($address) : ?>
                         <li>
-                            <i class="fa-solid fa-location-dot"></i>
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                             <?php if ($map) : ?>
                                 <a href="<?php echo esc_url($map); ?>" target="_blank" rel="noopener"><?php echo esc_html($address); ?></a>
                             <?php else : ?>

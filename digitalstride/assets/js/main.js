@@ -1,29 +1,152 @@
 (function () {
     'use strict';
 
-    // Mobile menu toggle
-    var hamburger = document.getElementById('ds-hamburger');
-    var nav = document.getElementById('ds-nav');
-    if (hamburger && nav) {
-        hamburger.addEventListener('click', function () {
-            nav.classList.toggle('is-open');
-            this.classList.toggle('is-active');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var uidCounter = 0;
+    function ensureId(el, prefix) {
+        if (!el.id) el.id = prefix + '-' + (++uidCounter);
+        return el.id;
+    }
+
+    // Hide an off-screen slide from assistive tech AND the tab order.
+    function setSlideHidden(slide, hidden) {
+        slide.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+        slide.inert = hidden;
+    }
+    document.querySelectorAll('[class*="__slide"][aria-hidden="true"]').forEach(function (s) { s.inert = true; });
+
+    function markDots(dots, index) {
+        dots.forEach(function (d, i) {
+            if (i === index) d.setAttribute('aria-current', 'true');
+            else d.removeAttribute('aria-current');
         });
     }
 
-    // Mobile mega-menu toggle (tap to open/close)
-    document.querySelectorAll('.ds-nav__item--mega > .ds-nav__link').forEach(function (link) {
+    /**
+     * Autoplay control for carousels (WCAG 2.2.2 Pause, Stop, Hide).
+     * Adds a visible pause/play button, pauses while the pointer or keyboard
+     * focus is inside, and starts paused when the visitor prefers reduced motion.
+     * start()/stop() are the carousel's own timer functions.
+     */
+    function dsAutoplay(root, start, stop) {
+        var userPaused = reduceMotion, hover = false, focus = false, running = false;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'ds-autoplay-toggle';
+
+        function sync() {
+            var should = !userPaused && !hover && !focus;
+            if (should && !running) { running = true; start(); }
+            else if (!should && running) { running = false; stop(); }
+            btn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+            btn.innerHTML = '<i class="fa-solid ' + (userPaused ? 'fa-play' : 'fa-pause') + '" aria-hidden="true"></i>';
+        }
+
+        btn.addEventListener('click', function () { userPaused = !userPaused; sync(); });
+        root.addEventListener('mouseenter', function () { hover = true; sync(); });
+        root.addEventListener('mouseleave', function () { hover = false; sync(); });
+        root.addEventListener('focusin', function (e) {
+            if (e.target === btn) return;
+            focus = true; sync();
+        });
+        root.addEventListener('focusout', function (e) {
+            if (root.contains(e.relatedTarget) && e.relatedTarget !== btn) return;
+            focus = false; sync();
+        });
+        root.appendChild(btn);
+        sync();
+
+        return {
+            active: function () { return running; },
+            restart: function () { if (running) { stop(); start(); } }
+        };
+    }
+
+    /**
+     * Arrow-key navigation for an ARIA tablist (roving tabindex).
+     * activate(index) must update aria-selected / tabindex / panels.
+     */
+    function dsTabKeys(tabs, activate) {
+        tabs = Array.prototype.slice.call(tabs);
+        tabs.forEach(function (tab, i) {
+            tab.addEventListener('keydown', function (e) {
+                if (tab.getAttribute('role') !== 'tab') return;
+                var to = null;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') to = (i + 1) % tabs.length;
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') to = (i - 1 + tabs.length) % tabs.length;
+                if (e.key === 'Home') to = 0;
+                if (e.key === 'End') to = tabs.length - 1;
+                if (to === null) return;
+                e.preventDefault();
+                activate(to);
+                tabs[to].focus();
+            });
+        });
+    }
+
+    // Mobile menu toggle
+    var hamburger = document.getElementById('ds-hamburger');
+    var nav = document.getElementById('ds-nav');
+    function setMenu(open) {
+        nav.classList.toggle('is-open', open);
+        hamburger.classList.toggle('is-active', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (hamburger && nav) {
+        hamburger.addEventListener('click', function () {
+            setMenu(!nav.classList.contains('is-open'));
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+                setMenu(false);
+                hamburger.focus();
+            }
+        });
+    }
+
+    // Mega menu — tap to open on mobile; on desktop it opens on hover or
+    // keyboard focus (CSS :focus-within) and Escape dismisses it.
+    document.querySelectorAll('.ds-nav__item--mega').forEach(function (item) {
+        var link = item.querySelector('.ds-nav__link');
+        var menu = item.querySelector('.ds-mega-menu');
+        if (!link) return;
+        if (menu) link.setAttribute('aria-controls', ensureId(menu, 'ds-mega'));
+
+        function expanded(on) { link.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+
         link.addEventListener('click', function (e) {
             if (window.innerWidth <= 1024) {
                 e.preventDefault();
-                var item = this.closest('.ds-nav__item--mega');
-                item.classList.toggle('is-open');
+                expanded(item.classList.toggle('is-open'));
             }
+        });
+        item.addEventListener('mouseenter', function () { item.classList.remove('is-dismissed'); expanded(true); });
+        item.addEventListener('mouseleave', function () { if (!item.contains(document.activeElement)) expanded(false); });
+        item.addEventListener('focusin', function () { if (!item.classList.contains('is-dismissed')) expanded(true); });
+        item.addEventListener('focusout', function (e) {
+            if (item.contains(e.relatedTarget)) return;
+            item.classList.remove('is-dismissed');
+            if (window.innerWidth > 1024) expanded(false);
+        });
+        item.addEventListener('keydown', function (e) {
+            if (e.key !== 'Escape') return;
+            item.classList.add('is-dismissed');
+            item.classList.remove('is-open');
+            expanded(false);
+            link.focus();
+            e.stopPropagation();
         });
     });
 
     // Generic accordion (FAQ, etc.)
     document.querySelectorAll('.ds-accordion__header').forEach(function (btn) {
+        var body = btn.closest('.ds-accordion__item').querySelector('.ds-accordion__body');
+        btn.type = 'button';
+        if (body) {
+            btn.setAttribute('aria-controls', ensureId(body, 'ds-acc'));
+            body.setAttribute('role', 'region');
+            body.setAttribute('aria-labelledby', ensureId(btn, 'ds-acc-btn'));
+        }
         btn.addEventListener('click', function () {
             var item = this.closest('.ds-accordion__item');
             var isOpen = item.classList.contains('is-active');
@@ -133,6 +256,7 @@
             dots.forEach(function (d, i) {
                 d.classList.toggle('is-active', i === current);
             });
+            markDots(dots, current);
         }
 
         function goTo(i) {
@@ -145,7 +269,9 @@
         function startAuto() {
             if (n > 1) timer = setInterval(next, 5000);
         }
-        function resetAuto() { clearInterval(timer); startAuto(); }
+        function stopAuto() { clearInterval(timer); }
+        var autoplay;
+        function resetAuto() { if (autoplay) autoplay.restart(); }
 
         dots.forEach(function (d) {
             d.addEventListener('click', function () {
@@ -163,7 +289,7 @@
         });
 
         render();
-        startAuto();
+        if (n > 1) autoplay = dsAutoplay(el, startAuto, stopAuto);
     };
     document.dispatchEvent(new CustomEvent('ds:fwc-ready'));
 
@@ -181,18 +307,20 @@
 
             function goTo(index) {
                 slides[current].classList.remove('is-active');
-                slides[current].setAttribute('aria-hidden', 'true');
+                setSlideHidden(slides[current], true);
                 if (dots.length) dots[current].classList.remove('is-active');
                 current = (index + slides.length) % slides.length;
                 slides[current].classList.add('is-active');
-                slides[current].setAttribute('aria-hidden', 'false');
+                setSlideHidden(slides[current], false);
                 if (dots.length) dots[current].classList.add('is-active');
+                markDots(dots, current);
             }
 
-            function resetAuto() {
-                clearInterval(timer);
-                if (autoInterval) timer = setInterval(function () { goTo(current + 1); }, autoInterval);
-            }
+            var autoplay;
+            function startAuto() { timer = setInterval(function () { goTo(current + 1); }, autoInterval); }
+            function stopAuto() { clearInterval(timer); }
+            function resetAuto() { if (autoplay) autoplay.restart(); }
+            markDots(dots, current);
 
             if (prev) prev.addEventListener('click', function () { goTo(current - 1); resetAuto(); });
             if (next) next.addEventListener('click', function () { goTo(current + 1); resetAuto(); });
@@ -200,7 +328,7 @@
                 dot.addEventListener('click', function () { goTo(parseInt(this.dataset.slide, 10)); resetAuto(); });
             });
 
-            if (autoInterval && slides.length > 1) resetAuto();
+            if (autoInterval && slides.length > 1) autoplay = dsAutoplay(wrap, startAuto, stopAuto);
         });
     }
 
@@ -214,13 +342,15 @@
         var panels = section.querySelectorAll('.ds-pft__panel');
         tabs.forEach(function (tab, i) {
             tab.addEventListener('click', function () {
-                tabs.forEach(function (t) { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
+                tabs.forEach(function (t) { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
                 panels.forEach(function (p) { p.classList.remove('is-active'); p.setAttribute('aria-hidden', 'true'); });
                 tab.classList.add('is-active');
                 tab.setAttribute('aria-selected', 'true');
+                tab.tabIndex = 0;
                 if (panels[i]) { panels[i].classList.add('is-active'); panels[i].setAttribute('aria-hidden', 'false'); }
             });
         });
+        dsTabKeys(tabs, function (i) { tabs[i].click(); });
     });
 
     // Pricing Stack — rotating 3-card perspective carousel
@@ -363,10 +493,35 @@
         var mobilePanels = widget.querySelectorAll('.ds-industry-tabs__mobile-panel');
         var isMobile = function () { return window.innerWidth <= 768; };
 
+        var list = widget.querySelector('.ds-industry-tabs__list');
+
+        // Desktop is an ARIA tablist; on mobile the same buttons are
+        // accordion toggles, so swap the roles to match what they do.
+        function applyMode() {
+            var mobile = isMobile();
+            if (list) {
+                if (mobile) list.removeAttribute('role'); else list.setAttribute('role', 'tablist');
+            }
+            tabs.forEach(function (t, i) {
+                if (mobile) {
+                    t.removeAttribute('role');
+                    t.removeAttribute('aria-selected');
+                    t.tabIndex = 0;
+                    t.setAttribute('aria-controls', ensureId(mobilePanels[i], 'ds-industry-mobile'));
+                    t.setAttribute('aria-expanded', mobilePanels[i].classList.contains('is-active') ? 'true' : 'false');
+                } else {
+                    t.setAttribute('role', 'tab');
+                    t.removeAttribute('aria-expanded');
+                    if (panels[i]) t.setAttribute('aria-controls', panels[i].id);
+                }
+            });
+        }
+
         function activateDesktop(index) {
             tabs.forEach(function (t, i) {
                 t.classList.toggle('is-active', i === index);
                 t.setAttribute('aria-selected', i === index ? 'true' : 'false');
+                t.tabIndex = i === index ? 0 : -1;
             });
             panels.forEach(function (p, i) {
                 p.classList.toggle('is-active', i === index);
@@ -382,6 +537,7 @@
                 tabs[index].classList.add('is-active');
                 mobilePanels[index].classList.add('is-active');
             }
+            tabs.forEach(function (t, i) { t.setAttribute('aria-expanded', i === index && !isOpen ? 'true' : 'false'); });
         }
 
         tabs.forEach(function (tab, i) {
@@ -390,8 +546,15 @@
             });
         });
 
+        dsTabKeys(tabs, activateDesktop);
+        applyMode();
+
+        var wasMobile = isMobile();
         window.addEventListener('resize', function () {
-            if (!isMobile()) { activateDesktop(0); }
+            if (isMobile() === wasMobile) return;
+            wasMobile = isMobile();
+            if (!wasMobile) { activateDesktop(0); }
+            applyMode();
         });
     });
 
@@ -500,9 +663,11 @@
         }
 
         // Slides marked data-wait play through and advance on 'ended' instead of on a timer.
+        var autoplay;
         function schedule() {
             clearTimeout(timer);
             if (slides.length < 2) return;
+            if (autoplay && !autoplay.active()) return;
             if (slides[current].dataset.wait === '1') return;
             timer = setTimeout(function () { goTo(current + 1); }, interval);
         }
@@ -512,14 +677,15 @@
             if (next === current) return;
 
             slides[current].classList.remove('is-active');
-            slides[current].setAttribute('aria-hidden', 'true');
+            setSlideHidden(slides[current], true);
             if (dots.length) dots[current].classList.remove('is-active');
             stopMedia(slides[current]);
 
             current = next;
             slides[current].classList.add('is-active');
-            slides[current].setAttribute('aria-hidden', 'false');
+            setSlideHidden(slides[current], false);
             if (dots.length) dots[current].classList.add('is-active');
+            markDots(dots, current);
             startMedia(slides[current]);
 
             schedule();
@@ -545,7 +711,8 @@
             dots.forEach(function (dot) {
                 dot.addEventListener('click', function () { goTo(parseInt(this.dataset.slide, 10)); });
             });
-            schedule();
+            markDots(dots, current);
+            autoplay = dsAutoplay(carousel, schedule, function () { clearTimeout(timer); });
         }
     });
 
@@ -595,7 +762,6 @@
 
         measure();
         updateClasses();
-        start();
 
         window.addEventListener('resize', function () {
             measure();
@@ -603,8 +769,7 @@
             updateClasses();
         });
 
-        carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
-        carousel.addEventListener('mouseleave', start);
+        dsAutoplay(carousel, start, function () { clearInterval(timer); });
     });
 
     // Gallery lightbox
@@ -623,19 +788,24 @@
             items = Array.from(document.querySelectorAll('.ds-gallery__lightbox'));
         }
 
+        var returnFocus = null;
+
         function open(index) {
             collect();
             current = index;
             show(current);
+            returnFocus = document.activeElement;
             lightbox.classList.add('is-open');
             lightbox.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+            closeBtn.focus();
         }
 
         function close() {
             lightbox.classList.remove('is-open');
             lightbox.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
+            if (returnFocus && returnFocus.focus) returnFocus.focus();
         }
 
         function show(index) {
@@ -663,6 +833,15 @@
         document.addEventListener('keydown', function (e) {
             if (!lightbox.classList.contains('is-open')) return;
             if (e.key === 'Escape') close();
+            if (e.key === 'Tab') {
+                // Keep keyboard focus inside the open dialog.
+                var f = Array.prototype.filter.call(lightbox.querySelectorAll('button'), function (b) { return b.offsetParent !== null; });
+                if (!f.length) return;
+                var first = f[0], last = f[f.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                else if (!lightbox.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+            }
             if (e.key === 'ArrowLeft') { current = (current - 1 + items.length) % items.length; show(current); }
             if (e.key === 'ArrowRight') { current = (current + 1) % items.length; show(current); }
         });
@@ -1166,7 +1345,10 @@
             if (t) {
                 e.preventDefault();
                 var off = header ? header.offsetHeight + 20 : 100;
-                window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - off, behavior: 'smooth' });
+                window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - off, behavior: reduceMotion ? 'auto' : 'smooth' });
+                // Move keyboard focus with the scroll (skip link, in-page nav).
+                if (!t.matches('a, button, input, select, textarea, [tabindex]')) t.setAttribute('tabindex', '-1');
+                t.focus({ preventScroll: true });
             }
         });
     });

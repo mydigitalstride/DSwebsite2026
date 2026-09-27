@@ -58,7 +58,7 @@ class DS_Mega_Menu_Walker extends Walker_Nav_Menu {
             $output .= '<a href="' . esc_url($item->url) . '" class="ds-nav__link">';
             $output .= esc_html($item->title);
             if ($has_children) {
-                $output .= ' <i class="fa-solid fa-chevron-down ds-nav__arrow"></i>';
+                $output .= ' <i class="fa-solid fa-chevron-down ds-nav__arrow" aria-hidden="true"></i>';
             }
             $output .= '</a>';
         } elseif ($depth === 1 && $this->in_mega) {

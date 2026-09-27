@@ -18,7 +18,7 @@ $heading = get_sub_field('heading');
                     <div class="ds-accordion__item">
                         <button class="ds-accordion__header" aria-expanded="false">
                             <span><?php echo esc_html(get_sub_field('question')); ?></span>
-                            <i class="fa-solid fa-chevron-down ds-accordion__chevron"></i>
+                            <i class="fa-solid fa-chevron-down ds-accordion__chevron" aria-hidden="true"></i>
                         </button>
                         <div class="ds-accordion__body">
                             <?php echo wp_kses_post(get_sub_field('answer')); ?>
