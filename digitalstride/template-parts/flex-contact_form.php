@@ -20,10 +20,15 @@ $heading = get_sub_field('heading');
                     <h3><?php echo esc_html($form_heading); ?></h3>
                 <?php endif; ?>
                 <?php
-                // Support both legacy shortcodes and modern iframe embeds.
+                // Built-in lead form (sends to DSD), else an iframe embed or legacy shortcode.
                 $embed     = get_sub_field('form_embed');
                 $shortcode = get_sub_field('form_shortcode');
-                if ($embed) :
+                if (get_sub_field('use_lead_form')) :
+                    get_template_part('template-parts/lead-form', null, [
+                        'services'     => get_sub_field('services'),
+                        'button_label' => get_sub_field('button_label'),
+                    ]);
+                elseif ($embed) :
                     // Allow iframe tags with all necessary attributes for third-party embeds.
                     $allowed = [
                         'iframe' => [

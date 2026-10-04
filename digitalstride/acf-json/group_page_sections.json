@@ -346,19 +346,80 @@
                             "default_value": "Tell Us About Your Business"
                         },
                         {
+                            "key": "field_cf_use_lead_form",
+                            "label": "Use Built-in Lead Form",
+                            "name": "use_lead_form",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 0,
+                            "instructions": "Show our own lead form, which sends every lead (with its UTM / ad-click tracking) to DSD. Turn off to use the embed code or shortcode below instead."
+                        },
+                        {
+                            "key": "field_cf_services",
+                            "label": "Services (dropdown)",
+                            "name": "services",
+                            "type": "textarea",
+                            "rows": 8,
+                            "default_value": "SEO & Local SEO\nGoogle Ads / PPC\nWebsite Design & Development\nSocial Media Marketing\nBranding\nEmail Marketing\nMarketing Strategy\nNot sure yet",
+                            "instructions": "One per line. Shown in the \"Service you're interested in\" dropdown and sent to DSD as the lead's service.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_cf_use_lead_form",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_cf_button_label",
+                            "label": "Button Label",
+                            "name": "button_label",
+                            "type": "text",
+                            "default_value": "Send Message",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_cf_use_lead_form",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
                             "key": "field_cf_embed",
                             "label": "Form Embed Code",
                             "name": "form_embed",
                             "type": "textarea",
                             "rows": 6,
-                            "instructions": "Paste the full iframe embed code (e.g. from LeadConnector / GoHighLevel). Takes priority over the shortcode field below."
+                            "instructions": "Paste the full iframe embed code (e.g. from LeadConnector / GoHighLevel). Takes priority over the shortcode field below.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_cf_use_lead_form",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
                         },
                         {
                             "key": "field_cf_shortcode",
                             "label": "Form Shortcode (legacy)",
                             "name": "form_shortcode",
                             "type": "text",
-                            "instructions": "Legacy: e.g. [contact-form-7 id=\"123\"]. Leave blank if using the Embed Code field above."
+                            "instructions": "Legacy: e.g. [contact-form-7 id=\"123\"]. Leave blank if using the Embed Code field above.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_cf_use_lead_form",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
                         },
                         {
                             "key": "field_cf_info_heading",
@@ -3527,6 +3588,82 @@
                         }
                     ]
                 },
+                "layout_lead_form": {
+                    "key": "layout_lead_form",
+                    "name": "lead_form",
+                    "label": "Lead Form (sends to DSD)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_lead_form",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_lf_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "LET'S TALK"
+                        },
+                        {
+                            "key": "field_lf_intro",
+                            "label": "Intro Text",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "default_value": "Tell us a little about your business and what you need. We'll get back to you within one business day."
+                        },
+                        {
+                            "key": "field_lf_services",
+                            "label": "Services (dropdown)",
+                            "name": "services",
+                            "type": "textarea",
+                            "rows": 8,
+                            "default_value": "SEO & Local SEO\nGoogle Ads / PPC\nWebsite Design & Development\nSocial Media Marketing\nBranding\nEmail Marketing\nMarketing Strategy\nNot sure yet",
+                            "instructions": "One per line. Shown in the \"Service you're interested in\" dropdown and sent to DSD as the lead's service."
+                        },
+                        {
+                            "key": "field_lf_button",
+                            "label": "Button Label",
+                            "name": "button_label",
+                            "type": "text",
+                            "default_value": "Send Message"
+                        },
+                        {
+                            "key": "field_lf_success_heading",
+                            "label": "Thank-you Heading",
+                            "name": "success_heading",
+                            "type": "text",
+                            "default_value": "Thanks — we got it!"
+                        },
+                        {
+                            "key": "field_lf_success_text",
+                            "label": "Thank-you Text",
+                            "name": "success_text",
+                            "type": "textarea",
+                            "rows": 2,
+                            "default_value": "We'll be in touch within one business day."
+                        }
+                    ]
+                },
                 "layout_proposal_templates": {
                     "key": "layout_proposal_templates",
                     "name": "proposal_templates",
@@ -3641,5 +3778,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1790300340
+    "modified": 1791157117
 }
