@@ -27,19 +27,43 @@
         </button>
 
         <nav class="ds-nav" id="ds-nav" aria-label="<?php esc_attr_e('Primary', 'digitalstride'); ?>">
+            <?php
+            // Who We Serve card panel — rendered once up front so its
+            // have_rows() loop doesn't run nested inside nav_items.
+            ob_start();
+            get_template_part('template-parts/mega-who-we-serve');
+            $wws_panel = trim(ob_get_clean());
+
+            global $wp;
+            $current_url = untrailingslashit(home_url($wp->request ?? ''));
+            ?>
             <ul class="ds-nav__list">
                 <?php if (have_rows('nav_items', 'option')) : while (have_rows('nav_items', 'option')) : the_row(); ?>
-                    <?php $has_mega = get_sub_field('enable_mega_menu'); ?>
-                    <li class="ds-nav__item<?php echo $has_mega ? ' ds-nav__item--mega' : ''; ?>">
-                        <?php $link = get_sub_field('link'); ?>
-                        <a href="<?php echo esc_url($link['url']); ?>" class="ds-nav__link"<?php echo $has_mega ? ' aria-haspopup="true" aria-expanded="false"' : ''; ?>>
-                            <?php echo esc_html($link['title']); ?>
+                    <?php
+                    $link     = get_sub_field('link');
+                    $has_mega = get_sub_field('enable_mega_menu');
+                    $is_cards = $has_mega && get_sub_field('mega_menu_type') === 'cards';
+                    if ($is_cards && $wws_panel === '') {
+                        $has_mega = $is_cards = false; // no cards entered yet
+                    }
+                    $is_current = $link && untrailingslashit($link['url']) === $current_url;
+
+                    $item_class = 'ds-nav__item';
+                    if ($has_mega) $item_class .= ' ds-nav__item--mega';
+                    if ($is_cards) $item_class .= ' ds-nav__item--mega-cards';
+                    if ($is_current) $item_class .= ' is-current';
+                    ?>
+                    <li class="<?php echo esc_attr($item_class); ?>">
+                        <a href="<?php echo esc_url($link['url']); ?>" class="ds-nav__link"<?php echo $has_mega ? ' aria-haspopup="true" aria-expanded="false"' : ''; ?><?php echo $is_current ? ' aria-current="page"' : ''; ?>>
+                            <span class="ds-nav__label"><?php echo esc_html($link['title']); ?></span>
                             <?php if ($has_mega) : ?>
                                 <i class="fa-solid fa-chevron-down ds-nav__arrow" aria-hidden="true"></i>
                             <?php endif; ?>
                         </a>
 
-                        <?php if ($has_mega && have_rows('mega_columns')) : ?>
+                        <?php if ($is_cards) : ?>
+                            <?php echo $wws_panel; // escaped in template-parts/mega-who-we-serve.php ?>
+                        <?php elseif ($has_mega && have_rows('mega_columns')) : ?>
                             <div class="ds-mega-menu">
                                 <div class="ds-mega-menu__inner">
                                     <?php while (have_rows('mega_columns')) : the_row(); ?>

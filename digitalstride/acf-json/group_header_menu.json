@@ -18,7 +18,7 @@
             "type": "repeater",
             "layout": "block",
             "button_label": "Add Menu Item",
-            "instructions": "Build the main navigation. Enable mega menu on Services to show a 3-column dropdown.",
+            "instructions": "Build the main navigation. Enable a mega menu on an item and choose its style: link columns (e.g. Services) or the Who We Serve image cards.",
             "sub_fields": [
                 {
                     "key": "field_nav_link",
@@ -34,7 +34,32 @@
                     "type": "true_false",
                     "ui": 1,
                     "default_value": 0,
-                    "instructions": "Turn on for the Services item to display a 3-column mega dropdown."
+                    "instructions": "Show a full-width dropdown under this item."
+                },
+                {
+                    "key": "field_nav_mega_type",
+                    "label": "Mega Menu Style",
+                    "name": "mega_menu_type",
+                    "type": "select",
+                    "instructions": "Link columns: up to 3 columns of links (Services). Who We Serve cards: the image cards set under \"Who We Serve Cards\" below.",
+                    "choices": {
+                        "columns": "Link columns",
+                        "cards": "Who We Serve cards"
+                    },
+                    "default_value": "columns",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_nav_mega",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ]
                 },
                 {
                     "key": "field_nav_mega_cols",
@@ -51,6 +76,11 @@
                                 "field": "field_nav_mega",
                                 "operator": "==",
                                 "value": "1"
+                            },
+                            {
+                                "field": "field_nav_mega_type",
+                                "operator": "!=",
+                                "value": "cards"
                             }
                         ]
                     ],
@@ -80,6 +110,71 @@
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "key": "field_wws_cards",
+            "label": "Who We Serve Cards",
+            "name": "who_we_serve_cards",
+            "type": "repeater",
+            "instructions": "Image cards for the \"Who We Serve\" dropdown. Three cards fill one row; drag to reorder. Set the nav item's Mega Menu Style to \"Who We Serve cards\" to use them.",
+            "layout": "block",
+            "button_label": "Add Card",
+            "min": 0,
+            "max": 6,
+            "collapsed": "field_wws_card_title",
+            "sub_fields": [
+                {
+                    "key": "field_wws_card_title",
+                    "label": "Card Title",
+                    "name": "card_title",
+                    "type": "text",
+                    "required": 1,
+                    "placeholder": "AEC Industry",
+                    "maxlength": 40,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_cta",
+                    "label": "Hover CTA Text",
+                    "name": "card_cta_text",
+                    "type": "text",
+                    "instructions": "Shown on hover. The arrow is added automatically.",
+                    "default_value": "Explore More",
+                    "maxlength": 30,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_image",
+                    "label": "Background Image",
+                    "name": "card_image",
+                    "type": "image",
+                    "required": 1,
+                    "instructions": "Landscape, at least 1200×700px. The blue / orange overlay is applied automatically.",
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp,avif",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_link",
+                    "label": "Destination Link",
+                    "name": "card_link",
+                    "type": "link",
+                    "required": 1,
+                    "instructions": "Pick a page or paste any URL.",
+                    "return_format": "array",
+                    "wrapper": {
+                        "width": "50"
+                    }
                 }
             ]
         },
@@ -118,5 +213,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1788890352
+    "modified": 1791402444
 }
