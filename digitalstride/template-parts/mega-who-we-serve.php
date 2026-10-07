@@ -2,7 +2,7 @@
 /**
  * Who We Serve — image-card mega menu panel.
  *
- * Loops the `who_we_serve_cards` repeater (Theme Settings > Header & Menu).
+ * Loops the `who_we_serve_cards` repeater (Theme Settings > Who We Serve Menu).
  * Until cards are entered there, it falls back to AEC / Home Services /
  * Realtors cards linked to the Audiences pages, so the dropdown works out
  * of the box. Card images fall back to the destination page's featured image.

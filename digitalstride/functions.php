@@ -69,6 +69,12 @@ add_action('acf/init', function () {
         'parent_slug' => 'theme-settings',
     ]);
     acf_add_options_sub_page([
+        'page_title'  => 'Who We Serve Menu',
+        'menu_title'  => 'Who We Serve Menu',
+        'menu_slug'   => 'acf-options-who-we-serve-menu',
+        'parent_slug' => 'theme-settings',
+    ]);
+    acf_add_options_sub_page([
         'page_title'  => 'Footer Settings',
         'menu_title'  => 'Footer',
         'parent_slug' => 'theme-settings',
