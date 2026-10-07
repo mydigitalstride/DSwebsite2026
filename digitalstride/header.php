@@ -9,8 +9,6 @@
 <?php wp_body_open(); ?>
 <a class="ds-skip-link" href="#main"><?php esc_html_e('Skip to main content', 'digitalstride'); ?></a>
 
-<?php ds_render_audience_bar(); ?>
-
 <header class="ds-header" id="ds-header">
     <div class="ds-header__inner">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="ds-header__logo">
