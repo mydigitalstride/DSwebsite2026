@@ -42,9 +42,19 @@
                     <?php
                     $link     = get_sub_field('link');
                     $has_mega = get_sub_field('enable_mega_menu');
-                    $is_cards = $has_mega && get_sub_field('mega_menu_type') === 'cards';
-                    if ($is_cards && $wws_panel === '') {
-                        $has_mega = $is_cards = false; // no cards entered yet
+                    $mega_type = get_sub_field('mega_menu_type');
+
+                    // The "Who We Serve" item gets the card panel automatically,
+                    // unless it has been given link columns of its own.
+                    $is_wws = $link && (
+                        strcasecmp(trim(wp_strip_all_tags($link['title'])), 'Who We Serve') === 0
+                        || strpos((string) wp_parse_url($link['url'], PHP_URL_PATH), 'who-we-serve') !== false
+                    );
+                    $has_columns = $has_mega && $mega_type !== 'cards' && get_sub_field('mega_columns');
+                    $is_cards = $wws_panel !== '' && !$has_columns
+                        && ($is_wws || ($has_mega && $mega_type === 'cards'));
+                    if ($is_cards) {
+                        $has_mega = true;
                     }
                     $is_current = $link && untrailingslashit($link['url']) === $current_url;
 
