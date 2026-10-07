@@ -254,26 +254,29 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     --ds-wws-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Open / active tab: brand gradient text */
-.ds-nav__item--mega-cards.is-open > .ds-nav__link .ds-nav__label,
-.ds-nav__item--mega-cards.is-current > .ds-nav__link .ds-nav__label {
+/* Nav tabs: brand gradient text on hover, while pressed, when a dropdown
+   is open, and on the current page / section */
+.ds-nav__item > .ds-nav__link:active .ds-nav__label,
+.ds-nav__item.is-open > .ds-nav__link .ds-nav__label,
+.ds-nav__item.is-current > .ds-nav__link .ds-nav__label {
     background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.ds-nav__item--mega-cards.is-open > .ds-nav__link .ds-nav__arrow,
-.ds-nav__item--mega-cards.is-current > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+.ds-nav__item > .ds-nav__link:active .ds-nav__arrow,
+.ds-nav__item.is-open > .ds-nav__link .ds-nav__arrow,
+.ds-nav__item.is-current > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
 @media (min-width: 1025px) {
-    .ds-nav__item--mega-cards:not(.is-dismissed):hover > .ds-nav__link .ds-nav__label,
-    .ds-nav__item--mega-cards:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__label {
+    .ds-nav__item:not(.is-dismissed):hover > .ds-nav__link .ds-nav__label,
+    .ds-nav__item:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__label {
         background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .ds-nav__item--mega-cards:not(.is-dismissed):hover > .ds-nav__link .ds-nav__arrow,
-    .ds-nav__item--mega-cards:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+    .ds-nav__item:not(.is-dismissed):hover > .ds-nav__link .ds-nav__arrow,
+    .ds-nav__item:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
 
     .ds-nav__item--mega-cards:hover .ds-mega-menu--cards,
     .ds-nav__item--mega-cards:focus-within .ds-mega-menu--cards { animation: ds-wws-in 0.3s var(--ds-wws-ease); }
@@ -2961,7 +2964,6 @@ html[data-audience="home_services"] .ds-audience--aec { display: none !important
 /* Switcher bar above the header */
 .ds-audience-bar {
     background: var(--ds-bg);
-    border-bottom: 1px solid rgba(242,245,251,0.12);
     font-family: var(--font-heading);
     font-size: 0.85em;
 }

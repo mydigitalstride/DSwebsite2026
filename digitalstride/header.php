@@ -35,7 +35,8 @@
             $wws_panel = trim(ob_get_clean());
 
             global $wp;
-            $current_url = untrailingslashit(home_url($wp->request ?? ''));
+            $current_path = trailingslashit('/' . ltrim((string) wp_parse_url(home_url($wp->request ?? ''), PHP_URL_PATH), '/'));
+            $home_path    = trailingslashit('/' . ltrim((string) wp_parse_url(home_url('/'), PHP_URL_PATH), '/'));
             ?>
             <ul class="ds-nav__list">
                 <?php if (have_rows('nav_items', 'option')) : while (have_rows('nav_items', 'option')) : the_row(); ?>
@@ -56,7 +57,14 @@
                     if ($is_cards) {
                         $has_mega = true;
                     }
-                    $is_current = $link && untrailingslashit($link['url']) === $current_url;
+                    // Current page, or a page inside that tab's section (Home only on itself).
+                    $link_path  = $link ? trailingslashit('/' . ltrim((string) wp_parse_url($link['url'], PHP_URL_PATH), '/')) : '';
+                    $link_host  = $link ? wp_parse_url($link['url'], PHP_URL_HOST) : '';
+                    $is_current = $link && strpos($link['url'], '#') !== 0
+                        && (!$link_host || $link_host === wp_parse_url(home_url(), PHP_URL_HOST)) && (
+                        $link_path === $current_path
+                        || ($link_path !== $home_path && strpos($current_path, $link_path) === 0)
+                    );
 
                     $item_class = 'ds-nav__item';
                     if ($has_mega) $item_class .= ' ds-nav__item--mega';
