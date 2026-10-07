@@ -247,6 +247,157 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-mega-menu__links a:hover { color: var(--ds-white); }
 .ds-mega-menu__links a:hover::before { color: var(--ds-blue-gradient); }
 
+/* - Who We Serve: image-card mega menu - */
+.ds-nav__item--mega-cards {
+    --ds-wws-blue: linear-gradient(135deg, rgba(5, 24, 121, 0.9) 0%, rgba(9, 147, 191, 0.72) 100%);
+    --ds-wws-orange: linear-gradient(135deg, rgba(243, 110, 33, 0.94) 0%, rgba(242, 200, 20, 0.88) 100%);
+    --ds-wws-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Open / active tab: brand gradient text */
+.ds-nav__item--mega-cards.is-open > .ds-nav__link .ds-nav__label,
+.ds-nav__item--mega-cards.is-current > .ds-nav__link .ds-nav__label {
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.ds-nav__item--mega-cards.is-open > .ds-nav__link .ds-nav__arrow,
+.ds-nav__item--mega-cards.is-current > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+@media (min-width: 1025px) {
+    .ds-nav__item--mega-cards:not(.is-dismissed):hover > .ds-nav__link .ds-nav__label,
+    .ds-nav__item--mega-cards:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__label {
+        background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .ds-nav__item--mega-cards:not(.is-dismissed):hover > .ds-nav__link .ds-nav__arrow,
+    .ds-nav__item--mega-cards:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+
+    .ds-nav__item--mega-cards:hover .ds-mega-menu--cards,
+    .ds-nav__item--mega-cards:focus-within .ds-mega-menu--cards { animation: ds-wws-in 0.3s var(--ds-wws-ease); }
+}
+@keyframes ds-wws-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.ds-wws-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+}
+.ds-wws-grid__item { margin: 0; }
+
+.ds-wws-card {
+    position: relative;
+    display: block;
+    height: clamp(180px, 13vw, 260px);
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--ds-navy-gradient); /* if no image */
+    color: var(--ds-white);
+    text-decoration: none;
+}
+.ds-wws-card:hover { color: var(--ds-white); }
+.ds-wws-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.8s var(--ds-wws-ease);
+}
+
+/* Two stacked overlays cross-fade — gradients themselves can't be transitioned */
+.ds-wws-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: opacity 0.45s var(--ds-wws-ease);
+}
+.ds-wws-card__overlay--default { background: var(--ds-wws-blue); }
+.ds-wws-card__overlay--hover { background: var(--ds-wws-orange); opacity: 0; }
+
+.ds-wws-card__body {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25em;
+    text-align: center;
+}
+.ds-wws-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.2vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+    /* Hidden CTA still takes up room below, so nudge the title down to sit
+       centred; it slides back up as the CTA appears. */
+    transform: translateY(0.9em);
+    transition: transform 0.45s var(--ds-wws-ease);
+}
+.ds-wws-card__cta {
+    margin-top: 0.75em;
+    font-family: var(--font-heading);
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.35s var(--ds-wws-ease), transform 0.35s var(--ds-wws-ease);
+}
+.ds-wws-card__arrow { display: inline-block; transition: transform 0.35s var(--ds-wws-ease); }
+
+.ds-wws-card:hover .ds-wws-card__overlay--default,
+.ds-wws-card:focus-visible .ds-wws-card__overlay--default { opacity: 0; }
+.ds-wws-card:hover .ds-wws-card__overlay--hover,
+.ds-wws-card:focus-visible .ds-wws-card__overlay--hover { opacity: 1; }
+.ds-wws-card:hover .ds-wws-card__img,
+.ds-wws-card:focus-visible .ds-wws-card__img { transform: scale(1.05); }
+.ds-wws-card:hover .ds-wws-card__title,
+.ds-wws-card:focus-visible .ds-wws-card__title { transform: none; }
+.ds-wws-card:hover .ds-wws-card__cta,
+.ds-wws-card:focus-visible .ds-wws-card__cta { opacity: 1; transform: none; transition-delay: 0.08s; }
+.ds-wws-card:hover .ds-wws-card__arrow,
+.ds-wws-card:focus-visible .ds-wws-card__arrow { transform: translateX(4px); }
+.ds-wws-card:focus-visible { outline: 3px solid var(--ds-yellow); outline-offset: 3px; }
+
+/* Touch screens have no hover: show the CTA up front */
+@media (hover: none) {
+    .ds-wws-card__title { transform: none; }
+    .ds-wws-card__cta { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1024px) {
+    .ds-wws-grid { grid-template-columns: 1fr; gap: 0.75em; }
+    .ds-wws-card { height: clamp(110px, 30vw, 180px); }
+    .ds-wws-card__title { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-mega-menu--cards { animation: none !important; }
+    .ds-wws-card__img,
+    .ds-wws-card__overlay,
+    .ds-wws-card__title,
+    .ds-wws-card__cta,
+    .ds-wws-card__arrow { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+    .ds-wws-card:hover .ds-wws-card__img,
+    .ds-wws-card:focus-visible .ds-wws-card__img { transform: none; }
+}
+
 /* - Hero - */
 .ds-hero {
     position: relative;
