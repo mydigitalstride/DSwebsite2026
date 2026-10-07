@@ -131,33 +131,6 @@ function ds_audience_wrap_close($opened) {
 }
 
 /**
- * Switcher bar above the header, rendered from header.php.
- */
-function ds_render_audience_bar() {
-    if (!function_exists('get_field')) return;
-    $enabled = get_field('audience_bar_enabled', 'option');
-    if ($enabled === false || $enabled === 0 || $enabled === '0') return;
-
-    $label = get_field('audience_bar_label', 'option');
-    if ($label === null || $label === '') $label = "I'm in:";
-    ?>
-    <div class="ds-audience-bar" id="ds-audience-bar">
-        <div class="ds-audience-bar__inner">
-            <span class="ds-audience-bar__label"><?php echo esc_html($label); ?></span>
-            <div class="ds-audience-bar__options" role="group" aria-label="<?php esc_attr_e('Choose your industry', 'digitalstride'); ?>">
-                <?php foreach (array_keys(ds_audiences()) as $slug) : ?>
-                    <?php ds_audience_button($slug, ['class' => 'ds-audience-bar__btn', 'on_select' => 'reveal']); ?>
-                <?php endforeach; ?>
-            </div>
-            <button type="button" class="ds-audience-bar__clear" data-audience-clear aria-label="<?php esc_attr_e('Show content for everyone', 'digitalstride'); ?>">
-                <?php esc_html_e('Show all', 'digitalstride'); ?>
-            </button>
-        </div>
-    </div>
-    <?php
-}
-
-/**
  * Apply the stored / URL audience before first paint so there is no flash
  * of the other industry's content. Runs at the top of <head>.
  */
