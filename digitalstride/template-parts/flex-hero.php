@@ -14,6 +14,7 @@ $slides     = get_sub_field('carousel_images');
 $has_carousel = !empty($slides) && is_array($slides);
 $audience_btns = get_sub_field('show_audience_buttons');
 $audience_mode = get_sub_field('audience_on_select') ?: 'reveal';
+$service_ctas  = is_page_template(['page-service-overview.php', 'page-service-v1.php', 'page-service-v2.php', 'page-services.php']);
 ?>
 
 <section class="ds-hero <?php echo $has_carousel ? 'ds-hero--split' : ''; ?>"<?php if ($bg) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
@@ -36,6 +37,7 @@ $audience_mode = get_sub_field('audience_on_select') ?: 'reveal';
                         <?php if ($cta) : ?>
                             <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-btn--hero"><?php echo esc_html($cta['title']); ?></a>
                         <?php endif; ?>
+                        <?php if ($service_ctas) get_template_part('template-parts/hero-service-ctas'); ?>
                         <?php if ($audience_btns) : ?>
                             <div class="ds-hero__audience" role="group" aria-label="<?php esc_attr_e('Choose your industry', 'digitalstride'); ?>">
                                 <?php foreach (array_keys(ds_audiences()) as $slug) : ?>
