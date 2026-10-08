@@ -351,3 +351,46 @@ function ds_enqueue_code_highlighting() {
 add_action('acf/input/admin_head', function () {
     echo '<style>.ds-code-field textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;white-space:pre;tab-size:4;}</style>';
 });
+
+/**
+ * Breadcrumb trail under the header on pages and posts.
+ *
+ * Uses ECHO SEO's echs_breadcrumbs() when the plugin is active, so the
+ * visible trail matches the BreadcrumbList it prints in the schema graph.
+ * Without the plugin the same Home › parents › page trail is rendered here
+ * (no schema). Skipped on the front page and Landing Page template (ad
+ * landing pages shouldn't offer a way out); the ds_show_breadcrumbs filter
+ * can turn it off anywhere else. The proposal template pages render their
+ * own trail.
+ */
+function ds_breadcrumbs() {
+    if (!is_singular() || is_front_page() || is_page_template('page-landing.php')) return;
+    if (!apply_filters('ds_show_breadcrumbs', true, get_queried_object_id())) return;
+
+    echo '<div class="ds-breadcrumbs"><div class="ds-container">';
+    if (function_exists('echs_breadcrumbs')) {
+        echs_breadcrumbs();
+    } else {
+        $post_id = get_queried_object_id();
+        $items   = [['name' => get_bloginfo('name'), 'url' => home_url('/')]];
+        foreach (array_reverse(get_post_ancestors($post_id)) as $ancestor_id) {
+            $items[] = ['name' => get_the_title($ancestor_id), 'url' => get_permalink($ancestor_id)];
+        }
+        $items[] = ['name' => get_the_title($post_id), 'url' => ''];
+
+        echo '<nav class="echs-breadcrumbs" aria-label="' . esc_attr__('Breadcrumb', 'digitalstride') . '"><ol>';
+        $last = count($items) - 1;
+        foreach ($items as $i => $item) {
+            echo '<li>';
+            if ($item['url'] !== '') {
+                echo '<a href="' . esc_url($item['url']) . '">' . esc_html($item['name']) . '</a>';
+            } else {
+                echo '<span aria-current="page">' . esc_html($item['name']) . '</span>';
+            }
+            echo '</li>';
+            if ($i < $last) echo '<li class="echs-breadcrumb-sep" aria-hidden="true">/</li>';
+        }
+        echo '</ol></nav>';
+    }
+    echo '</div></div>';
+}

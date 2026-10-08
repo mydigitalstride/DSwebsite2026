@@ -126,3 +126,4 @@
 </header>
 
 <main id="main" class="ds-main" tabindex="-1">
+<?php ds_breadcrumbs(); ?>
