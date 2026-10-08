@@ -215,3 +215,8 @@ add_filter('body_class', function ($classes) {
     if (is_page_template(DS_AEC_TEMPLATE)) $classes[] = 'ds-page-aec';
     return $classes;
 });
+
+// No breadcrumb trail above the hero (see ds_breadcrumbs()).
+add_filter('ds_show_breadcrumbs', function ($show) {
+    return is_page_template(DS_AEC_TEMPLATE) ? false : $show;
+});
