@@ -1,0 +1,517 @@
+{
+    "key": "group_aec_landing",
+    "title": "AEC Landing Page",
+    "fields": [
+        {
+            "key": "field_aec_tab_hero",
+            "label": "Hero",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_hero",
+            "label": "Hero",
+            "name": "aec_hero",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_aec_hero_tag",
+                    "label": "Section tag",
+                    "name": "tag",
+                    "type": "text",
+                    "placeholder": "Who We Serve: Architecture, Engineering & Construction"
+                },
+                {
+                    "key": "field_aec_hero_heading",
+                    "label": "Heading",
+                    "name": "heading",
+                    "type": "text",
+                    "placeholder": "B2B Precision: Digital Marketing for AEC Firms"
+                },
+                {
+                    "key": "field_aec_hero_text",
+                    "label": "Intro text",
+                    "name": "text",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_aec_hero_bg",
+                    "label": "Background image",
+                    "name": "background_image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_aec_hero_btn1",
+                    "label": "Primary button",
+                    "name": "primary_button",
+                    "type": "link",
+                    "return_format": "array",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_hero_btn2",
+                    "label": "Secondary button",
+                    "name": "secondary_button",
+                    "type": "link",
+                    "return_format": "array",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                }
+            ],
+            "instructions": "Empty fields fall back to the launch copy."
+        },
+        {
+            "key": "field_aec_tab_serve",
+            "label": "1. Who We Serve",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_wws_heading",
+            "label": "Section heading",
+            "name": "aec_who_we_serve_heading",
+            "type": "text",
+            "placeholder": "Who We Serve in AEC"
+        },
+        {
+            "key": "field_aec_wws",
+            "label": "Segments",
+            "name": "aec_who_we_serve",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Segment",
+            "min": 0,
+            "max": 6,
+            "instructions": "Shown as a 3-column grid. Clicking a box highlights it and reveals its description. Leave empty to use Architects / Engineers / Commercial Contractors.",
+            "sub_fields": [
+                {
+                    "key": "field_aec_wws_title",
+                    "label": "Segment title",
+                    "name": "segment_title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_wws_icon",
+                    "label": "Segment icon",
+                    "name": "segment_icon",
+                    "type": "image",
+                    "instructions": "Optional. SVGs are inlined so they recolour on highlight.",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_aec_wws_desc",
+                    "label": "Segment description",
+                    "name": "segment_description",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_aec_wws_active",
+                    "label": "Highlighted by default",
+                    "name": "is_active_default",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "instructions": "Only the first flagged segment starts highlighted; if none are flagged, the first one is."
+                }
+            ]
+        },
+        {
+            "key": "field_aec_tab_help",
+            "label": "2. How We Help",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_help",
+            "label": "How We Help",
+            "name": "aec_how_we_help",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_aec_help_tag",
+                    "label": "Section tag",
+                    "name": "section_tag",
+                    "type": "text",
+                    "placeholder": "Value Beyond Marketing"
+                },
+                {
+                    "key": "field_aec_help_heading",
+                    "label": "Section heading",
+                    "name": "section_heading",
+                    "type": "text",
+                    "placeholder": "How We Help AEC Firms Win & Grow"
+                },
+                {
+                    "key": "field_aec_help_intro",
+                    "label": "Intro paragraph",
+                    "name": "intro_paragraph",
+                    "type": "textarea",
+                    "rows": 5,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_aec_help_cards",
+                    "label": "Value cards",
+                    "name": "value_cards",
+                    "type": "repeater",
+                    "layout": "block",
+                    "button_label": "Add Card",
+                    "sub_fields": [
+                        {
+                            "key": "field_aec_help_card_title",
+                            "label": "Card title",
+                            "name": "card_title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_aec_help_card_desc",
+                            "label": "Card description",
+                            "name": "card_description",
+                            "type": "textarea",
+                            "rows": 3,
+                            "new_lines": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_aec_tab_pillars",
+            "label": "3. Core Pillars",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_pillars_heading",
+            "label": "Section heading",
+            "name": "aec_core_pillars_heading",
+            "type": "text",
+            "placeholder": "The Core Pillars for AEC"
+        },
+        {
+            "key": "field_aec_pillars",
+            "label": "Pillar cards",
+            "name": "aec_core_pillars",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Pillar",
+            "max": 8,
+            "instructions": "4-column grid. At rest: image + title. On hover: gradient fill, overview sentence and link.",
+            "sub_fields": [
+                {
+                    "key": "field_aec_pillar_title",
+                    "label": "Pillar title",
+                    "name": "pillar_title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_pillar_img",
+                    "label": "Background image",
+                    "name": "pillar_background_image",
+                    "type": "image",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_aec_pillar_overview",
+                    "label": "Overview sentence",
+                    "name": "pillar_overview_sentence",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_aec_pillar_link_text",
+                    "label": "Link text",
+                    "name": "pillar_link_text",
+                    "type": "text",
+                    "placeholder": "Explore SEO",
+                    "instructions": "Defaults to “Explore [Pillar title]”.",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_pillar_link_url",
+                    "label": "Link URL",
+                    "name": "pillar_link_url",
+                    "type": "url",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_aec_tab_guided",
+            "label": "4. Where Are You Starting?",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_guided_heading",
+            "label": "Section heading",
+            "name": "aec_guided_heading",
+            "type": "text",
+            "placeholder": "Where Are You Starting?"
+        },
+        {
+            "key": "field_aec_guided",
+            "label": "Accordion tabs",
+            "name": "aec_guided_accordion",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Tab",
+            "instructions": "Opening a tab closes the others. Regular tabs end with a secondary button; the consult tab ends with the primary “Book A Consult” button.",
+            "sub_fields": [
+                {
+                    "key": "field_aec_guided_title",
+                    "label": "Tab title",
+                    "name": "tab_title",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_aec_guided_content",
+                    "label": "Tab content",
+                    "name": "tab_content_text",
+                    "type": "wysiwyg",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                },
+                {
+                    "key": "field_aec_guided_label",
+                    "label": "CTA button label",
+                    "name": "cta_button_label",
+                    "type": "text",
+                    "placeholder": "Explore Project Photography",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_guided_link",
+                    "label": "CTA button link",
+                    "name": "cta_button_link",
+                    "type": "link",
+                    "return_format": "array",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_guided_consult",
+                    "label": "Consult tab",
+                    "name": "is_consult_tab",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "message": "Style as the closing consult tab (primary button)",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_aec_guided_open",
+                    "label": "Open by default",
+                    "name": "is_open_default",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_aec_tab_clients",
+            "label": "5. AEC Clients",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_clients",
+            "label": "AEC Clients",
+            "name": "aec_clients",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_aec_clients_heading",
+                    "label": "Section heading",
+                    "name": "section_heading",
+                    "type": "text",
+                    "placeholder": "Our AEC Clients"
+                },
+                {
+                    "key": "field_aec_clients_source",
+                    "label": "Testimonials to show",
+                    "name": "testimonial_source",
+                    "type": "radio",
+                    "layout": "vertical",
+                    "return_format": "value",
+                    "default_value": "aec",
+                    "choices": {
+                        "aec": "All testimonials tagged AEC (Theme Settings › Testimonials)",
+                        "selected": "Choose specific testimonials",
+                        "custom": "Enter custom quotes for this page only"
+                    }
+                },
+                {
+                    "key": "field_aec_clients_selected",
+                    "label": "Choose testimonials",
+                    "name": "selected_testimonials",
+                    "type": "select",
+                    "multiple": 1,
+                    "ui": 1,
+                    "allow_null": 1,
+                    "return_format": "value",
+                    "choices": {},
+                    "instructions": "Pulled from Theme Settings › Testimonials. Shown in the order picked.",
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_aec_clients_source",
+                                "operator": "==",
+                                "value": "selected"
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "key": "field_aec_clients_custom",
+                    "label": "Custom quotes",
+                    "name": "custom_testimonials",
+                    "type": "repeater",
+                    "layout": "block",
+                    "button_label": "Add Quote",
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_aec_clients_source",
+                                "operator": "==",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "sub_fields": [
+                        {
+                            "key": "field_aec_clients_custom_quote",
+                            "label": "Quote",
+                            "name": "quote",
+                            "type": "textarea",
+                            "rows": 4,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_aec_clients_custom_name",
+                            "label": "Name",
+                            "name": "name",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_aec_clients_custom_title",
+                            "label": "Title & Company",
+                            "name": "title_company",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_aec_tab_settings",
+            "label": "Settings",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_aec_hide",
+            "label": "Hide sections",
+            "name": "aec_hide_sections",
+            "type": "checkbox",
+            "layout": "vertical",
+            "return_format": "value",
+            "choices": {
+                "hero": "Hero",
+                "who-we-serve": "1. Who We Serve",
+                "how-we-help": "2. How We Help",
+                "core-pillars": "3. Core Pillars",
+                "guided-pathway": "4. Where Are You Starting?",
+                "clients": "5. AEC Clients",
+                "global-cta": "Global Call to Action"
+            },
+            "instructions": "Sections with empty fields show the launch copy; tick a section here to remove it. Extra Page Sections render after these."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-aec-landing.php"
+            }
+        ]
+    ],
+    "menu_order": -10,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fixed sections for the AEC (Architecture, Engineering & Construction) landing page template.",
+    "show_in_rest": 0,
+    "modified": 1791477917
+}

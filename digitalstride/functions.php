@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.3.0');
+define('DS_VERSION', '2.4.0');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
@@ -137,6 +137,7 @@ require_once DS_DIR . '/inc/survey.php';
 require_once DS_DIR . '/inc/site-audit.php';
 require_once DS_DIR . '/inc/podcast.php';
 require_once DS_DIR . '/inc/proposal-templates.php';
+require_once DS_DIR . '/inc/aec-landing.php';
 
 // ── Retired: medical receipt reimbursements ──────────
 // The reimbursement portal was removed from the theme. Drop the capability
