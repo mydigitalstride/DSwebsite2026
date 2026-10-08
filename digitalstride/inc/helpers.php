@@ -355,17 +355,21 @@ add_action('acf/input/admin_head', function () {
 /**
  * Breadcrumb trail under the header on pages and posts.
  *
+ * Currently OFF site-wide (the ds_show_breadcrumbs default is false). To
+ * turn it back on everywhere, flip that default to true; to show it on
+ * selected pages only, return true from the filter for those pages.
+ * ECHO SEO's BreadcrumbList schema is printed separately and is unaffected.
+ *
  * Uses ECHO SEO's echs_breadcrumbs() when the plugin is active, so the
  * visible trail matches the BreadcrumbList it prints in the schema graph.
  * Without the plugin the same Home › parents › page trail is rendered here
  * (no schema). Skipped on the front page and Landing Page template (ad
- * landing pages shouldn't offer a way out); the ds_show_breadcrumbs filter
- * can turn it off anywhere else. The proposal template pages render their
+ * landing pages shouldn't offer a way out). The proposal template pages render their
  * own trail.
  */
 function ds_breadcrumbs() {
     if (!is_singular() || is_front_page() || is_page_template('page-landing.php')) return;
-    if (!apply_filters('ds_show_breadcrumbs', true, get_queried_object_id())) return;
+    if (!apply_filters('ds_show_breadcrumbs', false, get_queried_object_id())) return;
 
     echo '<div class="ds-breadcrumbs"><div class="ds-container">';
     if (function_exists('echs_breadcrumbs')) {
