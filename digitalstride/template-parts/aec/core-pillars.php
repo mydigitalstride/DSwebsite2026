@@ -1,10 +1,11 @@
 <?php
 /**
- * AEC Landing: The Core Pillars for AEC — image cards
- * (repeater `aec_core_pillars`).
+ * AEC Landing: The Core Pillars for AEC (repeater `aec_core_pillars`).
  *
- * Rest: background image + title. Hover / keyboard focus: orange-yellow
- * gradient fill, black text, overview sentence and "Explore …" link.
+ * Same flip cards as the Process Steps ("How We Help") section on the Who We
+ * Serve page: image + brand overlay + title on the front, orange-yellow back
+ * with the overview sentence and "Explore …" link. Styles: .ds-step-card in
+ * main.css, plus focus / link rules in aec-landing.css.
  */
 $d       = ds_aec_defaults('core_pillars');
 $heading = get_field('aec_core_pillars_heading') ?: $d['heading'];
@@ -27,44 +28,40 @@ if (!$pillars) $pillars = $d['pillars'];
 $pillars = array_filter($pillars, function ($p) { return !empty($p['title']); });
 if (!$pillars) return;
 ?>
-<section class="ds-section ds-aec-pillars">
+<section class="ds-section ds-section--process ds-aec-pillars">
     <div class="ds-container">
         <h2 class="ds-section__heading ds-section__heading--center"><?php echo esc_html($heading); ?></h2>
 
-        <ul class="ds-aec-pillars__grid">
+        <div class="ds-steps-cards ds-aec-pillars__grid">
             <?php foreach ($pillars as $p) :
-                $img_id    = is_array($p['image']) ? (int) ($p['image']['ID'] ?? $p['image']['id'] ?? 0) : (int) $p['image'];
+                $img_url   = is_array($p['image']) ? ($p['image']['url'] ?? '') : ($p['image'] ? wp_get_attachment_image_url((int) $p['image'], 'card-thumb') : '');
                 $link_text = $p['link_text'] ?: sprintf(__('Explore %s', 'digitalstride'), $p['title']);
                 ?>
-                <li class="ds-aec-pillar<?php echo $img_id ? '' : ' ds-aec-pillar--no-image'; ?>">
-                    <?php if ($img_id) {
-                        echo wp_get_attachment_image($img_id, 'card-thumb', false, [
-                            'class'   => 'ds-aec-pillar__img',
-                            'alt'     => '',
-                            'loading' => 'lazy',
-                            'sizes'   => '(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw',
-                        ]);
-                    } ?>
-                    <span class="ds-aec-pillar__overlay ds-aec-pillar__overlay--default" aria-hidden="true"></span>
-                    <span class="ds-aec-pillar__overlay ds-aec-pillar__overlay--hover" aria-hidden="true"></span>
-
-                    <div class="ds-aec-pillar__body">
-                        <h3 class="ds-aec-pillar__title"><?php echo esc_html($p['title']); ?></h3>
-                        <div class="ds-aec-pillar__reveal">
-                            <div class="ds-aec-pillar__reveal-inner">
-                                <?php if ($p['overview']) : ?>
-                                    <p class="ds-aec-pillar__text"><?php echo esc_html($p['overview']); ?></p>
-                                <?php endif; ?>
-                                <?php if ($p['link_url']) : ?>
-                                    <a class="ds-aec-pillar__link" href="<?php echo esc_url($p['link_url']); ?>">
-                                        <?php echo esc_html($link_text); ?> <span class="ds-aec-pillar__arrow" aria-hidden="true">&rarr;</span>
-                                    </a>
-                                <?php endif; ?>
+                <div class="ds-step-card ds-aec-pillar">
+                    <div class="ds-step-card__inner">
+                        <div class="ds-step-card__front" aria-hidden="true">
+                            <?php if ($img_url) : ?>
+                                <img class="ds-step-card__bg" src="<?php echo esc_url($img_url); ?>" alt="" loading="lazy">
+                            <?php endif; ?>
+                            <div class="ds-step-card__overlay"></div>
+                            <div class="ds-step-card__content">
+                                <span class="ds-step-card__title"><?php echo esc_html($p['title']); ?></span>
                             </div>
                         </div>
+                        <div class="ds-step-card__back">
+                            <h3 class="ds-step-card__title"><?php echo esc_html($p['title']); ?></h3>
+                            <?php if ($p['overview']) : ?>
+                                <p class="ds-step-card__text"><?php echo esc_html($p['overview']); ?></p>
+                            <?php endif; ?>
+                            <?php if ($p['link_url']) : ?>
+                                <a class="ds-aec-pillar__link" href="<?php echo esc_url($p['link_url']); ?>">
+                                    <?php echo esc_html($link_text); ?> <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </li>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </div>
 </section>

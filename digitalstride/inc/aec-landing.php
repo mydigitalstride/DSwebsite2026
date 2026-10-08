@@ -33,9 +33,9 @@ function ds_aec_defaults($section) {
         'who_we_serve' => [
             'heading'  => 'Who We Serve in AEC',
             'segments' => [
-                ['title' => 'Architects', 'description' => 'We highlight portfolio presentation, aesthetic preservation, and builder trust.', 'icon' => null, 'active' => false],
-                ['title' => 'Engineers', 'description' => 'We focus on technical accuracy, data-backed trust, and clear project capability.', 'icon' => null, 'active' => false],
-                ['title' => 'Commercial Contractors', 'description' => 'We focus on job-site proof, bid-readiness, and crew/project scale.', 'icon' => null, 'active' => true],
+                ['title' => 'Architects', 'description' => 'We highlight portfolio presentation, aesthetic preservation, and builder trust.', 'icon' => null],
+                ['title' => 'Engineers', 'description' => 'We focus on technical accuracy, data-backed trust, and clear project capability.', 'icon' => null],
+                ['title' => 'Commercial Contractors', 'description' => 'We focus on job-site proof, bid-readiness, and crew/project scale.', 'icon' => null],
             ],
         ],
         'how_we_help' => [
@@ -60,10 +60,14 @@ function ds_aec_defaults($section) {
         'guided' => [
             'heading' => 'Where Are You Starting?',
             'tabs'    => [
-                ['title' => '“I need to fix an outdated website to win larger bids.”', 'content' => '<p>Your website is the first document a developer or GC reviews before they ever call. We rebuild it around your project portfolio, certifications, and capability statements so it reads like a winning bid package.</p>', 'label' => 'Explore Web Design', 'link' => ['url' => home_url('/services/'), 'target' => ''], 'consult' => false, 'open' => false],
-                ['title' => '“I need to show up when developers search in our region.”', 'content' => '<p>Technical B2B SEO puts your firm in front of project managers and owners searching for your exact services, in the markets you want to win.</p>', 'label' => 'Explore SEO', 'link' => ['url' => home_url('/services/'), 'target' => ''], 'consult' => false, 'open' => false],
-                ['title' => '“I need high-quality imagery of completed builds for proposals.”', 'content' => '<p>Award-ready job-site and drone photography gives every proposal, RFQ response, and portfolio page the proof your craftsmanship deserves.</p>', 'label' => 'Explore Project Photography', 'link' => ['url' => home_url('/services/'), 'target' => ''], 'consult' => false, 'open' => true],
-                ['title' => '“I’m not sure where to start.”', 'content' => '<p>That’s exactly what a consult is for. We’ll review your current digital presence against the criteria your next client uses to vet firms and map out the first steps together.</p>', 'label' => 'Book A Consult', 'link' => ['url' => home_url('/contact-us/'), 'target' => ''], 'consult' => true, 'open' => false],
+                ['title' => '“I need to fix an outdated website to win larger bids.”', 'content' => '<p>Your website is the first document a developer or GC reviews before they ever call. We rebuild it around your project portfolio, certifications, and capability statements so it reads like a winning bid package.</p>', 'label' => 'Explore Web Design', 'link' => ['url' => home_url('/services/'), 'target' => '']],
+                ['title' => '“I need to show up when developers search in our region.”', 'content' => '<p>Technical B2B SEO puts your firm in front of project managers and owners searching for your exact services, in the markets you want to win.</p>', 'label' => 'Explore SEO', 'link' => ['url' => home_url('/services/'), 'target' => '']],
+                ['title' => '“I need high-quality imagery of completed builds for proposals.”', 'content' => '<p>Award-ready job-site and drone photography gives every proposal, RFQ response, and portfolio page the proof your craftsmanship deserves.</p>', 'label' => 'Explore Project Photography', 'link' => ['url' => home_url('/services/'), 'target' => '']],
+            ],
+            'consult' => [
+                'heading' => 'Not sure where to start?',
+                'text'    => 'That’s exactly what a consult is for. We’ll review your current digital presence against the criteria your next client uses to vet firms and map out the first steps together.',
+                'button'  => ['title' => 'Book A Consult', 'url' => home_url('/contact-us/'), 'target' => ''],
             ],
         ],
         'clients' => [
@@ -172,34 +176,32 @@ add_filter('acf/load_field/key=field_aec_clients_selected', function ($field) {
 function ds_aec_testimonials() {
     $clients = get_field('aec_clients') ?: [];
     $source  = $clients['testimonial_source'] ?? 'aec';
-
-    if ($source === 'custom') {
-        $out = [];
-        foreach ((array) ($clients['custom_testimonials'] ?? []) as $item) {
-            if (empty($item['quote'])) continue;
-            $out[] = [
-                'quote'         => $item['quote'],
-                'name'          => $item['name'] ?? '',
-                'title_company' => $item['title_company'] ?? '',
-            ];
-        }
-        return $out;
-    }
+    $out     = [];
 
     if ($source === 'selected') {
-        $picked = array_values(array_filter((array) ($clients['selected_testimonials'] ?? [])));
-        $by_id  = [];
+        $by_id = [];
         foreach (ds_get_testimonials() as $t) $by_id[$t['id']] = $t;
 
         // Keep the editor's chosen order.
-        $out = [];
-        foreach ($picked as $id) {
+        foreach (array_filter((array) ($clients['selected_testimonials'] ?? [])) as $id) {
             if (isset($by_id[$id])) $out[] = $by_id[$id];
         }
-        return $out;
+    } elseif ($source === 'aec') {
+        $out = ds_get_testimonials('aec');
+    }
+    // 'none' (or the old 'custom' value): only the additional quotes below.
+
+    // Page-only quotes are always added after the chosen set.
+    foreach ((array) ($clients['custom_testimonials'] ?? []) as $item) {
+        if (empty($item['quote'])) continue;
+        $out[] = [
+            'quote'         => $item['quote'],
+            'name'          => $item['name'] ?? '',
+            'title_company' => $item['title_company'] ?? '',
+        ];
     }
 
-    return ds_get_testimonials('aec');
+    return $out;
 }
 
 /**

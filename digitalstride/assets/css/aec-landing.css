@@ -4,8 +4,6 @@
    ========================================================================== */
 
 .ds-page-aec {
-    --ds-aec-orange: linear-gradient(135deg, var(--ds-orange) 0%, var(--ds-yellow) 100%);
-    --ds-aec-blue: linear-gradient(180deg, rgba(2, 11, 36, 0.15) 0%, rgba(5, 24, 121, 0.55) 55%, rgba(2, 11, 36, 0.92) 100%);
     --ds-aec-border: rgba(242, 245, 251, 0.35);
     --ds-aec-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -19,9 +17,23 @@
     margin-bottom: 0.25em;
 }
 
+/* - Section spacing - */
+/* More breathing room than the site default (3rem) between every block. */
+.ds-page-aec .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+.ds-page-aec .ds-main > .ds-hero + .ds-section { padding-top: clamp(5rem, 10vw, 8rem); }
+
 /* - Hero - */
 .ds-aec-hero { min-height: 60vh; }
+/* Dark overlay so the white type stands out over any photo; a hint of the
+   brand navy keeps it on-palette. */
+.ds-aec-hero .ds-hero__overlay {
+    background: linear-gradient(90deg, rgba(2, 11, 36, 0.94) 0%, rgba(2, 11, 36, 0.85) 45%, rgba(5, 24, 121, 0.72) 100%);
+    opacity: 1;
+}
 .ds-aec-hero__tag { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
+.ds-aec-hero .ds-hero__heading,
+.ds-aec-hero .ds-hero__subheading,
+.ds-aec-hero .ds-hero__text { text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45); }
 .ds-aec-hero .ds-hero__text { max-width: 46em; }
 .ds-aec-hero__buttons { display: flex; flex-wrap: wrap; gap: 1em; }
 
@@ -87,7 +99,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 3em 4em;
-    align-items: center;
+    align-items: start;
 }
 .ds-aec-help__heading { font-weight: 600; }
 .ds-aec-help__text p { margin-bottom: 1em; }
@@ -113,114 +125,23 @@
 }
 .ds-aec-value-card__text { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
 
-/* - 3. The Core Pillars for AEC (image cards) - */
-.ds-aec-pillars__grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5em;
-    margin-top: 2em;
-}
-.ds-aec-pillar {
-    position: relative;
-    min-height: clamp(300px, 26vw, 400px);
-    overflow: hidden;
-    isolation: isolate;
-    background: var(--ds-navy-gradient);
-    border: 2px solid var(--ds-aec-border);
-    color: var(--ds-white);
-    transition: transform 0.45s var(--ds-aec-ease), box-shadow 0.45s var(--ds-aec-ease), border-color 0.45s var(--ds-aec-ease);
-}
-.ds-aec-pillar--no-image { background: var(--ds-brand-gradient); }
-.ds-aec-pillar__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    transition: transform 0.8s var(--ds-aec-ease);
-}
-/* Two stacked overlays cross-fade — gradients can't be transitioned */
-.ds-aec-pillar__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    transition: opacity 0.45s var(--ds-aec-ease);
-}
-.ds-aec-pillar__overlay--default { background: var(--ds-aec-blue); }
-.ds-aec-pillar__overlay--hover { background: var(--ds-aec-orange); opacity: 0; }
-
-.ds-aec-pillar__body {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5em 1.25em;
-    text-align: center;
-}
-.ds-aec-pillar__title {
-    font-size: clamp(1.25rem, 1.7vw, 1.6rem);
-    font-weight: 700;
-    line-height: 1.2;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
-    transition: color 0.35s var(--ds-aec-ease), text-shadow 0.35s var(--ds-aec-ease);
-}
-.ds-aec-pillar__reveal {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: grid-template-rows 0.45s var(--ds-aec-ease), opacity 0.35s var(--ds-aec-ease), transform 0.35s var(--ds-aec-ease);
-}
-.ds-aec-pillar__reveal-inner { min-height: 0; overflow: hidden; }
-.ds-aec-pillar__text {
-    margin-top: 0.75em;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--ds-black);
-}
+/* - 3. The Core Pillars for AEC - */
+/* Cards reuse the Process Steps flip cards (.ds-step-card in main.css). */
+.ds-aec-pillars__grid { margin-top: 2em; }
+/* Keyboard users flip the card by tabbing to its link. */
+.ds-aec-pillar:focus-within .ds-step-card__inner { transform: rotateY(180deg); }
+.ds-aec-pillar:focus-within .ds-step-card__front { z-index: 1; }
+.ds-aec-pillar:focus-within .ds-step-card__back { z-index: 2; }
 .ds-aec-pillar__link {
-    display: inline-block;
     margin-top: 1em;
     font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--ds-black);
+    color: var(--ds-white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
-.ds-aec-pillar__link:hover { color: var(--ds-black); text-decoration: underline; }
-/* Stretch the link over the whole card so the card is one click target */
-.ds-aec-pillar__link::after { content: ''; position: absolute; inset: 0; }
-.ds-aec-pillar__arrow { display: inline-block; transition: transform 0.35s var(--ds-aec-ease); }
-
-.ds-aec-pillar:hover,
-.ds-aec-pillar:focus-within {
-    transform: translateY(-6px);
-    border-color: var(--ds-yellow);
-    box-shadow: 0 18px 40px rgba(243, 110, 33, 0.25);
-}
-.ds-aec-pillar:hover .ds-aec-pillar__overlay--hover,
-.ds-aec-pillar:focus-within .ds-aec-pillar__overlay--hover { opacity: 1; }
-.ds-aec-pillar:hover .ds-aec-pillar__img,
-.ds-aec-pillar:focus-within .ds-aec-pillar__img { transform: scale(1.05); }
-.ds-aec-pillar:hover .ds-aec-pillar__title,
-.ds-aec-pillar:focus-within .ds-aec-pillar__title { color: var(--ds-black); text-shadow: none; }
-.ds-aec-pillar:hover .ds-aec-pillar__reveal,
-.ds-aec-pillar:focus-within .ds-aec-pillar__reveal { grid-template-rows: 1fr; opacity: 1; transform: none; }
-.ds-aec-pillar:hover .ds-aec-pillar__arrow,
-.ds-aec-pillar:focus-within .ds-aec-pillar__arrow { transform: translateX(4px); }
-.ds-aec-pillar__link:focus-visible { outline: none; }
-.ds-aec-pillar:has(.ds-aec-pillar__link:focus-visible) { outline: 3px solid var(--ds-yellow); outline-offset: 3px; }
-
-/* Touch screens have no hover: show the filled state up front */
-@media (hover: none) {
-    .ds-aec-pillar__overlay--hover { opacity: 1; }
-    .ds-aec-pillar__title { color: var(--ds-black); text-shadow: none; }
-    .ds-aec-pillar__reveal { grid-template-rows: 1fr; opacity: 1; transform: none; }
-    .ds-aec-pillar:hover,
-    .ds-aec-pillar:focus-within { transform: none; }
-}
+.ds-aec-pillar__link:hover { color: var(--ds-bg); }
+.ds-aec-pillar__link:focus-visible { outline-color: var(--ds-white); }
 
 /* - 4. Guided Pathway accordion - */
 .ds-aec-path__list { display: flex; flex-direction: column; gap: 1em; margin-top: 2em; }
@@ -230,10 +151,27 @@
     transition: border-color 0.3s var(--ds-aec-ease), background-color 0.3s var(--ds-aec-ease);
 }
 .ds-aec-path__item:hover { border-color: rgba(242, 245, 251, 0.7); }
-.ds-aec-path__item.is-open {
-    border-color: var(--ds-orange);
-    background: var(--ds-transparent-white);
+.ds-aec-path__item { position: relative; isolation: isolate; }
+/* Open card: orange-yellow gradient fill with dark text. The gradient sits
+   on a pseudo-element so it can fade (gradients can't be transitioned). */
+.ds-aec-path__item::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--ds-orange), var(--ds-yellow));
+    opacity: 0;
+    transition: opacity 0.35s var(--ds-aec-ease);
 }
+.ds-aec-path__item.is-open { border-color: transparent; }
+.ds-aec-path__item.is-open::before { opacity: 1; }
+.ds-aec-path__item.is-open .ds-aec-path__toggle,
+.ds-aec-path__item.is-open .ds-aec-path__content { color: var(--ds-bg); }
+.ds-aec-path__item.is-open .ds-aec-path__content { font-weight: 400; }
+.ds-aec-path__item.is-open .ds-aec-path__btn { border-color: var(--ds-bg); color: var(--ds-bg); }
+.ds-aec-path__item.is-open .ds-aec-path__btn::after { background: var(--ds-bg); }
+.ds-aec-path__item.is-open .ds-aec-path__btn:hover { color: var(--ds-white); }
+.ds-aec-path__item.is-open .ds-aec-path__toggle:focus-visible { outline-color: var(--ds-bg); outline-offset: -4px; }
 .ds-aec-path__heading { margin: 0; font-size: inherit; }
 .ds-aec-path__toggle {
     display: flex;
@@ -252,7 +190,7 @@
     cursor: pointer;
 }
 .ds-aec-path__chevron { flex-shrink: 0; font-size: 0.8em; transition: transform 0.3s var(--ds-aec-ease); }
-.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); color: var(--ds-yellow); }
+.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); }
 
 .ds-aec-path__panel {
     display: grid;
@@ -277,14 +215,22 @@
 /* `hidden` is set after the close animation so closed links leave the tab order */
 .ds-aec-path__panel[hidden] { display: none; }
 
-.ds-aec-path__item--consult.is-open { border-color: var(--ds-yellow); }
+/* Stand-alone "Book A Consult" block under the accordion */
+.ds-aec-consult {
+    margin-top: 3em;
+    padding: 2.5em 2em;
+    text-align: center;
+    border: 2px solid var(--ds-aec-border);
+    background: var(--ds-transparent-white);
+}
+.ds-aec-consult__heading { font-size: clamp(1.4rem, 2.2vw, 1.9rem); margin-bottom: 0.5em; }
+.ds-aec-consult__text { max-width: 40em; margin: 0 auto 1.5em; line-height: 1.8; opacity: 0.9; }
 
 /* - 5. Our AEC Clients - */
 .ds-aec-clients .ds-testimonial-carousel { margin-top: 2em; }
 
 /* - Responsive - */
 @media (max-width: 1024px) {
-    .ds-aec-pillars__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ds-aec-help__inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
@@ -293,14 +239,4 @@
     .ds-aec-value-card { padding: 1.25em; }
     .ds-aec-path__toggle { padding: 0.9em 1em; }
     .ds-aec-path__content { padding: 0 1em 1.25em; }
-}
-@media (max-width: 600px) {
-    .ds-aec-pillars__grid { grid-template-columns: 1fr; }
-    .ds-aec-pillar { min-height: 260px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .ds-aec-pillar,
-    .ds-aec-pillar:hover,
-    .ds-aec-pillar:focus-within { transform: none; }
 }
