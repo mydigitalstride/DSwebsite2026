@@ -144,34 +144,9 @@
 .ds-aec-pillar__link:focus-visible { outline-color: var(--ds-white); }
 
 /* - 4. Guided Pathway accordion - */
+/* Each tab is a bordered bar; the open one gets the orange-yellow gradient
+   border and its guidance + "Explore …" link appear beneath the bar. */
 .ds-aec-path__list { display: flex; flex-direction: column; gap: 1em; margin-top: 2em; }
-.ds-aec-path__item {
-    border: 2px solid var(--ds-aec-border);
-    background: transparent;
-    transition: border-color 0.3s var(--ds-aec-ease), background-color 0.3s var(--ds-aec-ease);
-}
-.ds-aec-path__item:hover { border-color: rgba(242, 245, 251, 0.7); }
-.ds-aec-path__item { position: relative; isolation: isolate; }
-/* Open card: orange-yellow gradient fill with dark text. The gradient sits
-   on a pseudo-element so it can fade (gradients can't be transitioned). */
-.ds-aec-path__item::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    z-index: -1;
-    background: linear-gradient(135deg, var(--ds-orange), var(--ds-yellow));
-    opacity: 0;
-    transition: opacity 0.35s var(--ds-aec-ease);
-}
-.ds-aec-path__item.is-open { border-color: transparent; }
-.ds-aec-path__item.is-open::before { opacity: 1; }
-.ds-aec-path__item.is-open .ds-aec-path__toggle,
-.ds-aec-path__item.is-open .ds-aec-path__content { color: var(--ds-bg); }
-.ds-aec-path__item.is-open .ds-aec-path__content { font-weight: 400; }
-.ds-aec-path__item.is-open .ds-aec-path__btn { border-color: var(--ds-bg); color: var(--ds-bg); }
-.ds-aec-path__item.is-open .ds-aec-path__btn::after { background: var(--ds-bg); }
-.ds-aec-path__item.is-open .ds-aec-path__btn:hover { color: var(--ds-white); }
-.ds-aec-path__item.is-open .ds-aec-path__toggle:focus-visible { outline-color: var(--ds-bg); outline-offset: -4px; }
 .ds-aec-path__heading { margin: 0; font-size: inherit; }
 .ds-aec-path__toggle {
     display: flex;
@@ -180,17 +155,22 @@
     gap: 1em;
     width: 100%;
     padding: 0.9em 1.5em;
-    background: none;
-    border: 0;
+    background: transparent;
+    border: 2px solid var(--ds-aec-border);
     color: var(--ds-white);
     font-family: var(--font-heading);
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     font-weight: 700;
     text-align: left;
     cursor: pointer;
+    transition: border-color 0.3s var(--ds-aec-ease);
 }
-.ds-aec-path__chevron { flex-shrink: 0; font-size: 0.8em; transition: transform 0.3s var(--ds-aec-ease); }
-.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); }
+.ds-aec-path__toggle:hover { border-color: rgba(242, 245, 251, 0.7); }
+.ds-aec-path__item.is-open .ds-aec-path__toggle {
+    border-image: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow)) 1;
+}
+.ds-aec-path__chevron { flex-shrink: 0; font-size: 0.8em; transition: transform 0.3s var(--ds-aec-ease), color 0.3s var(--ds-aec-ease); }
+.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); color: var(--ds-yellow); }
 
 .ds-aec-path__panel {
     display: grid;
@@ -199,15 +179,26 @@
 }
 .ds-aec-path__panel-inner { min-height: 0; overflow: hidden; }
 .ds-aec-path__content {
-    padding: 0 1.5em 1.5em;
+    padding: 1em 1.5em 0.5em;
     line-height: 1.8;
+    text-align: center;
     opacity: 1;
     transition: opacity 0.3s var(--ds-aec-ease);
 }
-.ds-aec-path__content p { margin-bottom: 1em; }
+.ds-aec-path__content p { margin-bottom: 0.75em; }
 .ds-aec-path__content p:last-child { margin-bottom: 0; }
-.ds-aec-path__cta { margin-top: 1.25em; }
-.ds-aec-path__btn { font-size: 1rem; padding: 0.6em 1.5em; }
+
+/* "Explore …" is a plain text link, not a button */
+.ds-aec-path__cta { margin-top: 0.25em; }
+.ds-aec-path__link {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--ds-white);
+}
+.ds-aec-path__link:hover { color: var(--ds-yellow); }
+.ds-aec-path__arrow { display: inline-block; margin-left: 0.25em; transition: transform 0.3s var(--ds-aec-ease); }
+.ds-aec-path__link:hover .ds-aec-path__arrow { transform: translateX(4px); }
 
 /* Collapse closed panels only once JS is running */
 .ds-aec-path__list.is-ready .ds-aec-path__item:not(.is-open) .ds-aec-path__panel { grid-template-rows: 0fr; }
@@ -215,11 +206,11 @@
 /* `hidden` is set after the close animation so closed links leave the tab order */
 .ds-aec-path__panel[hidden] { display: none; }
 
-/* Stand-alone "Book A Consult" block under the accordion */
-.ds-aec-consult {
-    margin-top: 3em;
+/* "Book A Consult": a lone centred button; boxed only when a heading or
+   text is filled in. */
+.ds-aec-consult { margin-top: 2.5em; text-align: center; }
+.ds-aec-consult--boxed {
     padding: 2.5em 2em;
-    text-align: center;
     border: 2px solid var(--ds-aec-border);
     background: var(--ds-transparent-white);
 }
@@ -238,5 +229,5 @@
     .ds-aec-hero__buttons .ds-btn { width: 100%; }
     .ds-aec-value-card { padding: 1.25em; }
     .ds-aec-path__toggle { padding: 0.9em 1em; }
-    .ds-aec-path__content { padding: 0 1em 1.25em; }
+    .ds-aec-path__content { padding: 0.75em 1em 0.25em; }
 }

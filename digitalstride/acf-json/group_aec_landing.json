@@ -292,7 +292,7 @@
             "type": "repeater",
             "layout": "block",
             "button_label": "Add Tab",
-            "instructions": "All tabs start closed. Opening a tab closes the others and highlights it with the orange-yellow gradient. Each tab ends with its “Explore …” button.",
+            "instructions": "All tabs start closed. Opening a tab closes the others, gives it the orange-yellow gradient border and shows its text and “Explore …” link underneath.",
             "sub_fields": [
                 {
                     "key": "field_aec_guided_title",
@@ -312,7 +312,7 @@
                 },
                 {
                     "key": "field_aec_guided_label",
-                    "label": "CTA button label",
+                    "label": "Link text",
                     "name": "cta_button_label",
                     "type": "text",
                     "placeholder": "Explore Project Photography",
@@ -322,7 +322,7 @@
                 },
                 {
                     "key": "field_aec_guided_link",
-                    "label": "CTA button link",
+                    "label": "Link",
                     "name": "cta_button_link",
                     "type": "link",
                     "return_format": "array",
@@ -334,22 +334,21 @@
         },
         {
             "key": "field_aec_guided_consult",
-            "label": "Book A Consult block",
+            "label": "Book A Consult button",
             "name": "aec_guided_consult",
             "type": "group",
             "layout": "block",
-            "instructions": "Stands on its own under the accordion, for visitors looking for something not listed above.",
+            "instructions": "Shown as a single stand-alone button under the accordion. Heading and text are optional; fill either in to show them in a box around the button.",
             "sub_fields": [
                 {
                     "key": "field_aec_guided_consult_heading",
-                    "label": "Heading",
+                    "label": "Heading (optional)",
                     "name": "heading",
-                    "type": "text",
-                    "placeholder": "Not sure where to start?"
+                    "type": "text"
                 },
                 {
                     "key": "field_aec_guided_consult_text",
-                    "label": "Text",
+                    "label": "Text (optional)",
                     "name": "text",
                     "type": "textarea",
                     "rows": 3,
@@ -506,5 +505,5 @@
     "active": true,
     "description": "Fixed sections for the AEC (Architecture, Engineering & Construction) landing page template.",
     "show_in_rest": 0,
-    "modified": 1791481276
+    "modified": 1791494553
 }

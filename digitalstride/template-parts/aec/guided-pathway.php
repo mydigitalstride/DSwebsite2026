@@ -3,10 +3,10 @@
  * AEC Landing: Guided Pathway — "Where Are You Starting?" accordion
  * (repeater `aec_guided_accordion`).
  *
- * One panel open at a time; the open card is highlighted with the
- * orange-yellow gradient. Each tab ends with an "Explore …" button. The
- * "Book A Consult" block (group `aec_guided_consult`) stands on its own
- * below the accordion.
+ * One panel open at a time; the open card gets the orange-yellow gradient
+ * border and its guidance + "Explore …" text link show beneath it. The
+ * "Book A Consult" button (group `aec_guided_consult`) stands on its own
+ * below the accordion; its heading / text are optional.
  */
 $d       = ds_aec_defaults('guided');
 $heading = get_field('aec_guided_heading') ?: $d['heading'];
@@ -28,8 +28,8 @@ if (!$tabs) $tabs = $d['tabs'];
 $tabs = array_values(array_filter($tabs, function ($t) { return !empty($t['title']); }));
 
 $consult = get_field('aec_guided_consult') ?: [];
-$c_head  = ($consult['heading'] ?? '') ?: $d['consult']['heading'];
-$c_text  = ($consult['text'] ?? '') ?: $d['consult']['text'];
+$c_head  = $consult['heading'] ?? '';
+$c_text  = $consult['text'] ?? '';
 $c_btn   = ds_aec_link(($consult['button'] ?? null) ?: $d['consult']['button'], __('Book A Consult', 'digitalstride'));
 
 if (!$tabs && !$c_btn) return;
@@ -61,8 +61,8 @@ $uid = 'ds-aec-path-' . wp_unique_id();
                                 <?php if ($t['content']) echo wp_kses_post(wpautop($t['content'])); ?>
                                 <?php if ($cta && $cta_label) : ?>
                                     <p class="ds-aec-path__cta">
-                                        <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--outline ds-aec-path__btn"<?php ds_aec_target_attrs($cta['target']); ?>>
-                                            <?php echo esc_html($cta_label); ?> <span aria-hidden="true">&rarr;</span>
+                                        <a href="<?php echo esc_url($cta['url']); ?>" class="ds-aec-path__link"<?php ds_aec_target_attrs($cta['target']); ?>>
+                                            <?php echo esc_html($cta_label); ?> <span class="ds-aec-path__arrow" aria-hidden="true">&rarr;</span>
                                         </a>
                                     </p>
                                 <?php endif; ?>
@@ -75,7 +75,8 @@ $uid = 'ds-aec-path-' . wp_unique_id();
         <?php endif; ?>
 
         <?php if ($c_btn) : ?>
-            <div class="ds-aec-consult">
+            <?php // Just the button by default; heading / text are optional extras. ?>
+            <div class="ds-aec-consult<?php echo ($c_head || $c_text) ? ' ds-aec-consult--boxed' : ''; ?>">
                 <?php if ($c_head) : ?>
                     <h3 class="ds-aec-consult__heading"><?php echo esc_html($c_head); ?></h3>
                 <?php endif; ?>

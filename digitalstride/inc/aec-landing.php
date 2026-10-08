@@ -65,8 +65,6 @@ function ds_aec_defaults($section) {
                 ['title' => '“I need high-quality imagery of completed builds for proposals.”', 'content' => '<p>Award-ready job-site and drone photography gives every proposal, RFQ response, and portfolio page the proof your craftsmanship deserves.</p>', 'label' => 'Explore Project Photography', 'link' => ['url' => home_url('/services/'), 'target' => '']],
             ],
             'consult' => [
-                'heading' => 'Not sure where to start?',
-                'text'    => 'That’s exactly what a consult is for. We’ll review your current digital presence against the criteria your next client uses to vet firms and map out the first steps together.',
                 'button'  => ['title' => 'Book A Consult', 'url' => home_url('/contact-us/'), 'target' => ''],
             ],
         ],
