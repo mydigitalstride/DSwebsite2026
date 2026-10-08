@@ -95,7 +95,7 @@
             "button_label": "Add Segment",
             "min": 0,
             "max": 6,
-            "instructions": "Shown as a 3-column grid. Clicking a box highlights it and reveals its description. Leave empty to use Architects / Engineers / Commercial Contractors.",
+            "instructions": "Shown as a 3-column grid. All boxes start collapsed; clicking one highlights it and reveals its description. Leave empty to use Architects / Engineers / Commercial Contractors.",
             "sub_fields": [
                 {
                     "key": "field_aec_wws_title",
@@ -127,15 +127,6 @@
                     "type": "textarea",
                     "rows": 2,
                     "new_lines": ""
-                },
-                {
-                    "key": "field_aec_wws_active",
-                    "label": "Highlighted by default",
-                    "name": "is_active_default",
-                    "type": "true_false",
-                    "ui": 1,
-                    "default_value": 0,
-                    "instructions": "Only the first flagged segment starts highlighted; if none are flagged, the first one is."
                 }
             ]
         },
@@ -225,7 +216,7 @@
             "layout": "block",
             "button_label": "Add Pillar",
             "max": 8,
-            "instructions": "4-column grid. At rest: image + title. On hover: gradient fill, overview sentence and link.",
+            "instructions": "Flip cards, same style as the Process Steps (“How We Help”) cards on Who We Serve. Front: image + title. Back (on hover): overview sentence and link.",
             "sub_fields": [
                 {
                     "key": "field_aec_pillar_title",
@@ -301,7 +292,7 @@
             "type": "repeater",
             "layout": "block",
             "button_label": "Add Tab",
-            "instructions": "Opening a tab closes the others. Regular tabs end with a secondary button; the consult tab ends with the primary “Book A Consult” button.",
+            "instructions": "All tabs start closed. Opening a tab closes the others and highlights it with the orange-yellow gradient. Each tab ends with its “Explore …” button.",
             "sub_fields": [
                 {
                     "key": "field_aec_guided_title",
@@ -338,29 +329,39 @@
                     "wrapper": {
                         "width": "50"
                     }
+                }
+            ]
+        },
+        {
+            "key": "field_aec_guided_consult",
+            "label": "Book A Consult block",
+            "name": "aec_guided_consult",
+            "type": "group",
+            "layout": "block",
+            "instructions": "Stands on its own under the accordion, for visitors looking for something not listed above.",
+            "sub_fields": [
+                {
+                    "key": "field_aec_guided_consult_heading",
+                    "label": "Heading",
+                    "name": "heading",
+                    "type": "text",
+                    "placeholder": "Not sure where to start?"
                 },
                 {
-                    "key": "field_aec_guided_consult",
-                    "label": "Consult tab",
-                    "name": "is_consult_tab",
-                    "type": "true_false",
-                    "ui": 1,
-                    "default_value": 0,
-                    "message": "Style as the closing consult tab (primary button)",
-                    "wrapper": {
-                        "width": "50"
-                    }
+                    "key": "field_aec_guided_consult_text",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
                 },
                 {
-                    "key": "field_aec_guided_open",
-                    "label": "Open by default",
-                    "name": "is_open_default",
-                    "type": "true_false",
-                    "ui": 1,
-                    "default_value": 0,
-                    "wrapper": {
-                        "width": "50"
-                    }
+                    "key": "field_aec_guided_consult_button",
+                    "label": "Button",
+                    "name": "button",
+                    "type": "link",
+                    "return_format": "array",
+                    "instructions": "Defaults to “Book A Consult” → /contact-us/."
                 }
             ]
         },
@@ -388,7 +389,7 @@
                 },
                 {
                     "key": "field_aec_clients_source",
-                    "label": "Testimonials to show",
+                    "label": "Testimonials from Theme Settings",
                     "name": "testimonial_source",
                     "type": "radio",
                     "layout": "vertical",
@@ -397,7 +398,7 @@
                     "choices": {
                         "aec": "All testimonials tagged AEC (Theme Settings › Testimonials)",
                         "selected": "Choose specific testimonials",
-                        "custom": "Enter custom quotes for this page only"
+                        "none": "None — only the additional testimonials below"
                     }
                 },
                 {
@@ -423,20 +424,11 @@
                 },
                 {
                     "key": "field_aec_clients_custom",
-                    "label": "Custom quotes",
+                    "label": "Additional testimonials",
                     "name": "custom_testimonials",
                     "type": "repeater",
                     "layout": "block",
-                    "button_label": "Add Quote",
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_aec_clients_source",
-                                "operator": "==",
-                                "value": "custom"
-                            }
-                        ]
-                    ],
+                    "button_label": "Add Testimonial",
                     "sub_fields": [
                         {
                             "key": "field_aec_clients_custom_quote",
@@ -464,7 +456,8 @@
                                 "width": "50"
                             }
                         }
-                    ]
+                    ],
+                    "instructions": "Extra quotes for this page only. They are added after the testimonials chosen above."
                 }
             ]
         },
@@ -513,5 +506,5 @@
     "active": true,
     "description": "Fixed sections for the AEC (Architecture, Engineering & Construction) landing page template.",
     "show_in_rest": 0,
-    "modified": 1791477917
+    "modified": 1791481276
 }

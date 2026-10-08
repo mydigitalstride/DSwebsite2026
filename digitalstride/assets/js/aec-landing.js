@@ -1,6 +1,6 @@
 /**
  * AEC Landing Page (page-aec-landing.php)
- * - Segment selector: one highlighted box at a time.
+ * - Segment selector: all collapsed, one opens at a time on click.
  * - Guided pathway accordion: opening a tab closes the others.
  * The testimonial carousel is handled by main.js.
  */
@@ -8,6 +8,8 @@
     'use strict';
 
     // ── Who We Serve: segment selector ───────────────────
+    // All boxes start collapsed; clicking one opens it (and closes the
+    // others), clicking it again collapses it.
     document.querySelectorAll('[data-aec-segments]').forEach(function (grid) {
         var boxes = Array.prototype.slice.call(grid.querySelectorAll('.ds-aec-segment'));
 
@@ -15,19 +17,13 @@
             boxes.forEach(function (box) {
                 var on = box === target;
                 box.classList.toggle('is-active', on);
-                box.setAttribute('aria-pressed', on ? 'true' : 'false');
+                box.setAttribute('aria-expanded', on ? 'true' : 'false');
             });
         }
 
-        boxes.forEach(function (box, i) {
-            box.addEventListener('click', function () { select(box); });
-            box.addEventListener('keydown', function (e) {
-                var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-                if (!step) return;
-                e.preventDefault();
-                var next = boxes[(i + step + boxes.length) % boxes.length];
-                next.focus();
-                select(next);
+        boxes.forEach(function (box) {
+            box.addEventListener('click', function () {
+                select(box.classList.contains('is-active') ? null : box);
             });
         });
 
