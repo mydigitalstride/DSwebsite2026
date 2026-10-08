@@ -1,0 +1,306 @@
+/* ==========================================================================
+   AEC Landing Page (page-aec-landing.php)
+   Loaded only on that template, after digitalstride-main.
+   ========================================================================== */
+
+.ds-page-aec {
+    --ds-aec-orange: linear-gradient(135deg, var(--ds-orange) 0%, var(--ds-yellow) 100%);
+    --ds-aec-blue: linear-gradient(180deg, rgba(2, 11, 36, 0.15) 0%, rgba(5, 24, 121, 0.55) 55%, rgba(2, 11, 36, 0.92) 100%);
+    --ds-aec-border: rgba(242, 245, 251, 0.35);
+    --ds-aec-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Small italic eyebrow used above section headings */
+.ds-aec-tag {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 0.25em;
+}
+
+/* - Hero - */
+.ds-aec-hero { min-height: 60vh; }
+.ds-aec-hero__tag { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
+.ds-aec-hero .ds-hero__text { max-width: 46em; }
+.ds-aec-hero__buttons { display: flex; flex-wrap: wrap; gap: 1em; }
+
+/* - 1. Who We Serve in AEC (segment selector) - */
+.ds-aec-segments__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+    margin-top: 2em;
+    align-items: start;
+}
+.ds-aec-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    min-height: 4.5em;
+    padding: 1.25em 1.5em;
+    background: var(--ds-transparent-white);
+    border: 2px solid var(--ds-aec-border);
+    color: var(--ds-white);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ds-aec-ease), background-color 0.3s var(--ds-aec-ease), box-shadow 0.3s var(--ds-aec-ease);
+}
+.ds-aec-segment:hover { border-color: rgba(242, 245, 251, 0.7); }
+.ds-aec-segment.is-active {
+    border-color: var(--ds-orange);
+    background: rgba(2, 11, 36, 0.6);
+    box-shadow: 0 0 0 1px var(--ds-yellow) inset, 0 10px 30px rgba(243, 110, 33, 0.15);
+}
+.ds-aec-segment__icon { display: flex; justify-content: center; color: var(--ds-white); }
+.ds-aec-segment__icon img,
+.ds-aec-segment__icon svg { width: 40px; height: 40px; object-fit: contain; }
+.ds-aec-segment.is-active .ds-aec-segment__icon { color: var(--ds-yellow); }
+.ds-aec-segment__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 700;
+}
+/* Description reveal: 0fr -> 1fr animates to the content's natural height */
+.ds-aec-segment__reveal {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s var(--ds-aec-ease), opacity 0.35s var(--ds-aec-ease);
+}
+.ds-aec-segment__desc {
+    overflow: hidden;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+/* Collapse inactive descriptions only once JS is running */
+.ds-aec-segments__grid.is-ready .ds-aec-segment:not(.is-active) .ds-aec-segment__reveal {
+    grid-template-rows: 0fr;
+    opacity: 0;
+}
+
+/* - 2. How We Help AEC Firms Win & Grow - */
+.ds-aec-help__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3em 4em;
+    align-items: center;
+}
+.ds-aec-help__heading { font-weight: 600; }
+.ds-aec-help__text p { margin-bottom: 1em; }
+.ds-aec-help__text p:last-child { margin-bottom: 0; }
+.ds-aec-help__cards {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+}
+.ds-aec-value-card {
+    background: var(--ds-transparent-white);
+    border: 2px solid var(--ds-aec-border);
+    padding: 1.5em 2em;
+    text-align: center;
+    transition: border-color 0.3s var(--ds-aec-ease);
+}
+.ds-aec-value-card:hover { border-color: var(--ds-orange); }
+.ds-aec-value-card__title {
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+.ds-aec-value-card__text { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
+
+/* - 3. The Core Pillars for AEC (image cards) - */
+.ds-aec-pillars__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5em;
+    margin-top: 2em;
+}
+.ds-aec-pillar {
+    position: relative;
+    min-height: clamp(300px, 26vw, 400px);
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--ds-navy-gradient);
+    border: 2px solid var(--ds-aec-border);
+    color: var(--ds-white);
+    transition: transform 0.45s var(--ds-aec-ease), box-shadow 0.45s var(--ds-aec-ease), border-color 0.45s var(--ds-aec-ease);
+}
+.ds-aec-pillar--no-image { background: var(--ds-brand-gradient); }
+.ds-aec-pillar__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.8s var(--ds-aec-ease);
+}
+/* Two stacked overlays cross-fade — gradients can't be transitioned */
+.ds-aec-pillar__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: opacity 0.45s var(--ds-aec-ease);
+}
+.ds-aec-pillar__overlay--default { background: var(--ds-aec-blue); }
+.ds-aec-pillar__overlay--hover { background: var(--ds-aec-orange); opacity: 0; }
+
+.ds-aec-pillar__body {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5em 1.25em;
+    text-align: center;
+}
+.ds-aec-pillar__title {
+    font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+    transition: color 0.35s var(--ds-aec-ease), text-shadow 0.35s var(--ds-aec-ease);
+}
+.ds-aec-pillar__reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: grid-template-rows 0.45s var(--ds-aec-ease), opacity 0.35s var(--ds-aec-ease), transform 0.35s var(--ds-aec-ease);
+}
+.ds-aec-pillar__reveal-inner { min-height: 0; overflow: hidden; }
+.ds-aec-pillar__text {
+    margin-top: 0.75em;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ds-black);
+}
+.ds-aec-pillar__link {
+    display: inline-block;
+    margin-top: 1em;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--ds-black);
+}
+.ds-aec-pillar__link:hover { color: var(--ds-black); text-decoration: underline; }
+/* Stretch the link over the whole card so the card is one click target */
+.ds-aec-pillar__link::after { content: ''; position: absolute; inset: 0; }
+.ds-aec-pillar__arrow { display: inline-block; transition: transform 0.35s var(--ds-aec-ease); }
+
+.ds-aec-pillar:hover,
+.ds-aec-pillar:focus-within {
+    transform: translateY(-6px);
+    border-color: var(--ds-yellow);
+    box-shadow: 0 18px 40px rgba(243, 110, 33, 0.25);
+}
+.ds-aec-pillar:hover .ds-aec-pillar__overlay--hover,
+.ds-aec-pillar:focus-within .ds-aec-pillar__overlay--hover { opacity: 1; }
+.ds-aec-pillar:hover .ds-aec-pillar__img,
+.ds-aec-pillar:focus-within .ds-aec-pillar__img { transform: scale(1.05); }
+.ds-aec-pillar:hover .ds-aec-pillar__title,
+.ds-aec-pillar:focus-within .ds-aec-pillar__title { color: var(--ds-black); text-shadow: none; }
+.ds-aec-pillar:hover .ds-aec-pillar__reveal,
+.ds-aec-pillar:focus-within .ds-aec-pillar__reveal { grid-template-rows: 1fr; opacity: 1; transform: none; }
+.ds-aec-pillar:hover .ds-aec-pillar__arrow,
+.ds-aec-pillar:focus-within .ds-aec-pillar__arrow { transform: translateX(4px); }
+.ds-aec-pillar__link:focus-visible { outline: none; }
+.ds-aec-pillar:has(.ds-aec-pillar__link:focus-visible) { outline: 3px solid var(--ds-yellow); outline-offset: 3px; }
+
+/* Touch screens have no hover: show the filled state up front */
+@media (hover: none) {
+    .ds-aec-pillar__overlay--hover { opacity: 1; }
+    .ds-aec-pillar__title { color: var(--ds-black); text-shadow: none; }
+    .ds-aec-pillar__reveal { grid-template-rows: 1fr; opacity: 1; transform: none; }
+    .ds-aec-pillar:hover,
+    .ds-aec-pillar:focus-within { transform: none; }
+}
+
+/* - 4. Guided Pathway accordion - */
+.ds-aec-path__list { display: flex; flex-direction: column; gap: 1em; margin-top: 2em; }
+.ds-aec-path__item {
+    border: 2px solid var(--ds-aec-border);
+    background: transparent;
+    transition: border-color 0.3s var(--ds-aec-ease), background-color 0.3s var(--ds-aec-ease);
+}
+.ds-aec-path__item:hover { border-color: rgba(242, 245, 251, 0.7); }
+.ds-aec-path__item.is-open {
+    border-color: var(--ds-orange);
+    background: var(--ds-transparent-white);
+}
+.ds-aec-path__heading { margin: 0; font-size: inherit; }
+.ds-aec-path__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    width: 100%;
+    padding: 0.9em 1.5em;
+    background: none;
+    border: 0;
+    color: var(--ds-white);
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+}
+.ds-aec-path__chevron { flex-shrink: 0; font-size: 0.8em; transition: transform 0.3s var(--ds-aec-ease); }
+.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); color: var(--ds-yellow); }
+
+.ds-aec-path__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.4s var(--ds-aec-ease);
+}
+.ds-aec-path__panel-inner { min-height: 0; overflow: hidden; }
+.ds-aec-path__content {
+    padding: 0 1.5em 1.5em;
+    line-height: 1.8;
+    opacity: 1;
+    transition: opacity 0.3s var(--ds-aec-ease);
+}
+.ds-aec-path__content p { margin-bottom: 1em; }
+.ds-aec-path__content p:last-child { margin-bottom: 0; }
+.ds-aec-path__cta { margin-top: 1.25em; }
+.ds-aec-path__btn { font-size: 1rem; padding: 0.6em 1.5em; }
+
+/* Collapse closed panels only once JS is running */
+.ds-aec-path__list.is-ready .ds-aec-path__item:not(.is-open) .ds-aec-path__panel { grid-template-rows: 0fr; }
+.ds-aec-path__list.is-ready .ds-aec-path__item:not(.is-open) .ds-aec-path__content { opacity: 0; }
+/* `hidden` is set after the close animation so closed links leave the tab order */
+.ds-aec-path__panel[hidden] { display: none; }
+
+.ds-aec-path__item--consult.is-open { border-color: var(--ds-yellow); }
+
+/* - 5. Our AEC Clients - */
+.ds-aec-clients .ds-testimonial-carousel { margin-top: 2em; }
+
+/* - Responsive - */
+@media (max-width: 1024px) {
+    .ds-aec-pillars__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-aec-help__inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .ds-aec-segments__grid { grid-template-columns: 1fr; gap: 1em; }
+    .ds-aec-hero__buttons .ds-btn { width: 100%; }
+    .ds-aec-value-card { padding: 1.25em; }
+    .ds-aec-path__toggle { padding: 0.9em 1em; }
+    .ds-aec-path__content { padding: 0 1em 1.25em; }
+}
+@media (max-width: 600px) {
+    .ds-aec-pillars__grid { grid-template-columns: 1fr; }
+    .ds-aec-pillar { min-height: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-aec-pillar,
+    .ds-aec-pillar:hover,
+    .ds-aec-pillar:focus-within { transform: none; }
+}
