@@ -748,8 +748,10 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-accordion__icon-img, .ds-accordion__title-wrap svg.ds-svg { width: 40px; height: 40px; flex-shrink: 0; }
 
 /* - Services Split (Desktop tabs + right panel) -
-   Starts closed with the titles centered; .is-open (set by JS) grows the panel
-   column from zero, sliding the titles left. */
+   Starts closed with the titles centered; once a service is active (.is-active
+   on an item, or .is-open on the wrapper) the panel column grows from zero,
+   sliding the titles left. Keying off .is-active too keeps this working if a
+   cached older main.js is served that never sets .is-open. */
 .ds-services-split {
     display: flex;
     gap: 0;
@@ -769,11 +771,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     transition: border-image 0.3s, margin 0.5s ease;
     margin-right: 2em;
 }
-.ds-services-split:not(.is-open) .ds-services-split__item {
+.ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__item {
     margin-right: 0;
 }
 @media (min-width: 1025px) {
-    .ds-services-split:not(.is-open) .ds-services-split__header {
+    .ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__header {
         justify-content: center;
         text-align: center;
     }
@@ -817,14 +819,18 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     overflow: hidden;
     transition: flex-basis 0.5s ease, padding 0.5s ease, opacity 0.3s ease, visibility 0.3s;
 }
-.ds-services-split:not(.is-open) .ds-services-split__panels {
+.ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__panels {
     flex-basis: 0;
     padding-left: 0;
     padding-right: 0;
+    min-height: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
     opacity: 0;
     visibility: hidden;
 }
-.ds-services-split.is-open .ds-services-split__panel.is-active {
+.ds-services-split .ds-services-split__panel.is-active {
     animation: ds-services-panel-in 0.4s ease 0.25s both;
 }
 @keyframes ds-services-panel-in {

@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.4.11');
+define('DS_VERSION', '2.4.12');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
