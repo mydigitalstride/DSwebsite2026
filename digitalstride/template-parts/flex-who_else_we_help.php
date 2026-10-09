@@ -30,6 +30,32 @@ if (!$items) {
 $logos = $show_clients && function_exists('get_field') ? get_field('gp_logos', 'option') : [];
 ?>
 
+<style>
+/* Inline so the section is styled even when a cache serves an older main stylesheet. */
+.ds-who-else { display: flex; gap: 4em; align-items: flex-start; }
+.ds-who-else__content { flex: 1 1 0; min-width: 0; }
+.ds-who-else__text { font-size: 1.2em; line-height: 1.6; }
+.ds-who-else__text p { margin: 0; }
+.ds-who-else__text p + p { margin-top: 1.25em; }
+.ds-who-else__cta-wrap { margin-top: 3em; text-align: center; }
+.ds-who-else__cta { display: inline-block; width: 100%; max-width: 440px; text-align: center; }
+.ds-who-else__list { flex: 0 0 40%; max-width: 40%; }
+.ds-who-else .ds-accordion--centered .ds-accordion__item { margin-bottom: 1em; }
+.ds-who-else .ds-accordion--centered .ds-accordion__header {
+    justify-content: center;
+    text-align: center;
+    padding: 1.5em;
+    font-size: 1.5rem;
+}
+.ds-who-else .ds-accordion--centered .ds-accordion__body { padding: 0 1.5em 1.5em; text-align: center; }
+.ds-who-else__clients { margin-top: 4em; }
+@media (max-width: 1024px) {
+    .ds-who-else { flex-direction: column; gap: 2.5em; }
+    .ds-who-else__list { flex-basis: auto; max-width: 100%; width: 100%; }
+    .ds-who-else .ds-accordion--centered .ds-accordion__header { font-size: 1.25rem; padding: 1.1em; }
+}
+</style>
+
 <section class="ds-section ds-section--who-else">
     <div class="ds-container">
         <div class="ds-who-else">
@@ -37,7 +63,9 @@ $logos = $show_clients && function_exists('get_field') ? get_field('gp_logos', '
                 <h2 class="ds-section__heading"><?php echo esc_html($heading); ?></h2>
                 <div class="ds-who-else__text"><?php echo wp_kses_post($text); ?></div>
                 <?php if (!empty($cta['url'])) : ?>
-                    <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-who-else__cta"<?php echo !empty($cta['target']) ? ' target="' . esc_attr($cta['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($cta['title']); ?></a>
+                    <div class="ds-who-else__cta-wrap">
+                        <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-who-else__cta"<?php echo !empty($cta['target']) ? ' target="' . esc_attr($cta['target']) . '" rel="noopener"' : ''; ?>><?php echo esc_html($cta['title']); ?></a>
+                    </div>
                 <?php endif; ?>
             </div>
 
