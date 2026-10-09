@@ -161,6 +161,31 @@
         });
     });
 
+    // Core values — on desktop, line the accordion's middle up with the
+    // picture's middle. Measured closed, so opening a value grows it downward.
+    document.querySelectorAll('.ds-values-layout').forEach(function (layout) {
+        var img = layout.querySelector('.ds-values-layout__image img');
+        var right = layout.querySelector('.ds-values-layout__right');
+        var accordion = right && right.querySelector('.ds-accordion');
+        if (!img || !accordion) return;
+
+        function align() {
+            if (window.innerWidth <= 1024) {
+                right.style.paddingTop = '';
+                return;
+            }
+            if (accordion.querySelector('.ds-accordion__item.is-active')) return;
+            var top = layout.getBoundingClientRect().top;
+            var imgRect = img.getBoundingClientRect();
+            var imgMiddle = imgRect.top - top + imgRect.height / 2;
+            right.style.paddingTop = Math.max(0, imgMiddle - accordion.offsetHeight / 2) + 'px';
+        }
+
+        if (img.complete) align(); else img.addEventListener('load', align);
+        window.addEventListener('resize', align);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+    });
+
     // Services split — desktop tabs + mobile accordion
     document.querySelectorAll('.ds-services-split').forEach(function (split) {
         var items = split.querySelectorAll('.ds-services-split__item');
