@@ -10,40 +10,35 @@ get_header();
 <?php // Services Overview ?>
 <section class="ds-section ds-section--services-overview">
     <div class="ds-container">
-        <h2 class="ds-section__heading"><?php echo esc_html(get_field('services_heading') ?: 'OUR SERVICES'); ?></h2>
+        <h2 class="ds-section__heading ds-section__heading--center"><?php echo esc_html(get_field('services_heading') ?: 'OUR SERVICES'); ?></h2>
 
-        <?php if (have_rows('services')) : while (have_rows('services')) : the_row(); ?>
-            <div class="ds-service-block" id="<?php echo esc_attr(sanitize_title(get_sub_field('title'))); ?>">
-                <div class="ds-service-block__header">
-                    <?php $icon = get_sub_field('icon'); ?>
-                    <?php if ($icon) : ?>
-                        <div class="ds-service-block__icon">
-                            <img src="<?php echo esc_url($icon['url']); ?>" alt="">
-                        </div>
-                    <?php endif; ?>
-                    <h3 class="ds-service-block__title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                </div>
-
-                <div class="ds-service-block__content">
-                    <?php if (have_rows('sub_services')) : ?>
-                        <div class="ds-grid ds-grid--3">
-                            <?php while (have_rows('sub_services')) : the_row(); ?>
-                                <div class="ds-service-card">
-                                    <h6 class="ds-service-card__title"><?php echo esc_html(get_sub_field('title')); ?></h6>
-                                    <p class="ds-service-card__text"><?php echo esc_html(get_sub_field('description')); ?></p>
-                                </div>
-                            <?php endwhile; ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($cta = get_sub_field('cta_link')) : ?>
-                        <div class="ds-service-block__cta">
-                            <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--outline"><?php echo esc_html($cta['title']); ?></a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endwhile; endif; ?>
+        <?php
+        $services_data = [];
+        if (have_rows('services')) :
+            while (have_rows('services')) : the_row();
+                $service = [
+                    'icon'       => get_sub_field('icon'),
+                    'icon_color' => get_sub_field('icon_color'),
+                    'title'      => get_sub_field('title'),
+                    'cta'        => get_sub_field('cta_link'),
+                    'subs'       => [],
+                ];
+                if (have_rows('sub_services')) :
+                    while (have_rows('sub_services')) : the_row();
+                        $service['subs'][] = [
+                            'icon'       => get_sub_field('icon'),
+                            'icon_color' => get_sub_field('icon_color'),
+                            'title'      => get_sub_field('title'),
+                            'desc'       => get_sub_field('description'),
+                            'link'       => get_sub_field('link'),
+                        ];
+                    endwhile;
+                endif;
+                $services_data[] = $service;
+            endwhile;
+        endif;
+        get_template_part('template-parts/services-split', null, ['services' => $services_data]);
+        ?>
     </div>
 </section>
 
