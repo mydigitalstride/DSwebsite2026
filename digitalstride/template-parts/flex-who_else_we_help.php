@@ -4,9 +4,8 @@
  * Text + CTA on the left, an accordion of industries on the right, and the
  * client logo carousel (Theme Settings → Clients) underneath.
  *
- * Empty fields fall back to the copy below, and the front page shows this
- * section after Core Values until it is added as a layout (see
- * ds_render_flex()), so it renders complete before anything is entered.
+ * Empty fields fall back to the copy below, so it renders complete before
+ * anything is entered.
  */
 $in_row = get_row_layout() === 'who_else_we_help';
 
