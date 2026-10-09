@@ -72,6 +72,11 @@ function ds_inline_svg( $image, $class = '' ) {
 function ds_render_flex($field_name = 'page_sections', $post_id = false) {
     if (!have_rows($field_name, $post_id)) return;
 
+    // The home page shows "Who Else We Help" after Core Values until an editor
+    // adds the layout to the page themselves.
+    $add_who_else = $field_name === 'page_sections' && $post_id === false && is_front_page()
+        && !in_array('who_else_we_help', array_column((array) get_field($field_name, false, false), 'acf_fc_layout'), true);
+
     while (have_rows($field_name, $post_id)) {
         the_row();
         $layout = get_row_layout();
@@ -80,6 +85,11 @@ function ds_render_flex($field_name = 'page_sections', $post_id = false) {
         $wrapped = ds_audience_wrap_open();
         get_template_part('template-parts/flex', $layout);
         ds_audience_wrap_close($wrapped);
+
+        if ($add_who_else && in_array($layout, ['global_core_values', 'core_values'], true)) {
+            get_template_part('template-parts/flex-who_else_we_help');
+            $add_who_else = false;
+        }
     }
 }
 
@@ -351,3 +361,139 @@ function ds_enqueue_code_highlighting() {
 add_action('acf/input/admin_head', function () {
     echo '<style>.ds-code-field textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;white-space:pre;tab-size:4;}</style>';
 });
+
+/**
+ * Breadcrumb trail under the header on pages and posts.
+ *
+ * Currently OFF site-wide (the ds_show_breadcrumbs default is false). To
+ * turn it back on everywhere, flip that default to true; to show it on
+ * selected pages only, return true from the filter for those pages.
+ * ECHO SEO's BreadcrumbList schema is printed separately and is unaffected.
+ *
+ * Uses ECHO SEO's echs_breadcrumbs() when the plugin is active, so the
+ * visible trail matches the BreadcrumbList it prints in the schema graph.
+ * Without the plugin the same Home › parents › page trail is rendered here
+ * (no schema). Skipped on the front page and Landing Page template (ad
+ * landing pages shouldn't offer a way out). The proposal template pages render their
+ * own trail.
+ */
+function ds_breadcrumbs() {
+    if (!is_singular() || is_front_page() || is_page_template('page-landing.php')) return;
+    if (!apply_filters('ds_show_breadcrumbs', false, get_queried_object_id())) return;
+
+    echo '<div class="ds-breadcrumbs"><div class="ds-container">';
+    if (function_exists('echs_breadcrumbs')) {
+        echs_breadcrumbs();
+    } else {
+        $post_id = get_queried_object_id();
+        $items   = [['name' => get_bloginfo('name'), 'url' => home_url('/')]];
+        foreach (array_reverse(get_post_ancestors($post_id)) as $ancestor_id) {
+            $items[] = ['name' => get_the_title($ancestor_id), 'url' => get_permalink($ancestor_id)];
+        }
+        $items[] = ['name' => get_the_title($post_id), 'url' => ''];
+
+        echo '<nav class="echs-breadcrumbs" aria-label="' . esc_attr__('Breadcrumb', 'digitalstride') . '"><ol>';
+        $last = count($items) - 1;
+        foreach ($items as $i => $item) {
+            echo '<li>';
+            if ($item['url'] !== '') {
+                echo '<a href="' . esc_url($item['url']) . '">' . esc_html($item['name']) . '</a>';
+            } else {
+                echo '<span aria-current="page">' . esc_html($item['name']) . '</span>';
+            }
+            echo '</li>';
+            if ($i < $last) echo '<li class="echs-breadcrumb-sep" aria-hidden="true">/</li>';
+        }
+        echo '</ol></nav>';
+    }
+    echo '</div></div>';
+}
+
+/**
+ * Whether the current page is the Services page or an individual service page.
+ * Matches the service templates, any page nested under the Services page, and
+ * any page linked from the Services mega menu (Theme Settings → Header), so
+ * service pages built on the default or landing template are covered too.
+ */
+function ds_is_service_page() {
+    static $result = null;
+    if ($result !== null) return $result;
+    $result = false;
+
+    if (!is_page() || is_front_page()) return $result;
+
+    if (is_page_template(['page-services.php', 'page-service-overview.php', 'page-service-v1.php', 'page-service-v2.php'])) {
+        return $result = true;
+    }
+
+    $post_id = get_queried_object_id();
+    foreach (get_post_ancestors($post_id) as $ancestor_id) {
+        if (get_post_field('post_name', $ancestor_id) === 'services') {
+            return $result = true;
+        }
+    }
+
+    $path_of = function ($url) {
+        return trailingslashit('/' . ltrim((string) wp_parse_url($url, PHP_URL_PATH), '/'));
+    };
+    $current_path = $path_of(get_permalink($post_id));
+
+    $nav_items = function_exists('get_field') ? get_field('nav_items', 'option') : [];
+    foreach ((array) $nav_items as $item) {
+        $link = $item['link'] ?? null;
+        if (!$link) continue;
+        $is_services = strcasecmp(trim(wp_strip_all_tags($link['title'])), 'Services') === 0
+            || $path_of($link['url']) === $path_of(home_url('/services/'));
+        if (!$is_services) continue;
+
+        foreach ((array) ($item['mega_columns'] ?? []) as $column) {
+            foreach ((array) ($column['column_links'] ?? []) as $row) {
+                if (!empty($row['link']['url']) && $path_of($row['link']['url']) === $current_path) {
+                    return $result = true;
+                }
+            }
+        }
+    }
+
+    return $result;
+}
+
+/**
+ * URL for a theme asset whose filename changes whenever the file does.
+ *
+ * Some caches (host page caches, CDNs, optimisation plugins) ignore the ?ver=
+ * query string and keep serving an old main.css / main.js after a deploy. On
+ * first use, the file is copied to uploads/ds-assets/<name>.<fingerprint>.<ext>
+ * so every change gets a brand-new path that nothing can have cached. Older
+ * copies are removed. Falls back to the theme URL if uploads isn't writable.
+ * Only use for files without relative url() references.
+ *
+ * @param string $rel Path relative to the theme root, e.g. 'assets/js/main.js'.
+ */
+function ds_asset_url($rel) {
+    $src      = DS_DIR . '/' . $rel;
+    $fallback = DS_URI . '/' . $rel;
+    if (!is_readable($src)) return $fallback;
+
+    $uploads = wp_upload_dir(null, false);
+    if (!empty($uploads['error'])) return $fallback;
+
+    $info  = pathinfo($rel);
+    $base  = sanitize_file_name($info['filename']);
+    $ext   = $info['extension'] ?? '';
+    $print = substr(md5($rel . '|' . filemtime($src) . '|' . filesize($src)), 0, 12);
+    $name  = $base . '.' . $print . '.' . $ext;
+    $dir   = trailingslashit($uploads['basedir']) . 'ds-assets';
+    $dest  = $dir . '/' . $name;
+
+    if (!file_exists($dest)) {
+        if (!wp_mkdir_p($dir) || !@copy($src, $dest)) return $fallback;
+        foreach ((array) glob($dir . '/' . $base . '.*.' . $ext) as $old) {
+            if ($old !== $dest && preg_match('/\.[0-9a-f]{12}\.' . preg_quote($ext, '/') . '$/', $old)) {
+                @unlink($old);
+            }
+        }
+    }
+
+    return set_url_scheme(trailingslashit($uploads['baseurl']) . 'ds-assets/' . $name);
+}

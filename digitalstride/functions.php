@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.2.0');
+define('DS_VERSION', '2.4.13');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
@@ -35,8 +35,8 @@ add_action('wp_enqueue_scripts', function () {
         null
     );
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css', [], '6.5.0');
-    wp_enqueue_style('digitalstride-main', DS_URI . '/assets/css/digitalstride-main.min.css', ['google-fonts', 'font-awesome'], DS_VERSION);
-    wp_enqueue_script('digitalstride-main', DS_URI . '/assets/js/main.js', [], DS_VERSION, true);
+    wp_enqueue_style('digitalstride-main', ds_asset_url('assets/css/digitalstride-main.min.css'), ['google-fonts', 'font-awesome'], null);
+    wp_enqueue_script('digitalstride-main', ds_asset_url('assets/js/main.js'), [], null, true);
 });
 
 // ── ACF Local JSON ───────────────────────────────────
@@ -69,6 +69,12 @@ add_action('acf/init', function () {
         'parent_slug' => 'theme-settings',
     ]);
     acf_add_options_sub_page([
+        'page_title'  => 'Who We Serve Menu',
+        'menu_title'  => 'Who We Serve Menu',
+        'menu_slug'   => 'acf-options-who-we-serve-menu',
+        'parent_slug' => 'theme-settings',
+    ]);
+    acf_add_options_sub_page([
         'page_title'  => 'Footer Settings',
         'menu_title'  => 'Footer',
         'parent_slug' => 'theme-settings',
@@ -87,8 +93,14 @@ add_action('acf/init', function () {
     ]);
     acf_add_options_sub_page([
         'page_title'  => 'Global Partners',
-        'menu_title'  => 'Partners / Clients',
+        'menu_title'  => 'Partners',
         'menu_slug'   => 'acf-options-global-partners',
+        'parent_slug' => 'theme-settings',
+    ]);
+    acf_add_options_sub_page([
+        'page_title'  => 'Global Clients',
+        'menu_title'  => 'Clients',
+        'menu_slug'   => 'acf-options-global-clients',
         'parent_slug' => 'theme-settings',
     ]);
     acf_add_options_sub_page([
@@ -131,6 +143,7 @@ require_once DS_DIR . '/inc/survey.php';
 require_once DS_DIR . '/inc/site-audit.php';
 require_once DS_DIR . '/inc/podcast.php';
 require_once DS_DIR . '/inc/proposal-templates.php';
+require_once DS_DIR . '/inc/aec-landing.php';
 require_once DS_DIR . '/inc/dsd-leads.php';
 
 // ── Retired: medical receipt reimbursements ──────────

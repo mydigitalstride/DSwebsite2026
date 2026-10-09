@@ -29,6 +29,8 @@ $bg_style   = $bg_image ? 'background-image: url(' . esc_url($bg_image['url']) .
             <?php if ($cta) : ?>
                 <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-btn--large"><?php echo esc_html($cta['title']); ?></a>
             <?php endif; ?>
+
+            <?php if (ds_is_service_page()) get_template_part('template-parts/hero-service-ctas'); ?>
         </div>
     </div>
 </section>

@@ -140,6 +140,14 @@ function ds_pt_request() {
     return (string) get_query_var(DS_PT_QUERY_VAR);
 }
 
+// A request carrying only our query var would otherwise be flagged as the
+// blog home, and SEO plugins would print homepage social tags over ours.
+add_action('parse_query', function ($query) {
+    if ($query->is_main_query() && $query->get(DS_PT_QUERY_VAR) !== '') {
+        $query->is_home = false;
+    }
+});
+
 add_action('template_redirect', function () {
     $req = ds_pt_request();
     if ($req === '' || $req === '__library' || ds_pt_get($req)) return;
@@ -193,7 +201,54 @@ add_action('wp_head', function () {
     printf("<meta property=\"og:title\" content=\"%s\">\n", esc_attr(wp_get_document_title()));
     printf("<meta property=\"og:description\" content=\"%s\">\n", esc_attr(wp_strip_all_tags($desc)));
     printf("<meta property=\"og:url\" content=\"%s\">\n", esc_url($url));
+    printf("<meta property=\"og:type\" content=\"website\">\n");
+    printf("<meta name=\"twitter:card\" content=\"summary\">\n");
 }, 1);
+
+// Join ECHO SEO's schema graph: a WebPage and breadcrumb for each template
+// page, tied to the site's #website / #organization nodes.
+add_filter('echs_schema_graph', function ($nodes) {
+    $req = ds_pt_request();
+    if ($req === '') return $nodes;
+
+    $crumbs = [
+        ['name' => get_bloginfo('name'), 'item' => home_url('/')],
+        ['name' => __('Proposal Templates', 'digitalstride'), 'item' => ds_pt_url()],
+    ];
+    if ($req === '__library') {
+        $url  = ds_pt_url();
+        $type = 'CollectionPage';
+        $name = __('RFP, RFQ & Proposal Templates', 'digitalstride');
+        $desc = __('Free, fill-in-the-blank RFP/RFQ response and proposal templates for architects, engineers, contractors, and HVAC, plumbing, electrical and roofing companies.', 'digitalstride');
+    } elseif ($t = ds_pt_get($req)) {
+        $url      = ds_pt_url($req);
+        $type     = 'WebPage';
+        $name     = $t['title'];
+        $desc     = $t['summary'];
+        $crumbs[] = ['name' => $t['title'], 'item' => $url];
+    } else {
+        return $nodes;
+    }
+
+    $items = [];
+    foreach ($crumbs as $i => $crumb) {
+        $items[] = ['@type' => 'ListItem', 'position' => $i + 1] + $crumb;
+    }
+
+    $nodes[] = [
+        '@type'       => $type,
+        '@id'         => $url . '#webpage',
+        'url'         => $url,
+        'name'        => $name,
+        'description' => wp_strip_all_tags($desc),
+        'isPartOf'    => ['@id' => home_url('/#website')],
+        'publisher'   => ['@id' => home_url('/#organization')],
+        'breadcrumb'  => ['@id' => $url . '#breadcrumb'],
+        'inLanguage'  => get_bloginfo('language'),
+    ];
+    $nodes[] = ['@type' => 'BreadcrumbList', '@id' => $url . '#breadcrumb', 'itemListElement' => $items];
+    return $nodes;
+});
 
 // Include the templates in WordPress's core sitemap (/wp-sitemap.xml).
 add_action('init', function () {
@@ -221,7 +276,7 @@ add_action('init', function () {
 // ── Assets ───────────────────────────────────────────
 
 add_action('wp_enqueue_scripts', function () {
-    wp_register_script('ds-proposal-templates', DS_URI . '/assets/js/proposal-templates.js', [], DS_VERSION, true);
+    wp_register_script('ds-proposal-templates', ds_asset_url('assets/js/proposal-templates.js'), [], null, true);
     if (ds_pt_request() !== '') wp_enqueue_script('ds-proposal-templates');
 });
 

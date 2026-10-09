@@ -161,18 +161,50 @@
         });
     });
 
+    // Core values — on desktop, line the accordion's top up with the
+    // picture's top. Opening a value grows it downward.
+    document.querySelectorAll('.ds-values-layout').forEach(function (layout) {
+        var img = layout.querySelector('.ds-values-layout__image img');
+        var right = layout.querySelector('.ds-values-layout__right');
+        var accordion = right && right.querySelector('.ds-accordion');
+        if (!img || !accordion) return;
+
+        function align() {
+            if (window.innerWidth <= 1024) {
+                right.style.paddingTop = '';
+                return;
+            }
+            var top = layout.getBoundingClientRect().top;
+            right.style.paddingTop = Math.max(0, img.getBoundingClientRect().top - top) + 'px';
+        }
+
+        if (img.complete) align(); else img.addEventListener('load', align);
+        window.addEventListener('resize', align);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+    });
+
     // Services split — desktop tabs + mobile accordion
     document.querySelectorAll('.ds-services-split').forEach(function (split) {
         var items = split.querySelectorAll('.ds-services-split__item');
         var panels = split.querySelectorAll('.ds-services-split__panel');
         var isMobile = function () { return window.innerWidth <= 1024; };
 
-        function desktopActivate(index) {
+        function closeAll() {
             items.forEach(function (el) {
                 el.classList.remove('is-active');
                 el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
             });
             panels.forEach(function (el) { el.classList.remove('is-active'); });
+            split.classList.remove('is-open');
+        }
+
+        // Desktop starts closed with the titles centered; opening one slides the
+        // titles left and reveals its panel. Clicking the open title closes it.
+        function desktopToggle(index) {
+            var wasOpen = items[index].classList.contains('is-active');
+            closeAll();
+            if (wasOpen) return;
+            split.classList.add('is-open');
             items[index].classList.add('is-active');
             items[index].querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'true');
             if (panels[index]) panels[index].classList.add('is-active');
@@ -196,33 +228,21 @@
                 if (isMobile()) {
                     mobileToggle(i);
                 } else {
-                    desktopActivate(i);
+                    desktopToggle(i);
                 }
             });
         });
 
+        // Crossing the mobile/desktop breakpoint resets to the closed state.
+        var wasMobile = isMobile();
         function handleResize() {
-            if (isMobile()) {
-                items.forEach(function (el) {
-                    el.classList.remove('is-active');
-                    el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
-                });
-                panels.forEach(function (el) { el.classList.remove('is-active'); });
-            } else {
-                var hasActive = split.querySelector('.ds-services-split__item.is-active');
-                if (!hasActive) desktopActivate(0);
+            if (isMobile() !== wasMobile) {
+                wasMobile = isMobile();
+                closeAll();
             }
         }
 
         window.addEventListener('resize', handleResize);
-        if (!isMobile()) {
-            desktopActivate(0);
-        } else {
-            items.forEach(function (el) {
-                el.classList.remove('is-active');
-                el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
-            });
-        }
     });
 
     // Full-Width Angled Carousel

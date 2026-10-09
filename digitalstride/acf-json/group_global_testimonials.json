@@ -35,6 +35,20 @@
                     "label": "Title & Company",
                     "name": "title_company",
                     "type": "text"
+                },
+                {
+                    "key": "field_gtm_industry",
+                    "label": "Industry",
+                    "name": "industry",
+                    "type": "checkbox",
+                    "instructions": "Tag the industries this client belongs to. AEC-tagged quotes appear on the AEC landing page.",
+                    "choices": {
+                        "aec": "AEC",
+                        "home_services": "Home Services"
+                    },
+                    "layout": "horizontal",
+                    "return_format": "value",
+                    "default_value": []
                 }
             ]
         }
@@ -57,5 +71,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1788890352
+    "modified": 1791477917
 }

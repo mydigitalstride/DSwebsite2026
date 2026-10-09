@@ -247,6 +247,160 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-mega-menu__links a:hover { color: var(--ds-white); }
 .ds-mega-menu__links a:hover::before { color: var(--ds-blue-gradient); }
 
+/* - Who We Serve: image-card mega menu - */
+.ds-nav__item--mega-cards {
+    --ds-wws-blue: linear-gradient(135deg, rgba(5, 24, 121, 0.9) 0%, rgba(9, 147, 191, 0.72) 100%);
+    --ds-wws-orange: linear-gradient(135deg, rgba(243, 110, 33, 0.94) 0%, rgba(242, 200, 20, 0.88) 100%);
+    --ds-wws-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Nav tabs: brand gradient text on hover, while pressed, when a dropdown
+   is open, and on the current page / section */
+.ds-nav__item > .ds-nav__link:active .ds-nav__label,
+.ds-nav__item.is-open > .ds-nav__link .ds-nav__label,
+.ds-nav__item.is-current > .ds-nav__link .ds-nav__label {
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.ds-nav__item > .ds-nav__link:active .ds-nav__arrow,
+.ds-nav__item.is-open > .ds-nav__link .ds-nav__arrow,
+.ds-nav__item.is-current > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+@media (min-width: 1025px) {
+    .ds-nav__item:not(.is-dismissed):hover > .ds-nav__link .ds-nav__label,
+    .ds-nav__item:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__label {
+        background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .ds-nav__item:not(.is-dismissed):hover > .ds-nav__link .ds-nav__arrow,
+    .ds-nav__item:not(.is-dismissed):focus-within > .ds-nav__link .ds-nav__arrow { color: var(--ds-yellow); }
+
+    .ds-nav__item--mega-cards:hover .ds-mega-menu--cards,
+    .ds-nav__item--mega-cards:focus-within .ds-mega-menu--cards { animation: ds-wws-in 0.3s var(--ds-wws-ease); }
+}
+@keyframes ds-wws-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.ds-wws-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+}
+.ds-wws-grid__item { margin: 0; }
+
+.ds-wws-card {
+    position: relative;
+    display: block;
+    height: clamp(180px, 13vw, 260px);
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--ds-navy-gradient); /* if no image */
+    color: var(--ds-white);
+    text-decoration: none;
+}
+.ds-wws-card:hover { color: var(--ds-white); }
+.ds-wws-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.8s var(--ds-wws-ease);
+}
+
+/* Two stacked overlays cross-fade — gradients themselves can't be transitioned */
+.ds-wws-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: opacity 0.45s var(--ds-wws-ease);
+}
+.ds-wws-card__overlay--default { background: var(--ds-wws-blue); }
+.ds-wws-card__overlay--hover { background: var(--ds-wws-orange); opacity: 0; }
+
+.ds-wws-card__body {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25em;
+    text-align: center;
+}
+.ds-wws-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.2vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+    /* Hidden CTA still takes up room below, so nudge the title down to sit
+       centred; it slides back up as the CTA appears. */
+    transform: translateY(0.9em);
+    transition: transform 0.45s var(--ds-wws-ease);
+}
+.ds-wws-card__cta {
+    margin-top: 0.75em;
+    font-family: var(--font-heading);
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.35s var(--ds-wws-ease), transform 0.35s var(--ds-wws-ease);
+}
+.ds-wws-card__arrow { display: inline-block; transition: transform 0.35s var(--ds-wws-ease); }
+
+.ds-wws-card:hover .ds-wws-card__overlay--default,
+.ds-wws-card:focus-visible .ds-wws-card__overlay--default { opacity: 0; }
+.ds-wws-card:hover .ds-wws-card__overlay--hover,
+.ds-wws-card:focus-visible .ds-wws-card__overlay--hover { opacity: 1; }
+.ds-wws-card:hover .ds-wws-card__img,
+.ds-wws-card:focus-visible .ds-wws-card__img { transform: scale(1.05); }
+.ds-wws-card:hover .ds-wws-card__title,
+.ds-wws-card:focus-visible .ds-wws-card__title { transform: none; }
+.ds-wws-card:hover .ds-wws-card__cta,
+.ds-wws-card:focus-visible .ds-wws-card__cta { opacity: 1; transform: none; transition-delay: 0.08s; }
+.ds-wws-card:hover .ds-wws-card__arrow,
+.ds-wws-card:focus-visible .ds-wws-card__arrow { transform: translateX(4px); }
+.ds-wws-card:focus-visible { outline: 3px solid var(--ds-yellow); outline-offset: 3px; }
+
+/* Touch screens have no hover: show the CTA up front */
+@media (hover: none) {
+    .ds-wws-card__title { transform: none; }
+    .ds-wws-card__cta { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1024px) {
+    .ds-wws-grid { grid-template-columns: 1fr; gap: 0.75em; }
+    .ds-wws-card { height: clamp(110px, 30vw, 180px); }
+    .ds-wws-card__title { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-mega-menu--cards { animation: none !important; }
+    .ds-wws-card__img,
+    .ds-wws-card__overlay,
+    .ds-wws-card__title,
+    .ds-wws-card__cta,
+    .ds-wws-card__arrow { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+    .ds-wws-card:hover .ds-wws-card__img,
+    .ds-wws-card:focus-visible .ds-wws-card__img { transform: none; }
+}
+
 /* - Hero - */
 .ds-hero {
     position: relative;
@@ -320,6 +474,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 .ds-hero__text { margin-bottom: 1rem; line-height: 1.8; }
 .ds-btn--hero { font-size: 1em; padding: 0.6em 1.75em; align-self: flex-start; }
+.ds-hero__ctas { margin-top: 1.5em; gap: 1.5em; }
+.ds-hero__ctas .ds-btn--hero { font-size: 1.25em; padding: 0.75em 2em; }
+@media (max-width: 600px) {
+    .ds-hero__ctas .ds-btn--hero { flex: 1 1 100%; }
+}
 .ds-hero__meta {
     font-family: var(--font-heading);
     font-size: 1.1em;
@@ -588,11 +747,16 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-accordion__title-wrap { display: flex; align-items: center; gap: 0.75em; }
 .ds-accordion__icon-img, .ds-accordion__title-wrap svg.ds-svg { width: 40px; height: 40px; flex-shrink: 0; }
 
-/* - Services Split (Desktop tabs + right panel) - */
+/* - Services Split (Desktop tabs + right panel) -
+   Starts closed with the titles centered; once a service is active (.is-active
+   on an item, or .is-open on the wrapper) the panel column grows from zero,
+   sliding the titles left. Keying off .is-active too keeps this working if a
+   cached older main.js is served that never sets .is-open. */
 .ds-services-split {
     display: flex;
     gap: 0;
     align-items: stretch;
+    justify-content: center;
 }
 .ds-services-split__tabs {
     flex: 0 0 50%;
@@ -604,8 +768,17 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     border: 3px solid;
     border-image: linear-gradient(90deg, #051879 8%, rgba(9,147,191,0.74) 81%, var(--ds-white)) 1;
     margin-bottom: 0.5em;
-    transition: border-image 0.3s;
+    transition: border-image 0.3s, margin 0.5s ease;
     margin-right: 2em;
+}
+.ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__item {
+    margin-right: 0;
+}
+@media (min-width: 1025px) {
+    .ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__header {
+        justify-content: center;
+        text-align: center;
+    }
 }
 .ds-services-split__item.is-active {
     border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
@@ -643,6 +816,26 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     padding: 2.5em;
     min-height: 400px;
     border-radius: 0 30px 30px 0;
+    overflow: hidden;
+    transition: flex-basis 0.5s ease, padding 0.5s ease, opacity 0.3s ease, visibility 0.3s;
+}
+.ds-services-split:not(.is-open):not(:has(.ds-services-split__item.is-active)) .ds-services-split__panels {
+    flex-basis: 0;
+    padding-left: 0;
+    padding-right: 0;
+    min-height: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.ds-services-split .ds-services-split__panel.is-active {
+    animation: ds-services-panel-in 0.4s ease 0.25s both;
+}
+@keyframes ds-services-panel-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 .ds-services-split__panel {
     display: none;
@@ -693,10 +886,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     font-weight: 600;
     color: var(--ds-accent);
     text-decoration: none;
-    transition: gap 0.2s ease;
+    transition: gap 0.2s ease, color 0.2s ease;
 }
 .ds-services-split__sub-link:hover {
     gap: 0.7em;
+    color: var(--ds-black);
     text-decoration: underline;
 }
 .ds-services-split__cta {
@@ -2807,51 +3001,8 @@ textarea.ds-survey__input { max-width: 100%; resize: vertical; }
 html[data-audience="aec"] .ds-audience--home_services,
 html[data-audience="home_services"] .ds-audience--aec { display: none !important; }
 
-/* Switcher bar above the header */
-.ds-audience-bar {
-    background: var(--ds-bg);
-    border-bottom: 1px solid rgba(242,245,251,0.12);
-    font-family: var(--font-heading);
-    font-size: 0.85em;
-}
-.ds-audience-bar__inner {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.75em;
-    padding: 0.4em 10%;
-    flex-wrap: wrap;
-}
-.ds-audience-bar__label { color: rgba(242,245,251,0.7); }
-.ds-audience-bar__options { display: inline-flex; border: 1px solid rgba(242,245,251,0.35); border-radius: 999px; overflow: hidden; }
-.ds-audience-bar__btn {
-    background: transparent;
-    border: none;
-    color: var(--ds-white);
-    font: inherit;
-    font-weight: 600;
-    padding: 0.35em 1em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-}
-.ds-audience-bar__btn:hover { background: var(--ds-transparent-white); color: var(--ds-white); }
-.ds-audience-bar__btn.is-active {
-    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
-    color: var(--ds-bg);
-}
-.ds-audience-bar__clear {
-    background: none;
-    border: none;
-    color: rgba(242,245,251,0.6);
-    font: inherit;
-    cursor: pointer;
-    padding: 0.35em 0.5em;
-    text-decoration: underline;
-    display: none;
-}
-html.ds-audience-picked .ds-audience-bar__clear { display: inline-block; }
-.ds-audience-bar__clear:hover { color: var(--ds-white); }
+/* The old "I'm in" switcher bar was removed; keep any stale markup hidden. */
+.ds-audience-bar { display: none !important; }
 
 /* <button> and <a> variants must render the same size */
 button.ds-audience-btn { line-height: inherit; font-family: inherit; }
@@ -2908,8 +3059,6 @@ button.ds-audience-btn { line-height: inherit; font-family: inherit; }
 
 @media (max-width: 640px) {
     .ds-audience-picker__options { grid-template-columns: 1fr; }
-    .ds-audience-bar__inner { justify-content: center; padding-left: 4%; padding-right: 4%; }
-    .ds-audience-bar__label { display: none; }
 }
 
 /* ============================================================
@@ -3227,6 +3376,16 @@ summary:focus-visible,
     }
 }
 
+/* - Breadcrumbs (ECHO SEO's echs_breadcrumbs() or the theme fallback) - */
+.ds-breadcrumbs { padding: 0.9rem 0 0; font-size: 0.85rem; color: rgba(242,245,251,0.7); }
+.ds-breadcrumbs .echs-breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4em; margin: 0; padding: 0; font-size: inherit; }
+.ds-breadcrumbs .echs-breadcrumbs li { margin: 0; }
+.ds-breadcrumbs .echs-breadcrumbs a { color: inherit; text-decoration: none; }
+.ds-breadcrumbs .echs-breadcrumbs a:hover { color: var(--ds-orange); text-decoration: underline; }
+.ds-breadcrumbs [aria-current="page"] { color: var(--ds-white); }
+.ds-breadcrumbs .echs-breadcrumb-sep { opacity: 0.5; }
+@media print { .ds-breadcrumbs { display: none; } }
+
 /* ==========================================================================
    Proposal & RFP/RFQ Templates  (inc/proposal-templates.php)
    ========================================================================== */
@@ -3409,7 +3568,6 @@ summary:focus-visible,
     body.ds-pt-page { background: #fff !important; }
     body.ds-pt-page .ds-header,
     body.ds-pt-page .ds-footer,
-    body.ds-pt-page .ds-audience-bar,
     body.ds-pt-page .ds-skip-link,
     .ds-pt-crumbs, .ds-pt-card__meta, .ds-pt-hero__lead, .ds-pt-actions, .ds-pt-status,
     .ds-pt-side, .ds-pt-usewhen, .ds-pt-checklist, .ds-pt-disclaimer, .ds-pt-back, .ds-pt-tip { display: none !important; }

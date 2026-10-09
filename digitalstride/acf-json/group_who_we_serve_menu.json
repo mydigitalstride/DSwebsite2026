@@ -1,0 +1,90 @@
+{
+    "key": "group_who_we_serve_menu",
+    "title": "Who We Serve Menu",
+    "fields": [
+        {
+            "key": "field_wws_cards",
+            "label": "Who We Serve Cards",
+            "name": "who_we_serve_cards",
+            "type": "repeater",
+            "instructions": "Cards in the \"Who We Serve\" dropdown, shown 3 per row. Drag to reorder. Until at least one card is added here, default AEC Industry / Home Services / Realtors cards are shown.",
+            "layout": "block",
+            "button_label": "Add Card",
+            "min": 0,
+            "max": 6,
+            "collapsed": "field_wws_card_title",
+            "sub_fields": [
+                {
+                    "key": "field_wws_card_title",
+                    "label": "Card Title",
+                    "name": "card_title",
+                    "type": "text",
+                    "required": 1,
+                    "placeholder": "AEC Industry",
+                    "maxlength": 40,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_cta",
+                    "label": "Hover CTA Text",
+                    "name": "card_cta_text",
+                    "type": "text",
+                    "instructions": "Shown on hover. The arrow is added automatically.",
+                    "default_value": "Explore More",
+                    "maxlength": 30,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_image",
+                    "label": "Background Image",
+                    "name": "card_image",
+                    "type": "image",
+                    "required": 1,
+                    "instructions": "Landscape photo, at least 1200×700px. Shown behind a blue overlay that turns orange/yellow on hover. If empty, the destination page's featured image is used.",
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp,avif",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_wws_card_link",
+                    "label": "Destination Link",
+                    "name": "card_link",
+                    "type": "link",
+                    "required": 1,
+                    "instructions": "Pick a page or paste any URL.",
+                    "return_format": "array",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-who-we-serve-menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Image cards for the Who We Serve mega menu dropdown.",
+    "show_in_rest": 0,
+    "modified": 1791404626
+}

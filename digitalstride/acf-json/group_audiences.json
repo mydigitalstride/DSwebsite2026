@@ -3,22 +3,6 @@
     "title": "Audiences",
     "fields": [
         {
-            "key": "field_aud_enable_bar",
-            "label": "Show audience switcher bar above the header",
-            "name": "audience_bar_enabled",
-            "type": "true_false",
-            "ui": 1,
-            "default_value": 1,
-            "instructions": "A slim bar with the two industry buttons so visitors can pick or change their industry from any page."
-        },
-        {
-            "key": "field_aud_bar_label",
-            "label": "Switcher bar label",
-            "name": "audience_bar_label",
-            "type": "text",
-            "default_value": "I'm in:"
-        },
-        {
             "key": "field_aud_aec",
             "label": "AEC",
             "name": "audience_aec",
@@ -99,5 +83,5 @@
     "active": true,
     "description": "Labels, descriptions and destination pages for the AEC / Home Services journeys.",
     "show_in_rest": 0,
-    "modified": 1789862001
+    "modified": 1791404835
 }

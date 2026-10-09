@@ -1,0 +1,235 @@
+/* ==========================================================================
+   AEC Landing Page (page-aec-landing.php)
+   Loaded only on that template, after digitalstride-main.
+   ========================================================================== */
+
+.ds-page-aec {
+    --ds-aec-border: rgba(242, 245, 251, 0.35);
+    --ds-brand-gradient-border: linear-gradient(90deg, #051879 8%, rgba(9, 147, 191, 0.74) 60%, var(--ds-white));
+    --ds-aec-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Small italic eyebrow used above section headings */
+.ds-aec-tag {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 0.25em;
+}
+
+/* - Section spacing - */
+/* More breathing room than the site default (3rem) between every block. */
+.ds-page-aec .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+.ds-page-aec .ds-main > .ds-hero + .ds-section { padding-top: clamp(5rem, 10vw, 8rem); }
+
+/* - Hero - */
+.ds-aec-hero { min-height: 60vh; }
+/* Dark overlay so the white type stands out over any photo; a hint of the
+   brand navy keeps it on-palette. */
+.ds-aec-hero .ds-hero__overlay {
+    background: linear-gradient(90deg, rgba(2, 11, 36, 0.94) 0%, rgba(2, 11, 36, 0.85) 45%, rgba(5, 24, 121, 0.72) 100%);
+    opacity: 1;
+}
+.ds-aec-hero__tag { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
+.ds-aec-hero .ds-hero__heading,
+.ds-aec-hero .ds-hero__subheading,
+.ds-aec-hero .ds-hero__text { text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45); }
+.ds-aec-hero .ds-hero__text { max-width: 46em; }
+.ds-aec-hero__buttons { display: flex; flex-wrap: wrap; gap: 1em; }
+
+/* - 1. Who We Serve in AEC (segment selector) - */
+.ds-aec-segments__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+    margin-top: 2em;
+    align-items: start;
+}
+.ds-aec-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    min-height: 4.5em;
+    padding: 1.25em 1.5em;
+    background: var(--ds-transparent-white);
+    border: 2px solid var(--ds-aec-border);
+    color: var(--ds-white);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ds-aec-ease), background-color 0.3s var(--ds-aec-ease), box-shadow 0.3s var(--ds-aec-ease);
+}
+.ds-aec-segment:hover { border-color: rgba(242, 245, 251, 0.7); }
+.ds-aec-segment.is-active {
+    border-color: var(--ds-orange);
+    background: rgba(2, 11, 36, 0.6);
+    box-shadow: 0 0 0 1px var(--ds-yellow) inset, 0 10px 30px rgba(243, 110, 33, 0.15);
+}
+.ds-aec-segment__icon { display: flex; justify-content: center; color: var(--ds-white); }
+.ds-aec-segment__icon img,
+.ds-aec-segment__icon svg { width: 40px; height: 40px; object-fit: contain; }
+.ds-aec-segment.is-active .ds-aec-segment__icon { color: var(--ds-yellow); }
+.ds-aec-segment__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 700;
+}
+/* Description reveal: 0fr -> 1fr animates to the content's natural height */
+.ds-aec-segment__reveal {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s var(--ds-aec-ease), opacity 0.35s var(--ds-aec-ease);
+}
+.ds-aec-segment__desc {
+    overflow: hidden;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+/* Collapse inactive descriptions only once JS is running */
+.ds-aec-segments__grid.is-ready .ds-aec-segment:not(.is-active) .ds-aec-segment__reveal {
+    grid-template-rows: 0fr;
+    opacity: 0;
+}
+
+/* - 2. How We Help AEC Firms Win & Grow - */
+.ds-aec-help__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3em 4em;
+    align-items: start;
+}
+.ds-aec-help__heading { font-weight: 600; }
+.ds-aec-help__text p { margin-bottom: 1em; }
+.ds-aec-help__text p:last-child { margin-bottom: 0; }
+.ds-aec-help__cards {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+}
+.ds-aec-value-card {
+    background: var(--ds-transparent-white);
+    border: 2px solid var(--ds-aec-border);
+    padding: 1.5em 2em;
+    text-align: center;
+    transition: border-color 0.3s var(--ds-aec-ease);
+}
+.ds-aec-value-card:hover { border-color: var(--ds-orange); }
+.ds-aec-value-card__title {
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+.ds-aec-value-card__text { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
+
+/* - 3. The Core Pillars for AEC - */
+/* Cards reuse the Process Steps flip cards (.ds-step-card in main.css). */
+.ds-aec-pillars__grid { margin-top: 2em; }
+/* Keyboard users flip the card by tabbing to its link. */
+.ds-aec-pillar:focus-within .ds-step-card__inner { transform: rotateY(180deg); }
+.ds-aec-pillar:focus-within .ds-step-card__front { z-index: 1; }
+.ds-aec-pillar:focus-within .ds-step-card__back { z-index: 2; }
+.ds-aec-pillar__link {
+    margin-top: 1em;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--ds-white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.ds-aec-pillar__link:hover { color: var(--ds-bg); }
+.ds-aec-pillar__link:focus-visible { outline-color: var(--ds-white); }
+
+/* - 4. Guided Pathway accordion - */
+/* Each tab is a bordered bar; the open one gets the orange-yellow gradient
+   border and its guidance + "Explore …" link appear beneath the bar. */
+.ds-aec-path__list { display: flex; flex-direction: column; gap: 1em; margin-top: 2em; }
+.ds-aec-path__heading { margin: 0; font-size: inherit; }
+.ds-aec-path__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    width: 100%;
+    padding: 0.9em 1.5em;
+    background: transparent;
+    /* Closed: navy -> blue -> white gradient border, like the site accordion */
+    border: 3px solid;
+    border-image: var(--ds-brand-gradient-border) 1;
+    color: var(--ds-white);
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+}
+.ds-aec-path__item.is-open .ds-aec-path__toggle {
+    /* Open: yellow -> orange gradient border, dark background (no fill) */
+    border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
+}
+.ds-aec-path__chevron { flex-shrink: 0; font-size: 0.8em; transition: transform 0.3s var(--ds-aec-ease), color 0.3s var(--ds-aec-ease); }
+.ds-aec-path__item.is-open .ds-aec-path__chevron { transform: rotate(180deg); color: var(--ds-yellow); }
+
+.ds-aec-path__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.4s var(--ds-aec-ease);
+}
+.ds-aec-path__panel-inner { min-height: 0; overflow: hidden; }
+.ds-aec-path__content {
+    padding: 1em 1.5em 0.5em;
+    line-height: 1.8;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s var(--ds-aec-ease);
+}
+.ds-aec-path__content p { margin-bottom: 0.75em; }
+.ds-aec-path__content p:last-child { margin-bottom: 0; }
+
+/* "Explore …" is a plain text link, not a button */
+.ds-aec-path__cta { margin-top: 0.25em; }
+.ds-aec-path__link {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--ds-white);
+}
+.ds-aec-path__link:hover { color: var(--ds-yellow); }
+.ds-aec-path__arrow { display: inline-block; margin-left: 0.25em; transition: transform 0.3s var(--ds-aec-ease); }
+.ds-aec-path__link:hover .ds-aec-path__arrow { transform: translateX(4px); }
+
+/* Collapse closed panels only once JS is running */
+.ds-aec-path__list.is-ready .ds-aec-path__item:not(.is-open) .ds-aec-path__panel { grid-template-rows: 0fr; }
+.ds-aec-path__list.is-ready .ds-aec-path__item:not(.is-open) .ds-aec-path__content { opacity: 0; }
+/* `hidden` is set after the close animation so closed links leave the tab order */
+.ds-aec-path__panel[hidden] { display: none; }
+
+/* "Book A Consult": a lone centred button; boxed only when a heading or
+   text is filled in. */
+.ds-aec-consult { margin-top: 2.5em; text-align: center; }
+.ds-aec-consult--boxed {
+    padding: 2.5em 2em;
+    border: 2px solid var(--ds-aec-border);
+    background: var(--ds-transparent-white);
+}
+.ds-aec-consult__heading { font-size: clamp(1.4rem, 2.2vw, 1.9rem); margin-bottom: 0.5em; }
+.ds-aec-consult__text { max-width: 40em; margin: 0 auto 1.5em; line-height: 1.8; opacity: 0.9; }
+
+/* - 5. Our AEC Clients - */
+.ds-aec-clients .ds-testimonial-carousel { margin-top: 2em; }
+
+/* - Responsive - */
+@media (max-width: 1024px) {
+    .ds-aec-help__inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .ds-aec-segments__grid { grid-template-columns: 1fr; gap: 1em; }
+    .ds-aec-hero__buttons .ds-btn { width: 100%; }
+    .ds-aec-value-card { padding: 1.25em; }
+    .ds-aec-path__toggle { padding: 0.9em 1em; }
+    .ds-aec-path__content { padding: 0.75em 1em 0.25em; }
+}
