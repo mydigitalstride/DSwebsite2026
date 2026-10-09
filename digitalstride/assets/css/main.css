@@ -747,22 +747,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-accordion__title-wrap { display: flex; align-items: center; gap: 0.75em; }
 .ds-accordion__icon-img, .ds-accordion__title-wrap svg.ds-svg { width: 40px; height: 40px; flex-shrink: 0; }
 
-/* - Who Else We Help (text + CTA | centered accordion, client logos below) - */
-.ds-who-else { display: flex; gap: 4em; align-items: flex-start; }
-.ds-who-else__content { flex: 1 1 0; }
-.ds-who-else__text { font-size: 1.15em; line-height: 1.6; }
-.ds-who-else__text p + p { margin-top: 1em; }
-.ds-who-else__cta { margin-top: 2.5em; min-width: 260px; text-align: center; }
-.ds-who-else__list { flex: 0 0 42%; }
-.ds-who-else__clients { margin-top: 4em; }
-.ds-accordion--centered .ds-accordion__header {
-    justify-content: center;
-    text-align: center;
-    padding: 1.1em 1.5em;
-    font-size: 1.35rem;
-}
-.ds-accordion--centered .ds-accordion__body { padding-top: 0; text-align: center; }
-
 /* - Services Split (Desktop tabs + right panel) -
    Starts closed with the titles centered; .is-open (set by JS) grows the panel
    column from zero, sliding the titles left. */
@@ -2555,8 +2539,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-stats { grid-template-columns: repeat(2, 1fr); }
     .ds-footer__top { grid-template-columns: 1fr 1fr; padding: 3em 10%; }
     .ds-values-layout { flex-direction: column; gap: 2em; }
-    .ds-who-else { flex-direction: column; gap: 2em; }
-    .ds-who-else__list { flex-basis: auto; width: 100%; }
     .ds-contact-grid { grid-template-columns: 1fr; }
     .ds-logo-carousel__slide { flex: 0 0 30%; }
     .ds-services-split { flex-direction: column; }
