@@ -23,7 +23,8 @@ $values  = get_field('gcv_values',  'option');
                         <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
                     </div>
                 <?php endif; ?>
-                <?php if ($link) : ?>
+                <?php // The home page shows Core Values without its button. ?>
+                <?php if ($link && !is_front_page()) : ?>
                     <a href="<?php echo esc_url($link['url']); ?>" class="ds-btn ds-btn--primary"><?php echo esc_html($link['title']); ?></a>
                 <?php endif; ?>
             </div>
