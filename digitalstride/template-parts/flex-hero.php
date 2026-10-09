@@ -14,7 +14,7 @@ $slides     = get_sub_field('carousel_images');
 $has_carousel = !empty($slides) && is_array($slides);
 $audience_btns = get_sub_field('show_audience_buttons');
 $audience_mode = get_sub_field('audience_on_select') ?: 'reveal';
-$service_ctas  = is_page_template(['page-service-overview.php', 'page-service-v1.php', 'page-service-v2.php', 'page-services.php']);
+$service_ctas  = ds_is_service_page();
 ?>
 
 <section class="ds-hero <?php echo $has_carousel ? 'ds-hero--split' : ''; ?>"<?php if ($bg) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>

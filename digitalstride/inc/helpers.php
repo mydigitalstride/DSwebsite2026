@@ -398,3 +398,52 @@ function ds_breadcrumbs() {
     }
     echo '</div></div>';
 }
+
+/**
+ * Whether the current page is the Services page or an individual service page.
+ * Matches the service templates, any page nested under the Services page, and
+ * any page linked from the Services mega menu (Theme Settings → Header), so
+ * service pages built on the default or landing template are covered too.
+ */
+function ds_is_service_page() {
+    static $result = null;
+    if ($result !== null) return $result;
+    $result = false;
+
+    if (!is_page() || is_front_page()) return $result;
+
+    if (is_page_template(['page-services.php', 'page-service-overview.php', 'page-service-v1.php', 'page-service-v2.php'])) {
+        return $result = true;
+    }
+
+    $post_id = get_queried_object_id();
+    foreach (get_post_ancestors($post_id) as $ancestor_id) {
+        if (get_post_field('post_name', $ancestor_id) === 'services') {
+            return $result = true;
+        }
+    }
+
+    $path_of = function ($url) {
+        return trailingslashit('/' . ltrim((string) wp_parse_url($url, PHP_URL_PATH), '/'));
+    };
+    $current_path = $path_of(get_permalink($post_id));
+
+    $nav_items = function_exists('get_field') ? get_field('nav_items', 'option') : [];
+    foreach ((array) $nav_items as $item) {
+        $link = $item['link'] ?? null;
+        if (!$link) continue;
+        $is_services = strcasecmp(trim(wp_strip_all_tags($link['title'])), 'Services') === 0
+            || $path_of($link['url']) === $path_of(home_url('/services/'));
+        if (!$is_services) continue;
+
+        foreach ((array) ($item['mega_columns'] ?? []) as $column) {
+            foreach ((array) ($column['column_links'] ?? []) as $row) {
+                if (!empty($row['link']['url']) && $path_of($row['link']['url']) === $current_path) {
+                    return $result = true;
+                }
+            }
+        }
+    }
+
+    return $result;
+}
