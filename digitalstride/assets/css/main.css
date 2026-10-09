@@ -772,6 +772,12 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-services-split:not(.is-open) .ds-services-split__item {
     margin-right: 0;
 }
+@media (min-width: 1025px) {
+    .ds-services-split:not(.is-open) .ds-services-split__header {
+        justify-content: center;
+        text-align: center;
+    }
+}
 .ds-services-split__item.is-active {
     border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
     margin-right: 0;
