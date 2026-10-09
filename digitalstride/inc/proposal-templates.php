@@ -276,7 +276,7 @@ add_action('init', function () {
 // ── Assets ───────────────────────────────────────────
 
 add_action('wp_enqueue_scripts', function () {
-    wp_register_script('ds-proposal-templates', DS_URI . '/assets/js/proposal-templates.js', [], DS_VERSION, true);
+    wp_register_script('ds-proposal-templates', ds_asset_url('assets/js/proposal-templates.js'), [], null, true);
     if (ds_pt_request() !== '') wp_enqueue_script('ds-proposal-templates');
 });
 

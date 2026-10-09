@@ -207,8 +207,8 @@ function ds_aec_testimonials() {
  */
 add_action('wp_enqueue_scripts', function () {
     if (!is_page_template(DS_AEC_TEMPLATE)) return;
-    wp_enqueue_style('ds-aec-landing', DS_URI . '/assets/css/aec-landing.css', ['digitalstride-main'], DS_VERSION);
-    wp_enqueue_script('ds-aec-landing', DS_URI . '/assets/js/aec-landing.js', ['digitalstride-main'], DS_VERSION, true);
+    wp_enqueue_style('ds-aec-landing', ds_asset_url('assets/css/aec-landing.css'), ['digitalstride-main'], null);
+    wp_enqueue_script('ds-aec-landing', ds_asset_url('assets/js/aec-landing.js'), ['digitalstride-main'], null, true);
 });
 
 add_filter('body_class', function ($classes) {
