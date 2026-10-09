@@ -15,7 +15,7 @@ $link    = get_sub_field('link');
                 <?php if ($heading) : ?>
                     <h2 class="ds-section__heading"><?php echo esc_html($heading); ?></h2>
                 <?php endif; ?>
-                <?php // The home page shows Core Values without its button. ?>
+                <?php // The home page shows Core Values without its button or arrows. ?>
                 <?php if ($link && !is_front_page()) : ?>
                     <a href="<?php echo esc_url($link['url']); ?>" class="ds-btn ds-btn--primary"><?php echo esc_html($link['title']); ?></a>
                 <?php endif; ?>
@@ -27,7 +27,9 @@ $link    = get_sub_field('link');
                             <div class="ds-accordion__item">
                                 <button class="ds-accordion__header" aria-expanded="false">
                                     <span><?php echo esc_html(get_sub_field('title')); ?></span>
-                                    <i class="fa-solid fa-chevron-down ds-accordion__chevron" aria-hidden="true"></i>
+                                    <?php if (!is_front_page()) : ?>
+                                        <i class="fa-solid fa-chevron-down ds-accordion__chevron" aria-hidden="true"></i>
+                                    <?php endif; ?>
                                 </button>
                                 <div class="ds-accordion__body">
                                     <?php echo wp_kses_post(get_sub_field('description')); ?>
