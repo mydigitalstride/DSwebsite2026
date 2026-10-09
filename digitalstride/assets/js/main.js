@@ -161,8 +161,8 @@
         });
     });
 
-    // Core values — on desktop, line the accordion's middle up with the
-    // picture's middle. Measured closed, so opening a value grows it downward.
+    // Core values — on desktop, line the accordion's top up with the
+    // picture's top. Opening a value grows it downward.
     document.querySelectorAll('.ds-values-layout').forEach(function (layout) {
         var img = layout.querySelector('.ds-values-layout__image img');
         var right = layout.querySelector('.ds-values-layout__right');
@@ -174,11 +174,8 @@
                 right.style.paddingTop = '';
                 return;
             }
-            if (accordion.querySelector('.ds-accordion__item.is-active')) return;
             var top = layout.getBoundingClientRect().top;
-            var imgRect = img.getBoundingClientRect();
-            var imgMiddle = imgRect.top - top + imgRect.height / 2;
-            right.style.paddingTop = Math.max(0, imgMiddle - accordion.offsetHeight / 2) + 'px';
+            right.style.paddingTop = Math.max(0, img.getBoundingClientRect().top - top) + 'px';
         }
 
         if (img.complete) align(); else img.addEventListener('load', align);
