@@ -72,6 +72,11 @@ function ds_inline_svg( $image, $class = '' ) {
 function ds_render_flex($field_name = 'page_sections', $post_id = false) {
     if (!have_rows($field_name, $post_id)) return;
 
+    // The home page shows "Who Else We Help" after Core Values until an editor
+    // adds the layout to the page themselves.
+    $add_who_else = $field_name === 'page_sections' && $post_id === false && is_front_page()
+        && !in_array('who_else_we_help', array_column((array) get_field($field_name, false, false), 'acf_fc_layout'), true);
+
     while (have_rows($field_name, $post_id)) {
         the_row();
         $layout = get_row_layout();
@@ -80,6 +85,11 @@ function ds_render_flex($field_name = 'page_sections', $post_id = false) {
         $wrapped = ds_audience_wrap_open();
         get_template_part('template-parts/flex', $layout);
         ds_audience_wrap_close($wrapped);
+
+        if ($add_who_else && in_array($layout, ['global_core_values', 'core_values'], true)) {
+            get_template_part('template-parts/flex-who_else_we_help');
+            $add_who_else = false;
+        }
     }
 }
 
