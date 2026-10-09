@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.4.10');
+define('DS_VERSION', '2.4.11');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
@@ -35,8 +35,8 @@ add_action('wp_enqueue_scripts', function () {
         null
     );
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css', [], '6.5.0');
-    wp_enqueue_style('digitalstride-main', DS_URI . '/assets/css/digitalstride-main.min.css', ['google-fonts', 'font-awesome'], DS_VERSION);
-    wp_enqueue_script('digitalstride-main', DS_URI . '/assets/js/main.js', [], DS_VERSION, true);
+    wp_enqueue_style('digitalstride-main', ds_asset_url('assets/css/digitalstride-main.min.css'), ['google-fonts', 'font-awesome'], null);
+    wp_enqueue_script('digitalstride-main', ds_asset_url('assets/js/main.js'), [], null, true);
 });
 
 // ── ACF Local JSON ───────────────────────────────────

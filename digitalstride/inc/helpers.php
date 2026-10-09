@@ -457,3 +457,43 @@ function ds_is_service_page() {
 
     return $result;
 }
+
+/**
+ * URL for a theme asset whose filename changes whenever the file does.
+ *
+ * Some caches (host page caches, CDNs, optimisation plugins) ignore the ?ver=
+ * query string and keep serving an old main.css / main.js after a deploy. On
+ * first use, the file is copied to uploads/ds-assets/<name>.<fingerprint>.<ext>
+ * so every change gets a brand-new path that nothing can have cached. Older
+ * copies are removed. Falls back to the theme URL if uploads isn't writable.
+ * Only use for files without relative url() references.
+ *
+ * @param string $rel Path relative to the theme root, e.g. 'assets/js/main.js'.
+ */
+function ds_asset_url($rel) {
+    $src      = DS_DIR . '/' . $rel;
+    $fallback = DS_URI . '/' . $rel;
+    if (!is_readable($src)) return $fallback;
+
+    $uploads = wp_upload_dir(null, false);
+    if (!empty($uploads['error'])) return $fallback;
+
+    $info  = pathinfo($rel);
+    $base  = sanitize_file_name($info['filename']);
+    $ext   = $info['extension'] ?? '';
+    $print = substr(md5($rel . '|' . filemtime($src) . '|' . filesize($src)), 0, 12);
+    $name  = $base . '.' . $print . '.' . $ext;
+    $dir   = trailingslashit($uploads['basedir']) . 'ds-assets';
+    $dest  = $dir . '/' . $name;
+
+    if (!file_exists($dest)) {
+        if (!wp_mkdir_p($dir) || !@copy($src, $dest)) return $fallback;
+        foreach ((array) glob($dir . '/' . $base . '.*.' . $ext) as $old) {
+            if ($old !== $dest && preg_match('/\.[0-9a-f]{12}\.' . preg_quote($ext, '/') . '$/', $old)) {
+                @unlink($old);
+            }
+        }
+    }
+
+    return set_url_scheme(trailingslashit($uploads['baseurl']) . 'ds-assets/' . $name);
+}
