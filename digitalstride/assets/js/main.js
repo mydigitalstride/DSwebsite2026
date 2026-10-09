@@ -167,12 +167,22 @@
         var panels = split.querySelectorAll('.ds-services-split__panel');
         var isMobile = function () { return window.innerWidth <= 1024; };
 
-        function desktopActivate(index) {
+        function closeAll() {
             items.forEach(function (el) {
                 el.classList.remove('is-active');
                 el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
             });
             panels.forEach(function (el) { el.classList.remove('is-active'); });
+            split.classList.remove('is-open');
+        }
+
+        // Desktop starts closed with the titles centered; opening one slides the
+        // titles left and reveals its panel. Clicking the open title closes it.
+        function desktopToggle(index) {
+            var wasOpen = items[index].classList.contains('is-active');
+            closeAll();
+            if (wasOpen) return;
+            split.classList.add('is-open');
             items[index].classList.add('is-active');
             items[index].querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'true');
             if (panels[index]) panels[index].classList.add('is-active');
@@ -196,33 +206,21 @@
                 if (isMobile()) {
                     mobileToggle(i);
                 } else {
-                    desktopActivate(i);
+                    desktopToggle(i);
                 }
             });
         });
 
+        // Crossing the mobile/desktop breakpoint resets to the closed state.
+        var wasMobile = isMobile();
         function handleResize() {
-            if (isMobile()) {
-                items.forEach(function (el) {
-                    el.classList.remove('is-active');
-                    el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
-                });
-                panels.forEach(function (el) { el.classList.remove('is-active'); });
-            } else {
-                var hasActive = split.querySelector('.ds-services-split__item.is-active');
-                if (!hasActive) desktopActivate(0);
+            if (isMobile() !== wasMobile) {
+                wasMobile = isMobile();
+                closeAll();
             }
         }
 
         window.addEventListener('resize', handleResize);
-        if (!isMobile()) {
-            desktopActivate(0);
-        } else {
-            items.forEach(function (el) {
-                el.classList.remove('is-active');
-                el.querySelector('.ds-services-split__header').setAttribute('aria-expanded', 'false');
-            });
-        }
     });
 
     // Full-Width Angled Carousel

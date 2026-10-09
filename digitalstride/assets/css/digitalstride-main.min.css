@@ -747,11 +747,14 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-accordion__title-wrap { display: flex; align-items: center; gap: 0.75em; }
 .ds-accordion__icon-img, .ds-accordion__title-wrap svg.ds-svg { width: 40px; height: 40px; flex-shrink: 0; }
 
-/* - Services Split (Desktop tabs + right panel) - */
+/* - Services Split (Desktop tabs + right panel) -
+   Starts closed with the titles centered; .is-open (set by JS) grows the panel
+   column from zero, sliding the titles left. */
 .ds-services-split {
     display: flex;
     gap: 0;
     align-items: stretch;
+    justify-content: center;
 }
 .ds-services-split__tabs {
     flex: 0 0 50%;
@@ -763,8 +766,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     border: 3px solid;
     border-image: linear-gradient(90deg, #051879 8%, rgba(9,147,191,0.74) 81%, var(--ds-white)) 1;
     margin-bottom: 0.5em;
-    transition: border-image 0.3s;
+    transition: border-image 0.3s, margin 0.5s ease;
     margin-right: 2em;
+}
+.ds-services-split:not(.is-open) .ds-services-split__item {
+    margin-right: 0;
 }
 .ds-services-split__item.is-active {
     border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
@@ -802,6 +808,22 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     padding: 2.5em;
     min-height: 400px;
     border-radius: 0 30px 30px 0;
+    overflow: hidden;
+    transition: flex-basis 0.5s ease, padding 0.5s ease, opacity 0.3s ease, visibility 0.3s;
+}
+.ds-services-split:not(.is-open) .ds-services-split__panels {
+    flex-basis: 0;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.ds-services-split.is-open .ds-services-split__panel.is-active {
+    animation: ds-services-panel-in 0.4s ease 0.25s both;
+}
+@keyframes ds-services-panel-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 .ds-services-split__panel {
     display: none;
