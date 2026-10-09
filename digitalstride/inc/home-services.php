@@ -74,6 +74,7 @@ function ds_hs_defaults($section) {
                 ['title' => '“We experience big drops in revenue during slow seasonal months.”', 'content' => '<p>Targeted search and social campaigns promote maintenance plans, off-season services and offers so the schedule stays full year-round.</p>', 'label' => 'Explore Digital Ads', 'link' => $services, 'consult' => false],
                 ['title' => '“I’m not sure where to start.”', 'content' => '<p>That’s what a consult is for. We’ll look at your calls, your Google presence and your website, then map out the few changes that will move the needle fastest for your business.</p>', 'label' => 'Book A Consult', 'link' => $contact, 'consult' => true],
             ],
+            'consult_button' => ['title' => 'Book A Consult', 'url' => $contact],
         ],
         'testimonials' => [
             'heading'       => 'Home Services Client Testimonials',

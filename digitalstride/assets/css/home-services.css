@@ -10,6 +10,18 @@
     --ds-hs-icon-gradient: linear-gradient(135deg, var(--ds-blue-gradient) 0%, var(--ds-logo-blue) 100%);
 }
 
+/* - Heading underline bars alternate brand blue / yellow-orange, section
+   by section (Who We Serve, Tools and Testimonials are warm). - */
+.ds-hs-segments .ds-section__heading::after,
+.ds-hs-tools .ds-section__heading::after,
+.ds-hs-testimonials .ds-section__heading::after {
+    background: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+}
+
+/* Stand-alone centred button under a section (View All Services, Book A
+   Consult) */
+.ds-hs-solo-cta { margin-top: 2.5em; text-align: center; }
+
 /* - 1. Segment grid: 6 trades in 3 columns (2 rows) - */
 .ds-hs-segments__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -27,20 +39,16 @@
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2em;
-    margin-top: 3em;
+    gap: 2.5em 3em;
+    margin-top: 3.5em;
 }
+/* Icon + title + text, no box (per mockup) */
 .ds-hs-value-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2.25em 1.75em;
     text-align: center;
-    background: var(--ds-transparent-white);
-    border: 2px solid var(--ds-aec-border);
-    transition: border-color 0.3s var(--ds-aec-ease), transform 0.3s var(--ds-aec-ease);
 }
-.ds-hs-value-card:hover { border-color: var(--ds-blue-gradient); transform: translateY(-4px); }
 
 /* Uploaded SVGs use the site's .ds-icon--blue-gradient fill (main.css);
    this just sizes them. */
@@ -48,15 +56,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
     margin-bottom: 1.25em;
 }
 .ds-hs-value-card__icon img,
-.ds-hs-value-card__icon svg { width: 64px; height: 64px; max-width: none; object-fit: contain; }
+.ds-hs-value-card__icon svg { width: 88px; height: 88px; max-width: none; object-fit: contain; }
 /* Font Awesome fallback: same blue gradient clipped to the glyph */
 .ds-hs-value-card__icon--fa i {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     line-height: 1;
     background: var(--ds-hs-icon-gradient);
     -webkit-background-clip: text;
