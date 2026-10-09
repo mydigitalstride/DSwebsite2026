@@ -1358,6 +1358,99 @@
         });
     });
 
+    // Lead form — posts to our server (inc/dsd-leads.php), which forwards the
+    // lead to DSD. Without JS the form posts normally and the server redirects back.
+    document.querySelectorAll('.ds-lead').forEach(function (wrap) {
+        var form      = wrap.querySelector('.ds-lead__form');
+        var submitBtn = wrap.querySelector('.ds-lead__submit');
+        var formError = wrap.querySelector('.ds-survey__form-error');
+        var success   = wrap.querySelector('.ds-lead__success');
+        var endpoint  = form.getAttribute('action'); // "action" field shadows form.action
+        var btnLabel  = submitBtn.textContent;
+        var emailRe   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        form.noValidate = true; // JS takes over; native validation stays as the no-JS fallback
+
+        function value(name) {
+            var input = form.elements[name];
+            return input ? input.value.trim() : '';
+        }
+
+        function setInvalid(name, invalid) {
+            var field = form.querySelector('.ds-lead__field[data-name="' + name + '"]');
+            if (!field) return;
+            var input = field.querySelector('input, select, textarea');
+            field.classList.toggle('has-error', invalid);
+            field.querySelector('.ds-survey__error').hidden = !invalid;
+            if (invalid) input.setAttribute('aria-invalid', 'true');
+            else input.removeAttribute('aria-invalid');
+        }
+
+        function focusFirstError() {
+            var first = form.querySelector('.ds-lead__field.has-error input, .ds-lead__field.has-error select, .ds-lead__field.has-error textarea');
+            if (first) first.focus();
+        }
+
+        function validate() {
+            var email = value('contact_email');
+            var phone = value('contact_phone');
+            var bad = {
+                contact_name: value('contact_name') === '',
+                contact_email: email ? !emailRe.test(email) : phone === '',
+                contact_phone: phone !== '' && phone.replace(/\D/g, '').length < 7
+            };
+            Object.keys(bad).forEach(function (name) { setInvalid(name, bad[name]); });
+            focusFirstError();
+            return !bad.contact_name && !bad.contact_email && !bad.contact_phone;
+        }
+
+        function fail(message) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = btnLabel;
+            formError.textContent = message || "Sorry, something went wrong on our end. Please try again, or call or email us.";
+            formError.hidden = false;
+        }
+
+        form.addEventListener('input', function (e) {
+            var field = e.target.closest('.ds-lead__field');
+            if (field && field.classList.contains('has-error')) setInvalid(field.getAttribute('data-name'), false);
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            formError.hidden = true;
+            if (!validate()) return;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+
+            var data = new FormData(form);
+            data.set('ds_ajax', '1');
+            data.set('page_url', window.location.href);
+            if (window.MDSAttribution && typeof window.MDSAttribution.get === 'function') {
+                try { data.set('mds_attribution', JSON.stringify(window.MDSAttribution.get())); } catch (err) {}
+            }
+
+            fetch(endpoint, { method: 'POST', body: data, credentials: 'same-origin' })
+                .then(function (res) { return res.json(); })
+                .then(function (res) {
+                    if (!res.success) throw res;
+                    form.hidden = true;
+                    success.hidden = false;
+                    success.focus();
+                    var top = wrap.getBoundingClientRect().top + window.pageYOffset - 120;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                })
+                .catch(function (err) {
+                    var errors = err && err.data && err.data.errors;
+                    if (errors) {
+                        Object.keys(errors).forEach(function (name) { setInvalid(name, true); });
+                        focusFirstError();
+                    }
+                    fail(err && err.data && err.data.message);
+                });
+        });
+    });
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function (e) {
