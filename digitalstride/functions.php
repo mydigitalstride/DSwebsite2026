@@ -3,7 +3,7 @@
  * Digital Stride Theme Functions
  */
 
-define('DS_VERSION', '2.4.12');
+define('DS_VERSION', '2.4.13');
 define('DS_DIR', get_template_directory());
 define('DS_URI', get_template_directory_uri());
 
@@ -93,8 +93,14 @@ add_action('acf/init', function () {
     ]);
     acf_add_options_sub_page([
         'page_title'  => 'Global Partners',
-        'menu_title'  => 'Partners / Clients',
+        'menu_title'  => 'Partners',
         'menu_slug'   => 'acf-options-global-partners',
+        'parent_slug' => 'theme-settings',
+    ]);
+    acf_add_options_sub_page([
+        'page_title'  => 'Global Clients',
+        'menu_title'  => 'Clients',
+        'menu_slug'   => 'acf-options-global-clients',
         'parent_slug' => 'theme-settings',
     ]);
     acf_add_options_sub_page([
