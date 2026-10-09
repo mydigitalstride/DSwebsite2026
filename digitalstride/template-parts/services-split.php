@@ -21,7 +21,6 @@ $services_data = $args['services'] ?? [];
                             <?php endif; ?>
                             <?php echo esc_html($service['title']); ?>
                         </span>
-                        <i class="fa-solid fa-chevron-down ds-accordion__chevron ds-services-split__chevron" aria-hidden="true"></i>
                     </button>
 
                     <div class="ds-services-split__mobile-body">
