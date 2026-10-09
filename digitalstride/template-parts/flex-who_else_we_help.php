@@ -2,7 +2,7 @@
 /**
  * Flex Layout: Who Else We Help
  * Text + CTA on the left, an accordion of industries on the right, and the
- * client logo carousel (Theme Settings → Partners / Clients) underneath.
+ * client logo carousel (Theme Settings → Clients) underneath.
  *
  * Empty fields fall back to the copy below, and the front page shows this
  * section after Core Values until it is added as a layout (see
@@ -27,7 +27,16 @@ if (!$items) {
     }, ['Real Estate', 'E-Commerce', 'Insurance', 'Non-Profits', 'Professional Services', 'More']);
 }
 
-$logos = $show_clients && function_exists('get_field') ? get_field('gp_logos', 'option') : [];
+// Industry titles show as plain boxes that can't be opened while their
+// content is still being written. Set to false to make them expandable again.
+$accordion_locked = true;
+
+// Clients carousel: Theme Settings → Clients. Falls back to the Partners logos
+// until clients are added, so the carousel isn't empty in the meantime.
+$logos = [];
+if ($show_clients && function_exists('get_field')) {
+    $logos = get_field('gc_logos', 'option') ?: get_field('gp_logos', 'option');
+}
 ?>
 
 <style>
@@ -43,6 +52,7 @@ $logos = $show_clients && function_exists('get_field') ? get_field('gp_logos', '
 .ds-who-else__list { flex: 1; min-width: 0; }
 .ds-who-else .ds-accordion--centered .ds-accordion__header { justify-content: center; text-align: center; }
 .ds-who-else .ds-accordion--centered .ds-accordion__body { text-align: center; }
+.ds-who-else .ds-accordion--locked .ds-accordion__header { pointer-events: none; cursor: default; }
 .ds-who-else__clients { margin-top: 4em; }
 @media (max-width: 1024px) {
     .ds-who-else { flex-direction: column; gap: 2em; }
@@ -64,16 +74,20 @@ $logos = $show_clients && function_exists('get_field') ? get_field('gp_logos', '
             </div>
 
             <div class="ds-who-else__list">
-                <div class="ds-accordion ds-accordion--centered">
+                <div class="ds-accordion ds-accordion--centered<?php echo $accordion_locked ? ' ds-accordion--locked' : ''; ?>">
                     <?php foreach ($items as $item) : ?>
                         <?php if (empty($item['title'])) continue; ?>
                         <div class="ds-accordion__item">
+                            <?php if ($accordion_locked) : ?>
+                                <div class="ds-accordion__header"><span><?php echo esc_html($item['title']); ?></span></div>
+                            <?php else : ?>
                             <button class="ds-accordion__header" aria-expanded="false">
                                 <span><?php echo esc_html($item['title']); ?></span>
                             </button>
                             <div class="ds-accordion__body">
                                 <?php echo wp_kses_post($item['body']); ?>
                             </div>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
