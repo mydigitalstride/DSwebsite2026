@@ -1,9 +1,12 @@
 /* ==========================================================================
    AEC Landing Page (page-aec-landing.php)
-   Loaded only on that template, after digitalstride-main.
+   Loaded on that template and on the Home Services landing page
+   (page-home-services.php), which reuses these components; its own layout
+   tweaks live in home-services.css. Loaded after digitalstride-main.
    ========================================================================== */
 
-.ds-page-aec {
+.ds-page-aec,
+.ds-page-hs {
     --ds-aec-border: rgba(242, 245, 251, 0.35);
     --ds-brand-gradient-border: linear-gradient(90deg, #051879 8%, rgba(9, 147, 191, 0.74) 60%, var(--ds-white));
     --ds-aec-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -20,8 +23,10 @@
 
 /* - Section spacing - */
 /* More breathing room than the site default (3rem) between every block. */
-.ds-page-aec .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
-.ds-page-aec .ds-main > .ds-hero + .ds-section { padding-top: clamp(5rem, 10vw, 8rem); }
+.ds-page-aec .ds-main > .ds-section,
+.ds-page-hs .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+.ds-page-aec .ds-main > .ds-hero + .ds-section,
+.ds-page-hs .ds-main > .ds-hero + .ds-section { padding-top: clamp(5rem, 10vw, 8rem); }
 
 /* - Hero - */
 .ds-aec-hero { min-height: 60vh; }

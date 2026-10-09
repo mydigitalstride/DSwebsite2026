@@ -1,0 +1,477 @@
+{
+    "key": "group_home_services_landing",
+    "title": "Home Services Landing Page",
+    "fields": [
+        {
+            "key": "field_hs_tab_hero",
+            "label": "Hero",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_hero_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy. Hero buttons: the label field wins over the link’s own title."
+        },
+        {
+            "key": "field_hs_hero_tag",
+            "label": "Tag",
+            "name": "hero_tag",
+            "type": "text",
+            "placeholder": "Who We Serve: Home Services & Trades"
+        },
+        {
+            "key": "field_hs_hero_headline",
+            "label": "Headline",
+            "name": "hero_headline",
+            "type": "text",
+            "placeholder": "Marketing That Keeps Your Phone Ringing & Trucks Rolling"
+        },
+        {
+            "key": "field_hs_hero_subtext",
+            "label": "Subtext",
+            "name": "hero_subtext",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hs_hero_primary_label",
+            "label": "Primary button label",
+            "name": "hero_primary_cta_label",
+            "type": "text",
+            "placeholder": "Get More Local Calls",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_hs_hero_primary_link",
+            "label": "Primary button link",
+            "name": "hero_primary_cta_link",
+            "type": "link",
+            "wrapper": {
+                "width": "50"
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_hs_hero_secondary_label",
+            "label": "Secondary button label",
+            "name": "hero_secondary_cta_label",
+            "type": "text",
+            "placeholder": "View Home Services Case Studies",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_hs_hero_secondary_link",
+            "label": "Secondary button link",
+            "name": "hero_secondary_cta_link",
+            "type": "link",
+            "wrapper": {
+                "width": "50"
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_hs_hero_bg",
+            "label": "Background image",
+            "name": "hero_bg_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_hs_tab_serve",
+            "label": "1. Who We Serve",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_wws_heading",
+            "label": "Section heading",
+            "name": "hs_who_we_serve_heading",
+            "type": "text",
+            "placeholder": "Built for Local Home Service Businesses & Trades"
+        },
+        {
+            "key": "field_hs_wws",
+            "label": "Trades",
+            "name": "hs_who_we_serve",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Trade",
+            "instructions": "Shown 3 per row. Clicking a box highlights it and reveals its description. Leave empty to use HVAC / Masons / Landscaping / Plumbers / Roofing / Cleaning.",
+            "sub_fields": [
+                {
+                    "key": "field_hs_wws_title",
+                    "label": "Segment title",
+                    "name": "segment_title",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_hs_wws_desc",
+                    "label": "Segment description",
+                    "name": "segment_description",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "",
+                    "instructions": "Visible when the box is active."
+                },
+                {
+                    "key": "field_hs_wws_active",
+                    "label": "Open by default",
+                    "name": "is_active_default",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "instructions": "Only the first flagged box starts open; otherwise all start closed."
+                }
+            ]
+        },
+        {
+            "key": "field_hs_tab_value",
+            "label": "2. Value Beyond Marketing",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_value",
+            "label": "Value Beyond Marketing",
+            "name": "hs_value_beyond_marketing",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_hs_value_tag",
+                    "label": "Section tag",
+                    "name": "section_tag",
+                    "type": "text",
+                    "placeholder": "Value Beyond Marketing"
+                },
+                {
+                    "key": "field_hs_value_heading",
+                    "label": "Section heading",
+                    "name": "section_heading",
+                    "type": "text",
+                    "placeholder": "How We Help Home Service Companies Scale"
+                },
+                {
+                    "key": "field_hs_value_intro",
+                    "label": "Intro paragraph",
+                    "name": "intro_paragraph",
+                    "type": "wysiwyg",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                },
+                {
+                    "key": "field_hs_value_cards",
+                    "label": "Value cards",
+                    "name": "value_cards",
+                    "type": "repeater",
+                    "layout": "block",
+                    "button_label": "Add Card",
+                    "instructions": "3 per row. Upload an SVG icon to have it filled with the brand blue gradient (PNG/JPG icons are tinted blue). Without an upload, the Font Awesome icon is used.",
+                    "sub_fields": [
+                        {
+                            "key": "field_hs_value_card_icon",
+                            "label": "Card icon",
+                            "name": "card_icon",
+                            "type": "image",
+                            "wrapper": {
+                                "width": "50"
+                            },
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all"
+                        },
+                        {
+                            "key": "field_hs_value_card_fa",
+                            "label": "Font Awesome icon (fallback)",
+                            "name": "card_icon_class",
+                            "type": "text",
+                            "placeholder": "fa-solid fa-phone-volume",
+                            "wrapper": {
+                                "width": "50"
+                            },
+                            "instructions": "Used when no icon is uploaded. Browse at fontawesome.com/icons."
+                        },
+                        {
+                            "key": "field_hs_value_card_title",
+                            "label": "Card title",
+                            "name": "card_title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_hs_value_card_desc",
+                            "label": "Card description",
+                            "name": "card_description",
+                            "type": "textarea",
+                            "rows": 2,
+                            "new_lines": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_hs_tab_tools",
+            "label": "3. Tools",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_tools_heading",
+            "label": "Section heading",
+            "name": "hs_core_pillars_heading",
+            "type": "text",
+            "placeholder": "Simple, Proven Tools to Grow Your Business"
+        },
+        {
+            "key": "field_hs_tools",
+            "label": "Service cards",
+            "name": "hs_core_pillars",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Card",
+            "instructions": "Flip cards like the AEC Core Pillars. Front: photo + title. Hover: yellow-orange gradient, black text, overview and link.",
+            "sub_fields": [
+                {
+                    "key": "field_hs_pillar_title",
+                    "label": "Pillar title",
+                    "name": "pillar_title",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_hs_pillar_img",
+                    "label": "Background image",
+                    "name": "pillar_background_image",
+                    "type": "image",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_hs_pillar_overview",
+                    "label": "Overview sentence",
+                    "name": "pillar_overview_sentence",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_hs_pillar_link_text",
+                    "label": "Link text",
+                    "name": "pillar_link_text",
+                    "type": "text",
+                    "placeholder": "Explore SEO",
+                    "instructions": "Defaults to “Explore [Pillar title]”.",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_hs_pillar_link_url",
+                    "label": "Link",
+                    "name": "pillar_link_url",
+                    "type": "link",
+                    "instructions": "Pick a page or paste a URL.",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "return_format": "array"
+                }
+            ]
+        },
+        {
+            "key": "field_hs_tab_guided",
+            "label": "4. Growth Bottleneck",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_guided_heading",
+            "label": "Section heading",
+            "name": "hs_guided_heading",
+            "type": "text",
+            "placeholder": "What Is Your Biggest Growth Bottleneck Right Now?"
+        },
+        {
+            "key": "field_hs_guided",
+            "label": "Accordion tabs",
+            "name": "hs_guided_accordion",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Tab",
+            "instructions": "One tab open at a time. Regular tabs end with an “Explore …” text link; the consult tab ends with the primary button.",
+            "sub_fields": [
+                {
+                    "key": "field_hs_guided_title",
+                    "label": "Tab title",
+                    "name": "tab_title",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_hs_guided_content",
+                    "label": "Tab content",
+                    "name": "tab_content_text",
+                    "type": "wysiwyg",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                },
+                {
+                    "key": "field_hs_guided_label",
+                    "label": "CTA label",
+                    "name": "cta_button_label",
+                    "type": "text",
+                    "placeholder": "Explore Website Design",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_hs_guided_link",
+                    "label": "CTA link",
+                    "name": "cta_button_link",
+                    "type": "link",
+                    "instructions": "Pick a page or paste a URL.",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_hs_guided_consult",
+                    "label": "Consult tab",
+                    "name": "is_consult_tab",
+                    "type": "true_false",
+                    "ui": 1,
+                    "default_value": 0,
+                    "message": "Show the CTA as the primary “Book A Consult” button"
+                }
+            ]
+        },
+        {
+            "key": "field_hs_tab_testimonials",
+            "label": "5. Testimonials",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_testimonials_heading",
+            "label": "Section heading",
+            "name": "hs_testimonials_heading",
+            "type": "text",
+            "placeholder": "Home Services Client Testimonials"
+        },
+        {
+            "key": "field_hs_testimonials_slug",
+            "label": "Testimonial industry",
+            "name": "hs_testimonial_taxonomy_slug",
+            "type": "text",
+            "default_value": "home-services",
+            "placeholder": "home-services",
+            "instructions": "Shows global testimonials (Theme Settings › Testimonials) tagged with this Industry: “home-services” or “aec”."
+        },
+        {
+            "key": "field_hs_quote_override",
+            "label": "Featured quote (optional)",
+            "name": "custom_quote_override",
+            "type": "textarea",
+            "rows": 4,
+            "new_lines": "",
+            "instructions": "Shown as the first slide, ahead of the tagged testimonials."
+        },
+        {
+            "key": "field_hs_quote_name",
+            "label": "Featured quote name",
+            "name": "custom_quote_name",
+            "type": "text",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_hs_quote_company",
+            "label": "Featured quote title & company",
+            "name": "custom_quote_company",
+            "type": "text",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_hs_tab_settings",
+            "label": "Settings",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_hs_hide",
+            "label": "Hide sections",
+            "name": "hs_hide_sections",
+            "type": "checkbox",
+            "layout": "vertical",
+            "return_format": "value",
+            "choices": {
+                "hero": "Hero",
+                "who-we-serve": "1. Who We Serve",
+                "value": "2. Value Beyond Marketing",
+                "tools": "3. Tools",
+                "pathway": "4. Growth Bottleneck",
+                "testimonials": "5. Testimonials",
+                "global-cta": "Global Call to Action"
+            },
+            "instructions": "Sections with empty fields show the launch copy; tick a section here to remove it. Extra Page Sections render after these."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-home-services.php"
+            }
+        ]
+    ],
+    "menu_order": -10,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fixed sections for the Home Services & Trades landing page template.",
+    "show_in_rest": 0,
+    "modified": 1791573840
+}

@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Home Services & Trades Landing Page (page-home-services.php)
+   Builds on aec-landing.css (segment boxes, flip cards, accordion); this
+   file only holds what differs on this page. Loaded after aec-landing.css.
+   ========================================================================== */
+
+.ds-page-hs {
+    /* Tools-card hover gradient and icon gradient for this page */
+    --ds-hs-hover-gradient: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+    --ds-hs-icon-gradient: linear-gradient(135deg, var(--ds-blue-gradient) 0%, var(--ds-logo-blue) 100%);
+}
+
+/* - 1. Segment grid: 6 trades in 3 columns (2 rows) - */
+.ds-hs-segments__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* - 2. Value Beyond Marketing: centred intro + 3 icon cards - */
+.ds-hs-value__intro {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+}
+.ds-hs-value__text { margin-top: 0.5em; }
+.ds-hs-value__text p { margin-bottom: 1em; }
+.ds-hs-value__text p:last-child { margin-bottom: 0; }
+
+.ds-hs-value__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2em;
+    margin-top: 3em;
+}
+.ds-hs-value-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.25em 1.75em;
+    text-align: center;
+    background: var(--ds-transparent-white);
+    border: 2px solid var(--ds-aec-border);
+    transition: border-color 0.3s var(--ds-aec-ease), transform 0.3s var(--ds-aec-ease);
+}
+.ds-hs-value-card:hover { border-color: var(--ds-blue-gradient); transform: translateY(-4px); }
+
+/* Uploaded SVGs use the site's .ds-icon--blue-gradient fill (main.css);
+   this just sizes them. */
+.ds-hs-value-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.25em;
+}
+.ds-hs-value-card__icon img,
+.ds-hs-value-card__icon svg { width: 64px; height: 64px; max-width: none; object-fit: contain; }
+/* Font Awesome fallback: same blue gradient clipped to the glyph */
+.ds-hs-value-card__icon--fa i {
+    font-size: 3.5rem;
+    line-height: 1;
+    background: var(--ds-hs-icon-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--ds-blue-gradient);
+}
+.ds-hs-value-card__title {
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+.ds-hs-value-card__text { font-size: 0.95rem; line-height: 1.7; opacity: 0.9; }
+
+/* - 3. Tools: 5 flip cards; hover side is the yellow-orange gradient with
+   black text - */
+.ds-hs-tools__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1em; }
+/* Narrower than the AEC cards, so a little taller with tighter type */
+.ds-hs-tool { height: 400px; }
+.ds-hs-tool .ds-step-card__content,
+.ds-hs-tool .ds-step-card__back { padding: 1.25em 1em; }
+.ds-hs-tool .ds-step-card__title { font-size: 1.05em; }
+.ds-hs-tool .ds-step-card__text { font-size: 0.88em; line-height: 1.55; }
+.ds-hs-tool .ds-step-card__back { background: var(--ds-hs-hover-gradient); }
+.ds-hs-tool .ds-step-card__back .ds-step-card__title,
+.ds-hs-tool .ds-step-card__back .ds-step-card__text,
+.ds-hs-tool .ds-aec-pillar__link { color: var(--ds-black); }
+.ds-hs-tool .ds-aec-pillar__link:hover { color: var(--ds-black); text-decoration-thickness: 2px; }
+.ds-hs-tool .ds-aec-pillar__link:focus-visible { outline-color: var(--ds-black); }
+
+/* - 4. Pathway: consult tab ends with the primary button - */
+.ds-hs-path__consult-btn { font-size: 1.05rem; padding: 0.65em 1.75em; margin-top: 0.5em; }
+
+/* - Responsive - */
+@media (max-width: 1200px) {
+    .ds-hs-tools__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1024px) {
+    .ds-hs-value__grid { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 768px) {
+    .ds-hs-tool { height: 340px; }
+    .ds-hs-segments__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-hs-tools__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+    .ds-hs-segments__grid,
+    .ds-hs-tools__grid { grid-template-columns: 1fr; }
+    .ds-hs-tool { height: auto; min-height: 280px; }
+}
