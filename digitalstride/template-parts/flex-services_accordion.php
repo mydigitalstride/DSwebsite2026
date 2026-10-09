@@ -1,7 +1,8 @@
 <?php
 /**
  * Flex Layout: Services Accordion
- * Desktop: split layout — accordion titles on left, content panel on right.
+ * Desktop: accordion titles start centered and closed; opening one slides the
+ * titles left and reveals its content panel on the right.
  * Mobile: standard stacked accordion, all closed by default.
  */
 $heading    = get_sub_field('heading');
@@ -46,8 +47,8 @@ endif;
             <div class="ds-services-split">
                 <div class="ds-services-split__tabs">
                     <?php foreach ($services_data as $i => $service) : ?>
-                        <div class="ds-services-split__item <?php echo $i === 0 ? 'is-active' : ''; ?>" data-panel="<?php echo $i; ?>">
-                            <button class="ds-services-split__header" aria-expanded="<?php echo $i === 0 ? 'true' : 'false'; ?>">
+                        <div class="ds-services-split__item" data-panel="<?php echo $i; ?>">
+                            <button class="ds-services-split__header" aria-expanded="false">
                                 <span class="ds-accordion__title-wrap">
                                     <?php if ($service['icon']) : ?>
                                         <span class="<?php echo $service['icon_color'] ? 'ds-icon--' . esc_attr($service['icon_color']) : ''; ?>"><?php echo ds_inline_svg($service['icon']); ?></span>
@@ -90,7 +91,7 @@ endif;
 
                 <div class="ds-services-split__panels">
                     <?php foreach ($services_data as $i => $service) : ?>
-                        <div class="ds-services-split__panel <?php echo $i === 0 ? 'is-active' : ''; ?>" data-panel="<?php echo $i; ?>">
+                        <div class="ds-services-split__panel" data-panel="<?php echo $i; ?>">
                             <?php if ($service['subs']) : ?>
                                 <div class="ds-services-split__subs">
                                     <?php foreach ($service['subs'] as $sub) : ?>
