@@ -6,6 +6,7 @@
  * Same flip cards as the AEC Core Pillars (.ds-step-card): photo + title on
  * the front; on hover / focus the card turns to the yellow-orange gradient
  * with black text, the overview sentence and the "Explore …" link.
+ * An optional stand-alone button (`hs_core_pillars_button`) sits below.
  */
 $d       = ds_hs_defaults('tools');
 $heading = get_field('hs_core_pillars_heading') ?: $d['heading'];
@@ -27,6 +28,9 @@ if (!$pillars) $pillars = $d['pillars'];
 
 $pillars = array_filter($pillars, function ($p) { return !empty($p['title']); });
 if (!$pillars) return;
+
+// Optional stand-alone button under the cards, e.g. "View All Services".
+$more = ds_aec_link(get_field('hs_core_pillars_button'), __('View All Services', 'digitalstride'));
 ?>
 <section class="ds-section ds-section--process ds-aec-pillars ds-hs-tools">
     <div class="ds-container">
@@ -64,5 +68,11 @@ if (!$pillars) return;
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <?php if ($more) : ?>
+            <div class="ds-hs-solo-cta">
+                <a href="<?php echo esc_url($more['url']); ?>" class="ds-btn ds-btn--primary"<?php ds_aec_target_attrs($more['target']); ?>><?php echo esc_html($more['title']); ?></a>
+            </div>
+        <?php endif; ?>
     </div>
 </section>

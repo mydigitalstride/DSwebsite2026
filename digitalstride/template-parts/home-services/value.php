@@ -3,10 +3,11 @@
  * Home Services: Value Beyond Marketing — "How We Help Home Service
  * Companies Scale" (group `hs_value_beyond_marketing`).
  *
- * Centred tag, heading and intro, then a 3-column row of icon cards. Icons
- * are uploaded SVG/images tinted with the brand blue gradient
- * (.ds-icon--blue-gradient); without an upload a Font Awesome icon is shown
- * in the same gradient.
+ * Centred tag, heading and intro, then a 3-column row of icon + title +
+ * text items (no boxes). Icons are uploaded SVG/images tinted with the brand
+ * blue gradient (.ds-icon--blue-gradient); without an upload a Font Awesome
+ * icon is shown in the same gradient, falling back to the default icon for
+ * that position when none is named.
  */
 $d     = ds_hs_defaults('value');
 $group = get_field('hs_value_beyond_marketing') ?: [];
@@ -15,11 +16,12 @@ $tag     = ($group['section_tag'] ?? '') ?: $d['section_tag'];
 $heading = ($group['section_heading'] ?? '') ?: $d['section_heading'];
 $intro   = ($group['intro_paragraph'] ?? '') ?: $d['intro_paragraph'];
 
-$cards = [];
-foreach ((array) ($group['value_cards'] ?? []) as $c) {
+$cards    = [];
+$fallback = array_column($d['value_cards'], 'fa');
+foreach (array_values((array) ($group['value_cards'] ?? [])) as $i => $c) {
     $cards[] = [
         'icon'        => $c['card_icon'] ?? null,
-        'fa'          => $c['card_icon_class'] ?? '',
+        'fa'          => trim((string) ($c['card_icon_class'] ?? '')) ?: ($fallback[$i % count($fallback)] ?? ''),
         'title'       => $c['card_title'] ?? '',
         'description' => $c['card_description'] ?? '',
     ];

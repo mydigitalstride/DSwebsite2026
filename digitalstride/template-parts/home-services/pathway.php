@@ -7,6 +7,8 @@
  * the open tab gets the yellow-orange gradient border and its guidance shows
  * beneath it. Regular tabs end with an "Explore …" text link; a tab flagged
  * `is_consult_tab` ends with the primary "Book A Consult" button instead.
+ * Below the accordion a stand-alone "Book A Consult" button (as on the AEC
+ * page) is shown unless `hs_guided_show_consult_button` is switched off.
  */
 $d       = ds_hs_defaults('guided');
 $heading = get_field('hs_guided_heading') ?: $d['heading'];
@@ -30,6 +32,11 @@ $tabs = array_values(array_filter($tabs, function ($t) { return !empty($t['title
 if (!$tabs) return;
 
 $uid = 'ds-hs-path-' . wp_unique_id();
+
+$consult = null;
+if (get_field('hs_guided_show_consult_button') !== false) {
+    $consult = ds_aec_link(get_field('hs_guided_consult_button') ?: $d['consult_button'], __('Book A Consult', 'digitalstride'));
+}
 ?>
 <section class="ds-section ds-aec-path ds-hs-path">
     <div class="ds-container ds-container--narrow">
@@ -54,7 +61,8 @@ $uid = 'ds-hs-path-' . wp_unique_id();
                         <div class="ds-aec-path__panel-inner">
                             <div class="ds-aec-path__content">
                                 <?php if ($t['content']) echo wp_kses_post(wpautop($t['content'])); ?>
-                                <?php if ($cta && $label) : ?>
+                                <?php // The consult tab's own button is skipped when the stand-alone one below is shown. ?>
+                                <?php if ($cta && $label && !($t['consult'] && $consult)) : ?>
                                     <p class="ds-aec-path__cta">
                                         <?php if ($t['consult']) : ?>
                                             <a href="<?php echo esc_url($cta['url']); ?>" class="ds-btn ds-btn--primary ds-hs-path__consult-btn"<?php ds_aec_target_attrs($cta['target']); ?>><?php echo esc_html($label); ?></a>
@@ -71,5 +79,11 @@ $uid = 'ds-hs-path-' . wp_unique_id();
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <?php if ($consult) : ?>
+            <div class="ds-aec-consult ds-hs-solo-cta">
+                <a href="<?php echo esc_url($consult['url']); ?>" class="ds-btn ds-btn--primary ds-aec-consult__btn"<?php ds_aec_target_attrs($consult['target']); ?>><?php echo esc_html($consult['title']); ?></a>
+            </div>
+        <?php endif; ?>
     </div>
 </section>

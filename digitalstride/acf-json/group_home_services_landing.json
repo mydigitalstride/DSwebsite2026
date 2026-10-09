@@ -184,7 +184,7 @@
                     "type": "repeater",
                     "layout": "block",
                     "button_label": "Add Card",
-                    "instructions": "3 per row. Upload an SVG icon to have it filled with the brand blue gradient (PNG/JPG icons are tinted blue). Without an upload, the Font Awesome icon is used.",
+                    "instructions": "3 per row: icon, title and text (no boxes). Upload an SVG icon to have it filled with the brand blue gradient (PNG/JPG icons are tinted blue). Without an upload, the Font Awesome icon named here is used, or the default icon for that position (phone, map pin, snowflake).",
                     "sub_fields": [
                         {
                             "key": "field_hs_value_card_icon",
@@ -306,6 +306,14 @@
             ]
         },
         {
+            "key": "field_hs_tools_button",
+            "label": "Button under the cards (optional)",
+            "name": "hs_core_pillars_button",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "Adds a stand-alone button under the cards, e.g. “View All Services”. Leave empty for no button. If the link has no title it reads “View All Services”."
+        },
+        {
             "key": "field_hs_tab_guided",
             "label": "4. Growth Bottleneck",
             "name": "",
@@ -375,6 +383,37 @@
                     "default_value": 0,
                     "message": "Show the CTA as the primary “Book A Consult” button"
                 }
+            ]
+        },
+        {
+            "key": "field_hs_guided_show_consult",
+            "label": "Show “Book A Consult” button under the accordion",
+            "name": "hs_guided_show_consult_button",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 1,
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_hs_guided_consult_button",
+            "label": "“Book A Consult” button",
+            "name": "hs_guided_consult_button",
+            "type": "link",
+            "return_format": "array",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Defaults to “Book A Consult” → /contact-us/.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_hs_guided_show_consult",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
             ]
         },
         {
@@ -473,5 +512,5 @@
     "active": true,
     "description": "Fixed sections for the Home Services & Trades landing page template.",
     "show_in_rest": 0,
-    "modified": 1791573840
+    "modified": 1791577979
 }
