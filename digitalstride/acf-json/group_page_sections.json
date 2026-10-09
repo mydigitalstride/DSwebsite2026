@@ -3835,6 +3835,107 @@
                             "instructions": "Logos come from Theme Settings → Partners / Clients."
                         }
                     ]
+                },
+                "layout_image_content": {
+                    "key": "layout_image_content",
+                    "name": "image_content",
+                    "label": "Txt Img | Picture or Text",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_image_content",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_ic_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_ic_image",
+                            "label": "Left Picture",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium"
+                        },
+                        {
+                            "key": "field_ic_link",
+                            "label": "Button (optional)",
+                            "name": "link",
+                            "type": "link",
+                            "return_format": "array",
+                            "instructions": "Shown under the left picture."
+                        },
+                        {
+                            "key": "field_ic_right_type",
+                            "label": "Right Side",
+                            "name": "right_type",
+                            "type": "button_group",
+                            "choices": {
+                                "text": "Text",
+                                "image": "Picture"
+                            },
+                            "default_value": "text",
+                            "return_format": "value",
+                            "layout": "horizontal"
+                        },
+                        {
+                            "key": "field_ic_right_text",
+                            "label": "Right Text",
+                            "name": "right_text",
+                            "type": "wysiwyg",
+                            "toolbar": "full",
+                            "media_upload": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_ic_right_type",
+                                        "operator": "==",
+                                        "value": "text"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_ic_right_image",
+                            "label": "Right Picture",
+                            "name": "right_image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_ic_right_type",
+                                        "operator": "==",
+                                        "value": "image"
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             }
         }
@@ -3864,5 +3965,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1791566766
+    "modified": 1791571250
 }
