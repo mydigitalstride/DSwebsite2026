@@ -3612,6 +3612,92 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_who_else_we_help": {
+                    "key": "layout_who_else_we_help",
+                    "name": "who_else_we_help",
+                    "label": "Who Else We Help",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_who_else_we_help",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_wewh_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Who Else We Help"
+                        },
+                        {
+                            "key": "field_wewh_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "toolbar": "basic",
+                            "media_upload": 0
+                        },
+                        {
+                            "key": "field_wewh_cta",
+                            "label": "Button",
+                            "name": "cta_button",
+                            "type": "link",
+                            "return_format": "array"
+                        },
+                        {
+                            "key": "field_wewh_items",
+                            "label": "Accordion Items",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Item",
+                            "instructions": "Leave empty to show the default industries with placeholder text.",
+                            "sub_fields": [
+                                {
+                                    "key": "field_wewh_item_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "field_wewh_item_body",
+                                    "label": "Body",
+                                    "name": "body",
+                                    "type": "wysiwyg",
+                                    "toolbar": "basic",
+                                    "media_upload": 0
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_wewh_show_clients",
+                            "label": "Show client logo carousel",
+                            "name": "show_clients",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 1,
+                            "instructions": "Logos come from Theme Settings → Partners / Clients."
+                        }
+                    ]
                 }
             }
         }
@@ -3641,5 +3727,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1790300340
+    "modified": 1791561979
 }
