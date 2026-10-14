@@ -717,7 +717,8 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     margin-bottom: 1em;
     transition: border-image 0.3s;
 }
-.ds-accordion__item.is-active {
+.ds-accordion__item.is-active,
+.ds-accordion:not(.ds-accordion--locked) .ds-accordion__item:hover {
     border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
 }
 
@@ -779,6 +780,9 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
         justify-content: center;
         text-align: center;
     }
+}
+.ds-services-split__item:hover {
+    border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
 }
 .ds-services-split__item.is-active {
     border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1;
