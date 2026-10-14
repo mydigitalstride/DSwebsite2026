@@ -147,6 +147,7 @@ require_once DS_DIR . '/inc/aec-landing.php';
 require_once DS_DIR . '/inc/home-services.php';
 require_once DS_DIR . '/inc/realtors.php';
 require_once DS_DIR . '/inc/dsd-leads.php';
+require_once DS_DIR . '/inc/dsd-dashboard.php';
 
 // ── Retired: medical receipt reimbursements ──────────
 // The reimbursement portal was removed from the theme. Drop the capability

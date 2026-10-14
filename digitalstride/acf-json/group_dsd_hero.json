@@ -1,0 +1,138 @@
+{
+    "key": "group_dsd_hero",
+    "title": "DSD: Hero & Perks Ribbon",
+    "fields": [
+        {
+            "key": "field_dsd_hero_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy (shown as placeholders)."
+        },
+        {
+            "key": "field_dsd_hero_eyebrow",
+            "label": "Eyebrow",
+            "name": "hero_eyebrow",
+            "type": "text",
+            "placeholder": "Digital Stride Dashboard (DSD)"
+        },
+        {
+            "key": "field_dsd_hero_title",
+            "label": "Headline (H1)",
+            "name": "hero_title",
+            "type": "textarea",
+            "rows": 2,
+            "new_lines": "",
+            "placeholder": "THE TRANSPARENCY YOU DESERVE. NO STATUS MEETINGS REQUIRED.",
+            "instructions": "Shown in capitals. <br>, <em>, <strong> and <span> are allowed."
+        },
+        {
+            "key": "field_dsd_hero_subtitle",
+            "label": "Subheadline",
+            "name": "hero_subtitle",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": "",
+            "placeholder": "When you're running a trade, contracting, or real estate business…"
+        },
+        {
+            "key": "field_dsd_hero_cta_label",
+            "label": "Button label",
+            "name": "hero_cta_label",
+            "type": "text",
+            "placeholder": "Unlock Your Benefits",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Overrides the link's own title."
+        },
+        {
+            "key": "field_dsd_hero_cta_url",
+            "label": "Button link",
+            "name": "hero_cta_url",
+            "type": "link",
+            "return_format": "array",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Defaults to /contact-us/."
+        },
+        {
+            "key": "field_dsd_hero_visual",
+            "label": "Dashboard visual (optional)",
+            "name": "hero_visual",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "instructions": "A screenshot shown inside the DSD frame. Leave empty for the built-in dashboard preview. 16:10 works best."
+        },
+        {
+            "key": "field_dsd_hero_perks",
+            "label": "Perks ribbon",
+            "name": "hero_perks",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Perk",
+            "min": 0,
+            "max": 4,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_hero_perk_icon",
+                    "label": "Icon (SVG or image)",
+                    "name": "icon",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png,webp",
+                    "wrapper": {
+                        "width": "25"
+                    },
+                    "instructions": "Leave empty for the default icon (lightning, phone, mail, thumbs-up)."
+                },
+                {
+                    "key": "field_dsd_hero_perk_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "placeholder": "Zero Wait Time",
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_dsd_hero_perk_sub",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text",
+                    "placeholder": "Always-on analytics",
+                    "wrapper": {
+                        "width": "40"
+                    }
+                }
+            ],
+            "collapsed": "field_dsd_hero_perk_title",
+            "instructions": "Up to 4. Leave empty to show the launch perks."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dsd.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Hero split (copy left, dashboard frame right) and the 4-column perks ribbon on the DSD Dashboard Page template.",
+    "show_in_rest": 0,
+    "modified": 1792010371
+}

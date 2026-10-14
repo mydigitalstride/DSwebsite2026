@@ -1,0 +1,57 @@
+{
+    "key": "group_dsd_simulator",
+    "title": "DSD: Lead Simulator",
+    "fields": [
+        {
+            "key": "field_dsd_sim_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy (shown as placeholders)."
+        },
+        {
+            "key": "field_dsd_sim_headline",
+            "label": "Headline",
+            "name": "sim_headline",
+            "type": "text",
+            "placeholder": "Test The DSD Trade Simulator"
+        },
+        {
+            "key": "field_dsd_sim_sub",
+            "label": "Subheadline",
+            "name": "sim_subheadline",
+            "type": "text",
+            "placeholder": "Experience how easy it is to review inbound calls, tag lead statuses, and track revenue…"
+        },
+        {
+            "key": "field_dsd_sim_pipeline",
+            "label": "Starting pipeline value ($)",
+            "name": "sim_default_pipeline_val",
+            "type": "number",
+            "placeholder": "124500",
+            "min": 0,
+            "step": 1,
+            "prepend": "$",
+            "instructions": "What the “Total Revenue Pipeline Identified” counter shows on load. Tagging a lead Booked / Sold adds its job value; un-tagging one removes it."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dsd.php"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Interactive Trade & Lead Simulator on the DSD Dashboard Page template. Sample leads live in inc/dsd-dashboard.php (ds_dsd_sim_leads).",
+    "show_in_rest": 0,
+    "modified": 1792010371
+}
