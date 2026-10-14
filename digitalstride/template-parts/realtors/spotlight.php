@@ -2,10 +2,10 @@
 /**
  * Realtors 4: Featured Partner Spotlight (s4_* fields).
  *
- * Auto mode: global testimonials tagged with the Industry slugs in
- * `s4_category_slug`; Manual mode: the page's own quotes (see
- * ds_rlt_testimonials()). Uses the site testimonial carousel, initialised by
- * main.js. Yellow/orange heading bar.
+ * Quotes come from the ticked industries, the ticked testimonials or the
+ * page's own quotes, depending on `s4_mode` (see ds_rlt_testimonials()).
+ * Uses the site testimonial carousel, initialised by main.js.
+ * Yellow/orange heading bar.
  */
 $d     = ds_rlt_defaults('spotlight');
 $title = get_field('s4_title') ?: $d['title'];
@@ -13,7 +13,7 @@ $items = ds_rlt_testimonials();
 
 if (!$items) {
     if (current_user_can('edit_posts')) {
-        echo '<!-- Realtors spotlight: no testimonials. Add quotes under Theme Settings > Testimonials, or switch this page to Manual and add them here. -->';
+        echo '<!-- Realtors spotlight: no testimonials. Nothing matches the Testimonial source setting on this page: tick an industry the testimonials are tagged with, tick testimonials, or add Manual quotes. -->';
     }
     return;
 }

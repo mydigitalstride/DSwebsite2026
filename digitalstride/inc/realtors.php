@@ -99,8 +99,8 @@ function ds_rlt_defaults($section) {
         ],
         'spotlight' => [
             'title'         => 'Featured Partner Spotlight',
-            'mode'          => 'auto',
-            'category_slug' => 'realtors, real-estate',
+            'mode'       => 'auto',
+            'industries' => ['realtors'],
         ],
         'faq' => [
             'title' => 'FAQ',
@@ -154,13 +154,15 @@ function ds_rlt_rows($field, $fallback, array $required) {
 }
 
 /**
- * Testimonials for the "Featured Partner Spotlight" section.
+ * Testimonials for the "Featured Partner Spotlight" section, by `s4_mode`:
  *
- * Auto: global testimonials (Theme Settings > Testimonials) whose Industry
- * matches any slug in `s4_category_slug` (comma separated, default
- * "realtors, real-estate"). If none are tagged yet, every global testimonial
- * is shown so the section never renders empty.
- * Manual: the quotes entered in `s4_manual_testimonials` on this page.
+ * auto:     global testimonials (Theme Settings > Testimonials) tagged with
+ *           any Industry ticked in `s4_industries` (default Realtors).
+ * selected: the global testimonials ticked in `s4_selected_testimonials`.
+ * manual:   the quotes entered in `s4_manual_testimonials` on this page.
+ *
+ * Nothing matching means the section is left out (an HTML comment tells
+ * logged-in editors why).
  */
 function ds_rlt_testimonials() {
     $d    = ds_rlt_defaults('spotlight');
@@ -182,21 +184,44 @@ function ds_rlt_testimonials() {
 
     if (!function_exists('ds_get_testimonials')) return [];
 
-    $slugs = trim((string) get_field('s4_category_slug')) ?: $d['category_slug'];
-    $out   = [];
-    $seen  = [];
-    foreach (array_filter(array_map('trim', explode(',', $slugs))) as $slug) {
-        $industry = str_replace('-', '_', sanitize_title($slug));
-        if ($industry === '') continue;
-        foreach (ds_get_testimonials($industry) as $t) {
-            if (isset($seen[$t['id']])) continue;
-            $seen[$t['id']] = true;
-            $out[] = $t;
-        }
+    if ($mode === 'selected') {
+        $picked = array_filter((array) get_field('s4_selected_testimonials'));
+        return array_values(array_filter(ds_get_testimonials(), function ($t) use ($picked) {
+            return in_array($t['id'], $picked, true);
+        }));
     }
 
-    return $out ?: ds_get_testimonials();
+    // auto: by ticked industries. A page saved before any box was ticked
+    // falls back to the default (Realtors).
+    $industries = array_filter((array) get_field('s4_industries')) ?: $d['industries'];
+    return array_values(array_filter(ds_get_testimonials(), function ($t) use ($industries) {
+        return (bool) array_intersect($industries, $t['industries']);
+    }));
 }
+
+/**
+ * Fill the Spotlight checklists from Theme Settings > Testimonials: the
+ * Industry choices, and one box per testimonial.
+ */
+add_filter('acf/load_field/key=field_rlt_s4_industries', function ($field) {
+    $industry = function_exists('acf_get_field') ? acf_get_field('field_gtm_industry') : null;
+    if (!empty($industry['choices'])) {
+        $field['choices'] = $industry['choices'];
+    }
+    return $field;
+});
+
+add_filter('acf/load_field/key=field_rlt_s4_selected', function ($field) {
+    $choices = [];
+    foreach (ds_get_testimonials() as $t) {
+        $label = $t['name'] ?: __('(no name)', 'digitalstride');
+        if ($t['title_company']) $label .= ' — ' . $t['title_company'];
+        $label .= ': “' . wp_trim_words($t['quote'], 10, '…') . '”';
+        $choices[$t['id']] = $label;
+    }
+    $field['choices'] = $choices;
+    return $field;
+});
 
 /**
  * Page CSS / JS: the shared AEC landing components plus this page's own.

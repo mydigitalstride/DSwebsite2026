@@ -325,28 +325,68 @@
             "name": "s4_mode",
             "type": "select",
             "choices": {
-                "auto": "Query by category (global testimonials)",
-                "manual": "Manual selection (quotes entered below)"
+                "auto": "By industry (tick industries below)",
+                "selected": "Pick testimonials (tick them below)",
+                "manual": "Manual (quotes entered on this page)"
             },
             "default_value": "auto",
             "return_format": "value",
             "ui": 0,
             "allow_null": 0,
-            "multiple": 0
+            "multiple": 0,
+            "instructions": "Where the Spotlight quotes come from. Testimonials are managed under Theme Settings › Testimonials."
         },
         {
-            "key": "field_rlt_s4_slug",
-            "label": "Industry slugs",
-            "name": "s4_category_slug",
-            "type": "text",
-            "placeholder": "realtors, real-estate",
-            "instructions": "Shows testimonials from Theme Settings › Testimonials tagged with these Industries (comma separated). If none are tagged yet, all global testimonials are shown.",
+            "key": "field_rlt_s4_industries",
+            "label": "Industries",
+            "name": "s4_industries",
+            "type": "checkbox",
+            "instructions": "Shows every global testimonial tagged with any ticked industry.",
+            "choices": {
+                "aec": "AEC",
+                "home_services": "Home Services",
+                "realtors": "Realtors & Real Estate"
+            },
+            "default_value": [
+                "realtors"
+            ],
+            "layout": "horizontal",
+            "return_format": "value",
+            "toggle": 0,
+            "allow_custom": 0,
             "conditional_logic": [
                 [
                     {
                         "field": "field_rlt_s4_mode",
                         "operator": "!=",
+                        "value": "selected"
+                    },
+                    {
+                        "field": "field_rlt_s4_mode",
+                        "operator": "!=",
                         "value": "manual"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_rlt_s4_selected",
+            "label": "Testimonials",
+            "name": "s4_selected_testimonials",
+            "type": "checkbox",
+            "instructions": "Tick the testimonials to show, in the order they appear here.",
+            "choices": {},
+            "default_value": [],
+            "layout": "vertical",
+            "return_format": "value",
+            "toggle": 0,
+            "allow_custom": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_rlt_s4_mode",
+                        "operator": "==",
+                        "value": "selected"
                     }
                 ]
             ]
@@ -500,5 +540,5 @@
     "active": true,
     "description": "Fixed sections for the Realtors & Real Estate Agencies landing page template.",
     "show_in_rest": 0,
-    "modified": 1791986367
+    "modified": 1791997269
 }
