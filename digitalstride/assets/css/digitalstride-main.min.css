@@ -744,6 +744,9 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-accordion__item.is-active .ds-accordion__body { display: block; }
 .ds-section--faq .ds-accordion { max-width: 100%; }
 .ds-section--faq .ds-accordion__header { text-transform: capitalize; }
+/* Questions wrap to several lines on phones; buttons don't inherit the
+   body line-height, so Josefin's tight default is replaced here. */
+.ds-section--faq .ds-accordion__header { line-height: 1.45; gap: 1em; }
 .ds-accordion__cta { margin-top: 1.5em; }
 .ds-accordion__title-wrap { display: flex; align-items: center; gap: 0.75em; }
 .ds-accordion__icon-img, .ds-accordion__title-wrap svg.ds-svg { width: 40px; height: 40px; flex-shrink: 0; }
