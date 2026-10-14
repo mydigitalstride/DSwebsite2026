@@ -41,10 +41,11 @@
                     "label": "Industry",
                     "name": "industry",
                     "type": "checkbox",
-                    "instructions": "Tag the industries this client belongs to. AEC-tagged quotes appear on the AEC landing page.",
+                    "instructions": "Tag the industries this client belongs to. AEC-tagged quotes appear on the AEC landing page, Realtors-tagged quotes on the Realtors landing page.",
                     "choices": {
                         "aec": "AEC",
-                        "home_services": "Home Services"
+                        "home_services": "Home Services",
+                        "realtors": "Realtors & Real Estate"
                     },
                     "layout": "horizontal",
                     "return_format": "value",
@@ -71,5 +72,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1791477917
+    "modified": 1791986367
 }

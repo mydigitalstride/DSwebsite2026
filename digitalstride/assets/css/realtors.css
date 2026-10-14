@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Realtors & Real Estate Landing Page (page-realtors.php)
+   Builds on aec-landing.css (hero overlay, section spacing, value cards);
+   this file only holds what differs on this page. Loaded after
+   aec-landing.css.
+   ========================================================================== */
+
+.ds-page-rlt {
+    --ds-rlt-warm: linear-gradient(90deg, var(--ds-orange), var(--ds-yellow));
+    --ds-rlt-card-gradient: linear-gradient(115deg, var(--ds-navy-gradient) 0%, #0b3a9e 55%, var(--ds-blue-gradient) 100%);
+    --ds-rlt-line: rgba(242, 245, 251, 0.85);
+}
+
+/* - Heading underline bars alternate section by section: Pain Points,
+   Capabilities and FAQ keep the site's blue bar; Comparison and Spotlight
+   are yellow-orange. - */
+.ds-rlt-compare .ds-section__heading::after,
+.ds-rlt-spotlight .ds-section__heading::after {
+    background: var(--ds-rlt-warm);
+}
+
+/* - 1. Why Traditional Marketing Fails Realtors: 3 cards - */
+/* Cards are the AEC value cards (orange border on hover); they also lift. */
+.ds-rlt-pain__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em 2em;
+    margin-top: 2em;
+}
+.ds-rlt-pain__card {
+    transition: border-color 0.3s var(--ds-aec-ease), transform 0.3s var(--ds-aec-ease), box-shadow 0.3s var(--ds-aec-ease);
+}
+.ds-rlt-pain__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 34px rgba(243, 110, 33, 0.18);
+}
+
+/* - 2. Why Top Agents Partner: comparison table - */
+.ds-rlt-compare__table {
+    width: 100%;
+    max-width: 960px;
+    margin: 2.5em auto 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.ds-rlt-compare__head {
+    padding: 1.5em 1.25em 3em;
+    background: var(--ds-transparent-white);
+    /* The bottom 1.5rem is painted page colour: a gap above the rows */
+    box-shadow: inset 0 -1.5rem 0 var(--ds-bg);
+    text-align: center;
+    vertical-align: top;
+    font-weight: 400;
+}
+.ds-rlt-compare__heading {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.ds-rlt-compare__sub {
+    display: block;
+    margin-top: 0.25em;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+.ds-rlt-compare__cell {
+    padding: 1.1em 1.25em;
+    border: 2px solid var(--ds-rlt-line);
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: background-color 0.3s var(--ds-aec-ease);
+}
+.ds-rlt-compare__table tbody tr:hover .ds-rlt-compare__cell { background: rgba(242, 245, 251, 0.05); }
+.ds-rlt-compare__icon {
+    display: inline-block;
+    margin-right: 0.6em;
+    vertical-align: -0.2em;
+    flex-shrink: 0;
+}
+i.ds-rlt-compare__icon { color: var(--ds-yellow); font-size: 1.15em; vertical-align: -0.1em; }
+
+/* - 3. Digital Infrastructure: rotating card deck - */
+.ds-rlt-deck { max-width: 1040px; margin: 2.5em auto 0; }
+
+/* Without JS: the cards are simply listed. */
+.ds-rlt-deck__stack { display: flex; flex-direction: column; gap: 1.5em; }
+
+.ds-rlt-deck__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 2em;
+    align-items: center;
+    padding: clamp(2em, 4vw, 3em);
+    border-radius: 2rem;
+    background: var(--ds-rlt-card-gradient);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+.ds-rlt-deck__card--no-media { grid-template-columns: 1fr; }
+/* White veil: shows on the cards waiting behind the front one */
+.ds-rlt-deck__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ds-white);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s var(--ds-aec-ease);
+}
+
+.ds-rlt-deck__tag {
+    font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1em;
+}
+.ds-rlt-deck__title {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    font-weight: 700;
+    color: var(--ds-yellow);
+    margin-bottom: 0.5em;
+}
+.ds-rlt-deck__text { font-size: 0.95rem; line-height: 1.7; opacity: 0.92; margin-bottom: 1.5em; }
+.ds-rlt-deck__btn { font-size: 1rem; padding: 0.6em 1.5em; }
+
+.ds-rlt-deck__media { display: flex; align-items: center; justify-content: center; }
+.ds-rlt-deck__media img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 0.75rem; }
+.ds-rlt-deck__media--icon {
+    aspect-ratio: 4 / 3;
+    border-radius: 1.25rem;
+    background: rgba(2, 11, 36, 0.35);
+    border: 1px solid rgba(242, 245, 251, 0.2);
+}
+.ds-rlt-deck__media--icon i {
+    font-size: clamp(4rem, 9vw, 7rem);
+    background: linear-gradient(135deg, var(--ds-yellow), var(--ds-orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--ds-orange);
+}
+
+/* With JS: cards stack in one grid cell; data-pos (set by realtors.js) is
+   each card's place in the deck, 0 = front. Room on the right for the
+   cards peeking out behind. */
+.ds-rlt-deck.is-ready .ds-rlt-deck__stack {
+    display: grid;
+    padding-right: 4.5rem;
+}
+.ds-rlt-deck.is-ready .ds-rlt-deck__card {
+    grid-area: 1 / 1;
+    transform-origin: right center;
+    transition: transform 0.6s var(--ds-aec-ease), opacity 0.6s var(--ds-aec-ease);
+}
+.ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="0"] { z-index: 5; }
+.ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="1"] {
+    z-index: 4;
+    transform: translateX(2.5rem) scale(0.93);
+    cursor: pointer;
+}
+.ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="2"] {
+    z-index: 3;
+    transform: translateX(4.5rem) scale(0.86);
+    opacity: 0.55;
+}
+.ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="back"] {
+    z-index: 2;
+    transform: translateX(4.5rem) scale(0.8);
+    opacity: 0;
+}
+.ds-rlt-deck.is-ready .ds-rlt-deck__card:not([data-pos="0"])::after { opacity: 0.96; }
+.ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="1"]:hover { transform: translateX(3rem) scale(0.93); }
+
+/* The front card swings out to the left and drops to the back (Next) ... */
+.ds-rlt-deck.is-ready .ds-rlt-deck__card.is-leaving { z-index: 6; animation: ds-rlt-deck-out 0.6s var(--ds-aec-ease) both; }
+/* ... or a card swings in from the left to the front (Previous). */
+.ds-rlt-deck.is-ready .ds-rlt-deck__card.is-entering { z-index: 6; animation: ds-rlt-deck-in 0.6s var(--ds-aec-ease) both; }
+.ds-rlt-deck.is-ready .ds-rlt-deck__card.is-leaving::after,
+.ds-rlt-deck.is-ready .ds-rlt-deck__card.is-entering::after { opacity: 0; transition: none; }
+
+@keyframes ds-rlt-deck-out {
+    from { transform: none; opacity: 1; }
+    to   { transform: translateX(-40%) rotate(-6deg); opacity: 0; }
+}
+@keyframes ds-rlt-deck-in {
+    from { transform: translateX(-40%) rotate(-6deg); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+}
+
+.ds-rlt-deck__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25em;
+    margin-top: 2em;
+}
+.ds-rlt-deck__controls[hidden] { display: none; }
+.ds-rlt-deck__btn-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 2px solid var(--ds-rlt-line);
+    background: transparent;
+    color: var(--ds-white);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ds-aec-ease), border-color 0.3s var(--ds-aec-ease);
+}
+.ds-rlt-deck__btn-nav:hover { background: var(--ds-orange); border-color: var(--ds-orange); }
+.ds-rlt-deck__dots { display: flex; gap: 0.6em; }
+.ds-rlt-deck__dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(242, 245, 251, 0.35);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ds-aec-ease), transform 0.3s var(--ds-aec-ease);
+}
+.ds-rlt-deck__dot:hover { background: rgba(242, 245, 251, 0.7); }
+.ds-rlt-deck__dot[aria-current="true"] { background: var(--ds-orange); transform: scale(1.2); }
+
+/* - 4. Featured Partner Spotlight: optional author photo (manual quotes) - */
+.ds-rlt-spotlight__author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9em;
+    text-align: left;
+}
+.ds-rlt-spotlight__photo {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--ds-orange);
+}
+
+/* - Responsive - */
+@media (max-width: 1024px) {
+    .ds-rlt-pain__grid { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 768px) {
+    /* Comparison: each row becomes a pair of labelled boxes */
+    .ds-rlt-compare__table,
+    .ds-rlt-compare__table tbody,
+    .ds-rlt-compare__table tr,
+    .ds-rlt-compare__table td { display: block; width: 100%; }
+    .ds-rlt-compare__table thead { display: none; }
+    .ds-rlt-compare__table tr { margin-bottom: 1.25em; }
+    .ds-rlt-compare__cell + .ds-rlt-compare__cell { border-top: 0; }
+    .ds-rlt-compare__cell::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.4em;
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        opacity: 0.7;
+    }
+
+    .ds-rlt-deck__card { grid-template-columns: 1fr; gap: 1.5em; border-radius: 1.5rem; }
+    .ds-rlt-deck__media { order: -1; }
+    .ds-rlt-deck__media img { max-height: 200px; }
+    .ds-rlt-deck__media--icon { aspect-ratio: auto; padding: 1.5em; }
+    .ds-rlt-deck.is-ready .ds-rlt-deck__stack { padding-right: 2rem; }
+    .ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="1"] { transform: translateX(1.1rem) scale(0.95); }
+    .ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="1"]:hover { transform: translateX(1.1rem) scale(0.95); }
+    .ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="2"],
+    .ds-rlt-deck.is-ready .ds-rlt-deck__card[data-pos="back"] { transform: translateX(2rem) scale(0.9); }
+}

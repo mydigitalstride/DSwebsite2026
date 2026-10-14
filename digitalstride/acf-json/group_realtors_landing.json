@@ -1,0 +1,504 @@
+{
+    "key": "group_realtors_landing",
+    "title": "Realtors Landing Page",
+    "fields": [
+        {
+            "key": "field_rlt_tab_hero",
+            "label": "Hero",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_hero_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy (shown as placeholders)."
+        },
+        {
+            "key": "field_rlt_hero_subheadline",
+            "label": "Subheadline",
+            "name": "hero_subheadline",
+            "type": "text",
+            "placeholder": "Who We Serve: Realtors & Real Estate Agencies"
+        },
+        {
+            "key": "field_rlt_hero_headline",
+            "label": "Headline (H1)",
+            "name": "hero_headline",
+            "type": "text",
+            "placeholder": "Dominate Your Local Market & Turn Clicks Into Closing Table Handshakes"
+        },
+        {
+            "key": "field_rlt_hero_description",
+            "label": "Description",
+            "name": "hero_description",
+            "type": "textarea",
+            "placeholder": "Stop losing premium listings to high-budget brokerages…",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_rlt_hero_cta_text",
+            "label": "Button label",
+            "name": "hero_cta_text",
+            "type": "text",
+            "placeholder": "Build Your Real Estate Growth Blueprint",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_rlt_hero_cta_url",
+            "label": "Button URL",
+            "name": "hero_cta_url",
+            "type": "text",
+            "placeholder": "/contact-us/",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "A full URL, a path like /contact-us/ or an anchor like #rlt-spotlight."
+        },
+        {
+            "key": "field_rlt_hero_bg",
+            "label": "Background image",
+            "name": "hero_background_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "instructions": "Shown behind a dark overlay. 1920×900 or larger."
+        },
+        {
+            "key": "field_rlt_tab_s1",
+            "label": "1. Pain Points",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_s1_title",
+            "label": "Section title",
+            "name": "s1_title",
+            "type": "text",
+            "placeholder": "Why Traditional Marketing Fails Realtors"
+        },
+        {
+            "key": "field_rlt_s1_cards",
+            "label": "Cards",
+            "name": "s1_cards",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Card",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_rlt_s1_card_title",
+                    "label": "Card title",
+                    "name": "card_title",
+                    "type": "text",
+                    "placeholder": "Zillow/Portal Dependency"
+                },
+                {
+                    "key": "field_rlt_s1_card_desc",
+                    "label": "Card description",
+                    "name": "card_description",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
+                }
+            ],
+            "collapsed": "field_rlt_s1_card_title",
+            "instructions": "Leave empty to show the launch copy. Shown in 3 columns."
+        },
+        {
+            "key": "field_rlt_tab_s2",
+            "label": "2. Comparison",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_s2_title",
+            "label": "Section title",
+            "name": "s2_title",
+            "type": "text",
+            "placeholder": "Why Top Agents Partner With Digital Stride"
+        },
+        {
+            "key": "field_rlt_s2_col1_heading",
+            "label": "Left column heading",
+            "name": "s2_col1_heading",
+            "type": "text",
+            "placeholder": "Traditional Agent Approach",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_rlt_s2_col2_heading",
+            "label": "Right column heading",
+            "name": "s2_col2_heading",
+            "type": "text",
+            "placeholder": "Digital Stride System",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_rlt_s2_col1_sub",
+            "label": "Left column subheading",
+            "name": "s2_col1_subheading",
+            "type": "text",
+            "placeholder": "(What most realtors rely on)",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_rlt_s2_col2_sub",
+            "label": "Right column subheading",
+            "name": "s2_col2_subheading",
+            "type": "text",
+            "placeholder": "(How we help you dominate local listings)",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_rlt_s2_rows",
+            "label": "Comparison rows",
+            "name": "s2_comparison_rows",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Row",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_rlt_s2_bad",
+                    "label": "Traditional approach (warning icon)",
+                    "name": "bad_point_text",
+                    "type": "text",
+                    "placeholder": "Standard MLS links with low-res photos",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_rlt_s2_good",
+                    "label": "Digital Stride system (check icon)",
+                    "name": "good_point_text",
+                    "type": "text",
+                    "placeholder": "Custom single-property websites",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                }
+            ],
+            "instructions": "Leave empty to show the launch copy."
+        },
+        {
+            "key": "field_rlt_tab_s3",
+            "label": "3. Capabilities",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_s3_title",
+            "label": "Section title",
+            "name": "s3_title",
+            "type": "text",
+            "placeholder": "Digital Infrastructure Built For Top Producers"
+        },
+        {
+            "key": "field_rlt_s3_caps",
+            "label": "Capability cards",
+            "name": "s3_capabilities",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Card",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_rlt_s3_tag",
+                    "label": "Tag",
+                    "name": "tag_text",
+                    "type": "text",
+                    "placeholder": "WEBSITE DESIGN & LOCAL PLATFORMS",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_rlt_s3_card_title",
+                    "label": "Card title",
+                    "name": "card_title",
+                    "type": "text",
+                    "placeholder": "High-Converting Agent & Property Sites",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_rlt_s3_card_desc",
+                    "label": "Description",
+                    "name": "card_description",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_rlt_s3_btn_text",
+                    "label": "Button label",
+                    "name": "button_text",
+                    "type": "text",
+                    "placeholder": "Explore Website Design",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_rlt_s3_btn_url",
+                    "label": "Button URL",
+                    "name": "button_url",
+                    "type": "text",
+                    "placeholder": "/services/",
+                    "wrapper": {
+                        "width": "50"
+                    }
+                },
+                {
+                    "key": "field_rlt_s3_img",
+                    "label": "Card image",
+                    "name": "card_image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "instructions": "Shown on the right of the card (e.g. a laptop/phone mockup). Transparent PNG works best."
+                },
+                {
+                    "key": "field_rlt_s3_icon",
+                    "label": "Icon (if no image)",
+                    "name": "card_icon",
+                    "type": "text",
+                    "placeholder": "fa-solid fa-laptop-code",
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "instructions": "Font Awesome 6 classes, shown when no image is set. Leave both empty for a text-only card."
+                }
+            ],
+            "collapsed": "field_rlt_s3_card_title",
+            "instructions": "Leave empty to show the launch copy. Cards rotate as a stacked deck; the first row is the front card."
+        },
+        {
+            "key": "field_rlt_tab_s4",
+            "label": "4. Partner Spotlight",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_s4_title",
+            "label": "Section title",
+            "name": "s4_title",
+            "type": "text",
+            "placeholder": "Featured Partner Spotlight"
+        },
+        {
+            "key": "field_rlt_s4_mode",
+            "label": "Testimonial source",
+            "name": "s4_mode",
+            "type": "select",
+            "choices": {
+                "auto": "Query by category (global testimonials)",
+                "manual": "Manual selection (quotes entered below)"
+            },
+            "default_value": "auto",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_rlt_s4_slug",
+            "label": "Industry slugs",
+            "name": "s4_category_slug",
+            "type": "text",
+            "placeholder": "realtors, real-estate",
+            "instructions": "Shows testimonials from Theme Settings › Testimonials tagged with these Industries (comma separated). If none are tagged yet, all global testimonials are shown.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_rlt_s4_mode",
+                        "operator": "!=",
+                        "value": "manual"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_rlt_s4_manual",
+            "label": "Testimonials",
+            "name": "s4_manual_testimonials",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Testimonial",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_rlt_s4_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "type": "textarea",
+                    "rows": 4,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_rlt_s4_name",
+                    "label": "Name",
+                    "name": "name",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "33"
+                    }
+                },
+                {
+                    "key": "field_rlt_s4_company",
+                    "label": "Title / agency",
+                    "name": "title_company",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "33"
+                    }
+                },
+                {
+                    "key": "field_rlt_s4_photo",
+                    "label": "Photo",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "wrapper": {
+                        "width": "33"
+                    }
+                }
+            ],
+            "collapsed": "field_rlt_s4_name",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_rlt_s4_mode",
+                        "operator": "==",
+                        "value": "manual"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_rlt_tab_s5",
+            "label": "5. FAQ",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_s5_title",
+            "label": "Section title",
+            "name": "s5_title",
+            "type": "text",
+            "placeholder": "FAQ"
+        },
+        {
+            "key": "field_rlt_s5_faqs",
+            "label": "Questions",
+            "name": "s5_faqs",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Question",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_rlt_s5_q",
+                    "label": "Question",
+                    "name": "question",
+                    "type": "text"
+                },
+                {
+                    "key": "field_rlt_s5_a",
+                    "label": "Answer",
+                    "name": "answer",
+                    "type": "wysiwyg",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                }
+            ],
+            "collapsed": "field_rlt_s5_q",
+            "instructions": "Leave empty to show the launch copy."
+        },
+        {
+            "key": "field_rlt_tab_settings",
+            "label": "Settings",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_rlt_hide",
+            "label": "Hide sections",
+            "name": "rlt_hide_sections",
+            "type": "checkbox",
+            "layout": "vertical",
+            "return_format": "value",
+            "choices": {
+                "hero": "Hero",
+                "pain-points": "1. Why Traditional Marketing Fails",
+                "comparison": "2. Why Top Agents Partner",
+                "capabilities": "3. Digital Infrastructure",
+                "spotlight": "4. Featured Partner Spotlight",
+                "faq": "5. FAQ",
+                "global-cta": "Global Call to Action"
+            },
+            "instructions": "Sections with empty fields show the launch copy; tick a section here to remove it. Extra Page Sections render after these."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-realtors.php"
+            }
+        ]
+    ],
+    "menu_order": -10,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fixed sections for the Realtors & Real Estate Agencies landing page template.",
+    "show_in_rest": 0,
+    "modified": 1791986367
+}
