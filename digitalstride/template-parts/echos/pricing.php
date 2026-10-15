@@ -1,20 +1,24 @@
 <?php
 /**
- * ECHO SEO: Plans & pricing (s5_* fields).
+ * ECHO SEO: Plans & price (s5_* fields).
  *
- * The Services Overview pricing feature table (ds-pft__*: desktop table,
- * one card per plan on phones) for a single product, with the plan price
- * in each column head and a button under each plan: "Download" for Free,
- * "Get ECHO SEO Premium" for Premium. Premium is the gold column.
+ * Feature table from the mockup: teal frame, navy feature column, a plain
+ * check or cross per plan and a closing row with each plan's price (the
+ * Premium price in ECHO yellow, with an optional struck-through original)
+ * and its button: "Download" for the free plan, "Get ECHO SEO Premium" for
+ * Premium. On phones the table becomes one card per plan (the site pricing
+ * table cards from main.css).
  */
 $d     = ds_echos_defaults('pricing');
 $kick  = get_field('s5_kicker') ?: $d['kicker'];
 $title = get_field('s5_headline') ?: $d['headline'];
 $col1  = get_field('s5_col1_header') ?: $d['col1_header'];
+$was   = trim((string) get_field('s5_col3_original_price')) ?: $d['col3_was'];
+if ($was === '-') $was = '';
 
 $plans = [
-    ['mod' => 'free', 'name' => get_field('s5_col2_header') ?: $d['col2_header'], 'price' => get_field('s5_col2_price') ?: $d['col2_price'], 'btn' => ds_echos_button('s5_col2_button', $d['col2_button']), 'btn_class' => 'ds-btn ds-echos-btn ds-echos-btn--outline'],
-    ['mod' => 'premium', 'name' => get_field('s5_col3_header') ?: $d['col3_header'], 'price' => get_field('s5_col3_price') ?: $d['col3_price'], 'btn' => ds_echos_button('s5_col3_button', $d['col3_button']), 'btn_class' => 'ds-btn ds-echos-btn'],
+    ['key' => 'col2', 'mod' => 'free', 'name' => get_field('s5_col2_header') ?: $d['col2_header'], 'was' => '', 'price' => get_field('s5_col2_price') ?: $d['col2_price'], 'btn' => ds_echos_button('s5_col2_button', $d['col2_button']), 'btn_class' => 'ds-btn ds-btn--outline'],
+    ['key' => 'col3', 'mod' => 'premium', 'name' => get_field('s5_col3_header') ?: $d['col3_header'], 'was' => $was, 'price' => get_field('s5_col3_price') ?: $d['col3_price'], 'btn' => ds_echos_button('s5_col3_button', $d['col3_button']), 'btn_class' => 'ds-btn ds-btn--primary'],
 ];
 
 $rows = [];
@@ -29,42 +33,48 @@ foreach ((array) (get_field('s5_table_rows') ?: []) as $row) {
     ];
 }
 if (!$rows) $rows = $d['rows'];
+
+$price = function ($plan, $class) {
+    if ($plan['was']) echo '<s class="' . esc_attr($class) . '__was">' . esc_html($plan['was']) . '</s>';
+    if ($plan['price']) echo '<span class="' . esc_attr($class) . '__price ' . esc_attr($class) . '__price--' . esc_attr($plan['mod']) . '">' . esc_html($plan['price']) . '</span>';
+};
 ?>
-<section class="ds-section ds-section--pft ds-echos-pricing" aria-labelledby="echos-pricing-title">
+<section class="ds-section ds-echos-pricing" aria-labelledby="echos-pricing-title">
     <div class="ds-container">
         <div class="ds-echos-head">
-            <?php if ($kick) : ?><p class="ds-echos-tag"><?php echo esc_html($kick); ?></p><?php endif; ?>
+            <?php if ($kick) : ?><p class="ds-aec-tag"><?php echo esc_html($kick); ?></p><?php endif; ?>
             <h2 class="ds-section__heading ds-section__heading--center" id="echos-pricing-title"><?php echo esc_html($title); ?></h2>
         </div>
 
         <!-- Desktop table -->
-        <div class="ds-pft__table-wrap ds-pft__desktop">
-            <table class="ds-pft__table ds-echos-pricing__table">
+        <div class="ds-echos-table-wrap">
+            <table class="ds-echos-table">
                 <thead>
                     <tr>
-                        <th class="ds-pft__col-feature" scope="col"><?php echo esc_html($col1); ?></th>
+                        <th scope="col" class="ds-echos-table__feature"><?php echo esc_html($col1); ?></th>
                         <?php foreach ($plans as $plan) : ?>
-                            <th scope="col" class="ds-echos-pricing__plan ds-echos-pricing__plan--<?php echo esc_attr($plan['mod']); ?>">
-                                <span class="ds-echos-pricing__name"><?php echo esc_html($plan['name']); ?></span>
-                                <?php if ($plan['price']) : ?><span class="ds-echos-pricing__price"><?php echo esc_html($plan['price']); ?></span><?php endif; ?>
-                            </th>
+                            <th scope="col"><?php echo esc_html($plan['name']); ?></th>
                         <?php endforeach; ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $row) : ?>
                         <tr>
-                            <th scope="row" class="ds-pft__col-feature"><?php echo esc_html($row['feature']); ?></th>
-                            <td class="ds-pft__cell ds-echos-pricing__cell--free"><?php echo ds_echos_cell($row['col2'], $row['col2_text']); ?></td>
-                            <td class="ds-pft__cell ds-echos-pricing__cell--premium"><?php echo ds_echos_cell($row['col3'], $row['col3_text']); ?></td>
+                            <th scope="row" class="ds-echos-table__feature"><?php echo esc_html($row['feature']); ?></th>
+                            <?php foreach ($plans as $plan) : ?>
+                                <td><?php echo ds_echos_cell($row[$plan['key']], $row[$plan['key'] . '_text']); ?></td>
+                            <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="ds-pft__col-feature"></td>
+                        <td class="ds-echos-table__feature"></td>
                         <?php foreach ($plans as $plan) : ?>
-                            <td class="ds-echos-pricing__action ds-echos-pricing__cell--<?php echo esc_attr($plan['mod']); ?>"><?php ds_echos_print_button($plan['btn'], $plan['btn_class']); ?></td>
+                            <td class="ds-echos-table__plan">
+                                <?php $price($plan, 'ds-echos-table'); ?>
+                                <?php ds_echos_print_button($plan['btn'], $plan['btn_class'] . ' ds-echos-table__btn'); ?>
+                            </td>
                         <?php endforeach; ?>
                     </tr>
                 </tfoot>
@@ -72,19 +82,16 @@ if (!$rows) $rows = $d['rows'];
         </div>
 
         <!-- Mobile plan cards -->
-        <div class="ds-pft__mobile-cards">
-            <?php foreach ($plans as $i => $plan) :
-                $key = $i === 0 ? 'col2' : 'col3';
-                ?>
-                <div class="ds-pft-card ds-echos-pricing__card--<?php echo esc_attr($plan['mod']); ?>">
+        <div class="ds-pft__mobile-cards ds-echos-pricing__cards">
+            <?php foreach ($plans as $plan) : ?>
+                <div class="ds-pft-card">
                     <div class="ds-pft-card__header">
                         <h3 class="ds-pft-card__tier"><?php echo esc_html($plan['name']); ?></h3>
-                        <?php if ($plan['price']) : ?><p class="ds-echos-pricing__card-price"><?php echo esc_html($plan['price']); ?></p><?php endif; ?>
                     </div>
                     <ul class="ds-pft-card__list">
                         <?php foreach ($rows as $row) :
-                            $type = $row[$key];
-                            $text = trim((string) $row[$key . '_text']);
+                            $type = $row[$plan['key']];
+                            $text = trim((string) $row[$plan['key'] . '_text']);
                             $mod  = ($type === 'text' && $text !== '') ? 'text' : ($type === 'check' ? 'yes' : 'no');
                             ?>
                             <li class="ds-pft-card__item ds-pft-card__item--<?php echo esc_attr($mod); ?>">
@@ -93,9 +100,10 @@ if (!$rows) $rows = $d['rows'];
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php if ($plan['btn']) : ?>
-                        <div class="ds-echos-pricing__card-action"><?php ds_echos_print_button($plan['btn'], $plan['btn_class']); ?></div>
-                    <?php endif; ?>
+                    <div class="ds-echos-pricing__card-foot">
+                        <?php $price($plan, 'ds-echos-table'); ?>
+                        <?php ds_echos_print_button($plan['btn'], $plan['btn_class'] . ' ds-echos-table__btn'); ?>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
