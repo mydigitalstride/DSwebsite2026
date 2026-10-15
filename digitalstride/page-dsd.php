@@ -9,12 +9,9 @@
  */
 get_header();
 
-foreach (['hero', 'simulator', 'comparison', 'industries', 'testimonials'] as $section) {
+foreach (['hero', 'perks', 'comparison', 'industries', 'simulator', 'testimonials', 'cta'] as $section) {
     get_template_part('template-parts/dsd/' . $section);
 }
-
-// Site-wide call to action (Theme Settings > Global CTA).
-get_template_part('template-parts/flex', 'global_cta');
 
 ds_render_flex('page_sections');
 

@@ -10,6 +10,13 @@
             "message": "Empty fields fall back to the launch copy (shown as placeholders)."
         },
         {
+            "key": "field_dsd_ind_eyebrow",
+            "label": "Eyebrow",
+            "name": "ind_eyebrow",
+            "type": "text",
+            "placeholder": "Built for Your Exact Sector"
+        },
+        {
             "key": "field_dsd_ind_headline",
             "label": "Headline",
             "name": "ind_headline",
@@ -18,10 +25,10 @@
         },
         {
             "key": "field_dsd_ind_sub",
-            "label": "Subheadline",
+            "label": "Intro",
             "name": "ind_subheadline",
             "type": "text",
-            "placeholder": "DSD is configured around how your business actually wins work…"
+            "placeholder": "Select your sector to view custom DSD client portal perks."
         },
         {
             "key": "field_dsd_ind_cards",
@@ -35,54 +42,77 @@
             "sub_fields": [
                 {
                     "key": "field_dsd_ind_card_title",
-                    "label": "Industry title",
+                    "label": "Tab label",
                     "name": "industry_title",
                     "type": "text",
-                    "placeholder": "HVAC, Plumbing, Roofing & Electrical",
+                    "placeholder": "Home Services & Trades",
+                    "wrapper": {
+                        "width": "40"
+                    }
+                },
+                {
+                    "key": "field_dsd_ind_card_panel",
+                    "label": "Panel title",
+                    "name": "panel_title",
+                    "type": "text",
+                    "placeholder": "HVAC, Plumbing, Roofing, & Electrical Contractors",
                     "wrapper": {
                         "width": "60"
                     }
                 },
                 {
-                    "key": "field_dsd_ind_card_icon",
-                    "label": "Icon (Font Awesome class)",
-                    "name": "industry_icon",
-                    "type": "text",
-                    "placeholder": "fa-solid fa-screwdriver-wrench",
-                    "wrapper": {
-                        "width": "40"
-                    },
-                    "instructions": "Optional. Defaults to wrench / hard hat / house."
-                },
-                {
                     "key": "field_dsd_ind_card_desc",
-                    "label": "Description",
+                    "label": "Panel text",
                     "name": "industry_desc",
                     "type": "text",
-                    "placeholder": "Know which calls became booked jobs…"
+                    "placeholder": "Capture high-intent emergency service calls and replacement leads."
                 },
                 {
                     "key": "field_dsd_ind_card_points",
-                    "label": "Feature points",
+                    "label": "Feature tiles",
                     "name": "feature_points",
                     "type": "repeater",
                     "layout": "table",
-                    "button_label": "Add Point",
+                    "button_label": "Add Tile",
                     "min": 0,
-                    "max": 0,
+                    "max": 3,
                     "sub_fields": [
                         {
                             "key": "field_dsd_ind_card_point",
-                            "label": "Point",
+                            "label": "Title",
                             "name": "point",
                             "type": "text",
-                            "placeholder": "Real-time call recording & playback"
+                            "placeholder": "LSA Call Recording",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_dsd_ind_card_point_desc",
+                            "label": "Text",
+                            "name": "point_desc",
+                            "type": "text",
+                            "placeholder": "Listen to emergency repair calls…",
+                            "wrapper": {
+                                "width": "45"
+                            }
+                        },
+                        {
+                            "key": "field_dsd_ind_card_point_icon",
+                            "label": "Icon (Font Awesome class)",
+                            "name": "point_icon",
+                            "type": "text",
+                            "placeholder": "fa-solid fa-phone-volume",
+                            "wrapper": {
+                                "width": "25"
+                            }
                         }
-                    ]
+                    ],
+                    "instructions": "Up to 3. Icons show in the orange gradient."
                 }
             ],
             "collapsed": "field_dsd_ind_card_title",
-            "instructions": "3 cards. Leave empty to show the launch copy."
+            "instructions": "One tab per sector (3). Leave empty to show the launch copy."
         }
     ],
     "location": [
@@ -94,14 +124,14 @@
             }
         ]
     ],
-    "menu_order": 3,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Tailored industry cards (Trades, AEC, Real Estate) on the DSD Dashboard Page template.",
+    "description": "Sector tabs (Trades, AEC, Real Estate) on the DSD Dashboard Page template.",
     "show_in_rest": 0,
-    "modified": 1792010371
+    "modified": 1792073464
 }

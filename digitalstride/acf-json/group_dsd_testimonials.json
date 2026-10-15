@@ -1,6 +1,6 @@
 {
     "key": "group_dsd_testimonials",
-    "title": "DSD: Partner Feedback",
+    "title": "DSD: Partner Feedback & CTA",
     "fields": [
         {
             "key": "field_dsd_testi_title",
@@ -60,6 +60,37 @@
             ],
             "collapsed": "field_dsd_testi_name",
             "instructions": "Leave empty to use the global testimonials (Theme Settings > Testimonials)."
+        },
+        {
+            "key": "field_dsd_cta_msg",
+            "label": "Closing call to action",
+            "name": "",
+            "type": "message",
+            "message": "Uses the Global CTA background and feature list (Theme Settings > Global CTA) with the copy below. Empty fields fall back to the DSD launch copy."
+        },
+        {
+            "key": "field_dsd_cta_heading",
+            "label": "CTA heading",
+            "name": "cta_heading",
+            "type": "text",
+            "placeholder": "Ready For Full Growth Transparency?"
+        },
+        {
+            "key": "field_dsd_cta_text",
+            "label": "CTA text",
+            "name": "cta_text",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": "",
+            "placeholder": "Partner with Digital Stride & Get DSD Included Free…"
+        },
+        {
+            "key": "field_dsd_cta_button",
+            "label": "CTA button",
+            "name": "cta_button",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "Defaults to “Book Strategy Call + See DSD Live” → /contact-us/."
         }
     ],
     "location": [
@@ -78,7 +109,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Testimonial carousel on the DSD Dashboard Page template.",
+    "description": "Testimonial carousel and closing call to action on the DSD Dashboard Page template.",
     "show_in_rest": 0,
-    "modified": 1792010371
+    "modified": 1792073464
 }
