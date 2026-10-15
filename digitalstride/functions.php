@@ -146,6 +146,7 @@ require_once DS_DIR . '/inc/proposal-templates.php';
 require_once DS_DIR . '/inc/aec-landing.php';
 require_once DS_DIR . '/inc/home-services.php';
 require_once DS_DIR . '/inc/realtors.php';
+require_once DS_DIR . '/inc/echos-landing.php';
 require_once DS_DIR . '/inc/dsd-leads.php';
 require_once DS_DIR . '/inc/dsd-dashboard.php';
 

@@ -1,0 +1,347 @@
+/* ==========================================================================
+   ECHO SEO Landing Page (page-templates/template-echos-landing.php)
+   Built on the site components (sub-page hero, section headings, pricing
+   feature table, split CTA); this file holds what is specific to the page.
+   The ECHO palette lives on body.ds-page-echos only, so the site variables
+   in main.css are untouched. Loaded after digitalstride-main.
+   ========================================================================== */
+
+.ds-page-echos {
+    --ds-echos-yellow: #F5B800;
+    --ds-echos-yellow-2: #FFC700;
+    --ds-echos-gold: linear-gradient(90deg, var(--ds-echos-yellow), var(--ds-echos-yellow-2));
+    --ds-echos-slate: #111625;
+    --ds-echos-slate-2: #1E2638;
+    --ds-echos-line: rgba(242, 245, 251, 0.12);
+    --ds-echos-muted: rgba(242, 245, 251, 0.75);
+    --ds-echos-glow: 0 0 0 1px var(--ds-echos-yellow) inset, 0 12px 32px rgba(245, 184, 0, 0.18);
+    --ds-echos-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* More breathing room than the site default (3rem) between blocks. */
+.ds-page-echos .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6rem) 0; }
+.ds-page-echos .ds-main .ds-section__heading { font-size: clamp(1.75rem, 2.8vw, 2.4rem); font-weight: 600; }
+
+/* - Heading underline bars alternate ECHO gold / brand blue, section by
+   section, as on the other landing pages: Comparison, Pricing and the CTA
+   are gold; Features and Steps keep the site blue. - */
+.ds-echos-compare .ds-section__heading::after,
+.ds-echos-pricing .ds-section__heading::after,
+.ds-echos-cta .ds-section__heading::after { background: var(--ds-echos-gold); }
+.ds-echos-features .ds-section__heading::after,
+.ds-echos-steps .ds-section__heading::after { background: var(--ds-brand-gradient); }
+
+/* - Shared: italic kicker + centred heading block - */
+.ds-echos-tag {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--ds-echos-yellow);
+    margin-bottom: 0.25em;
+}
+.ds-echos-head { text-align: center; max-width: 60rem; margin: 0 auto 2.5em; }
+.ds-echos-head__text { max-width: 36em; margin: 1.25em auto 0; font-size: 0.95rem; line-height: 1.7; color: var(--ds-echos-muted); }
+.ds-echos-gold { color: var(--ds-echos-yellow); }
+
+/* - Buttons: ECHO gold solid and gold outline. Same shape as .ds-btn. - */
+.ds-echos-btn {
+    background: var(--ds-echos-gold);
+    border: 2px solid transparent;
+    color: var(--ds-echos-slate);
+    transition: color 0.3s var(--ds-echos-ease), background-color 0.3s var(--ds-echos-ease), box-shadow 0.3s var(--ds-echos-ease);
+}
+.ds-echos-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, var(--ds-echos-yellow-2), var(--ds-echos-yellow));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.ds-echos-btn:hover,
+.ds-echos-btn:focus-visible { color: var(--ds-echos-slate); box-shadow: 0 8px 24px rgba(245, 184, 0, 0.3); }
+.ds-echos-btn:hover::after,
+.ds-echos-btn:focus-visible::after { opacity: 1; }
+.ds-echos-btn--outline {
+    background: transparent;
+    border-color: var(--ds-echos-yellow);
+    color: var(--ds-echos-yellow);
+}
+.ds-echos-btn--outline::after { background: var(--ds-echos-gold); }
+.ds-echos-btn:focus-visible { outline: 2px solid var(--ds-white); outline-offset: 3px; }
+
+/* ==========================================================================
+   1. Hero
+   ========================================================================== */
+.ds-echos-hero { min-height: 60vh; background-color: var(--ds-echos-slate); }
+.ds-echos-hero .ds-hero__overlay {
+    background: linear-gradient(90deg, rgba(17, 22, 37, 0.96) 0%, rgba(17, 22, 37, 0.86) 50%, rgba(30, 38, 56, 0.7) 100%);
+    opacity: 1;
+}
+.ds-echos-hero .ds-hero__accent-line { background: linear-gradient(180deg, var(--ds-echos-yellow-2), var(--ds-echos-yellow)); }
+.ds-echos-hero__kicker { color: var(--ds-echos-yellow); font-size: clamp(1.1rem, 1.8vw, 1.5rem); letter-spacing: 0.04em; }
+.ds-echos-hero__title { font-size: clamp(2.25rem, 4.2vw, 3.4rem); font-weight: 700; line-height: 1.15; margin: 0.15em 0 0.35em; }
+.ds-echos-hero__text { max-width: 46em; }
+.ds-echos-hero__text p { margin: 0; }
+.ds-echos-hero .ds-hero__heading,
+.ds-echos-hero .ds-hero__subheading,
+.ds-echos-hero .ds-hero__text { text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45); }
+.ds-echos-hero .ds-btn--hero { margin-top: 1em; font-size: 1.15em; padding: 0.7em 2.25em; }
+
+/* ==========================================================================
+   2. Intro banner
+   ========================================================================== */
+.ds-page-echos .ds-main > .ds-echos-intro { padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+.ds-echos-intro__inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ds-echos-intro__logo { width: 100%; max-width: 22rem; height: auto; margin-bottom: 1.75em; }
+.ds-echos-intro__title { max-width: 30em; font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 600; line-height: 1.3; }
+.ds-echos-intro__text {
+    margin-top: 0.75em;
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-style: italic;
+    color: var(--ds-echos-yellow);
+}
+
+/* ==========================================================================
+   3. Tailored value comparison (DSD comparison layout, ECHO colours)
+   ========================================================================== */
+.ds-page-echos .ds-main > .ds-echos-compare { background: var(--ds-echos-slate); }
+.ds-echos-compare__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    max-width: 1020px;
+    margin: 0 auto;
+}
+.ds-echos-compare__card {
+    position: relative;
+    padding: clamp(1.75em, 3vw, 2.5em) clamp(1.5em, 3vw, 2.25em);
+    background: var(--ds-echos-slate-2);
+    border-top: 4px solid var(--ds-echos-yellow);
+}
+.ds-echos-compare__card--partner { box-shadow: var(--ds-echos-glow); }
+.ds-echos-compare__label {
+    display: inline-block;
+    margin-bottom: 0.85em;
+    padding: 0.3em 0.6em 0.15em;
+    border-radius: 4px;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 700;
+    text-transform: none;
+    color: var(--ds-echos-slate);
+    background: var(--ds-echos-gold);
+}
+.ds-echos-compare__desc { margin-bottom: 1.5em; font-size: 0.92rem; line-height: 1.65; color: var(--ds-echos-muted); }
+.ds-echos-compare__list { list-style: none; display: grid; gap: 1.1em; }
+.ds-echos-compare__list li { display: flex; align-items: flex-start; gap: 0.85em; font-size: 0.92rem; line-height: 1.55; }
+.ds-echos-compare__list strong { font-weight: 700; color: var(--ds-white); }
+.ds-echos-compare__list li > span { color: var(--ds-echos-muted); }
+.ds-echos-compare__icon { flex-shrink: 0; margin-top: 0.05em; }
+
+/* ==========================================================================
+   4. Core features grid (Home Services segment grid, always open)
+   ========================================================================== */
+.ds-echos-features__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+}
+.ds-echos-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    padding: 1.75em 1.5em;
+    text-align: center;
+    background: var(--ds-transparent-white);
+    border: 2px solid rgba(242, 245, 251, 0.35);
+    transition: border-color 0.3s var(--ds-echos-ease), background-color 0.3s var(--ds-echos-ease), box-shadow 0.3s var(--ds-echos-ease);
+}
+.ds-echos-feature:hover,
+.ds-echos-feature.is-highlighted {
+    border-color: var(--ds-echos-yellow);
+    background: rgba(17, 22, 37, 0.6);
+    box-shadow: var(--ds-echos-glow);
+}
+.ds-echos-feature__title {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    font-weight: 700;
+    text-transform: none;
+}
+.ds-echos-feature.is-highlighted .ds-echos-feature__title { color: var(--ds-echos-yellow); }
+.ds-echos-feature__text { font-size: 0.9rem; line-height: 1.6; color: var(--ds-echos-muted); }
+
+/* ==========================================================================
+   5. Plans & pricing (Services Overview pricing feature table)
+   ========================================================================== */
+.ds-page-echos .ds-main > .ds-echos-pricing { background: var(--ds-echos-slate); }
+.ds-echos-pricing .ds-pft__table-wrap { max-width: 1020px; margin: 0 auto; }
+.ds-echos-pricing__table { table-layout: fixed; }
+.ds-echos-pricing__table thead th.ds-pft__col-feature { width: 46%; vertical-align: bottom; }
+.ds-echos-pricing__table tbody th.ds-pft__col-feature {
+    padding: 0.9em 1.25em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-weight: 300;
+    white-space: normal;
+}
+.ds-echos-pricing__plan { vertical-align: bottom; }
+.ds-echos-pricing__name { display: block; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.ds-echos-pricing__price {
+    display: block;
+    margin-top: 0.2em;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    color: var(--ds-echos-yellow);
+}
+/* Premium column: gold header and a soft gold wash down the column */
+.ds-echos-pricing__table thead .ds-echos-pricing__plan--premium {
+    background: var(--ds-echos-gold);
+    border-bottom-color: transparent;
+}
+.ds-echos-pricing__plan--premium .ds-echos-pricing__name,
+.ds-echos-pricing__plan--premium .ds-echos-pricing__price { color: var(--ds-echos-slate); }
+.ds-echos-pricing__table .ds-echos-pricing__cell--premium {
+    background: rgba(245, 184, 0, 0.06);
+    border-left: 1px solid rgba(245, 184, 0, 0.35);
+    border-right: 1px solid rgba(245, 184, 0, 0.35);
+}
+.ds-echos-pricing__check { display: inline-flex; align-items: center; justify-content: center; }
+.ds-echos-pricing__check svg { display: block; }
+.ds-echos-pricing .ds-pft__no { color: rgba(255, 255, 255, 0.3); }
+.ds-echos-pricing__table tfoot td { padding: 1.5em 1em; text-align: center; vertical-align: middle; }
+.ds-echos-pricing__table tfoot .ds-echos-pricing__cell--premium { border-bottom: 1px solid rgba(245, 184, 0, 0.35); }
+.ds-echos-pricing__action .ds-btn { font-size: 1rem; padding: 0.7em 1.5em; }
+
+/* Mobile plan cards (main.css shows them below 768px) */
+.ds-echos-pricing .ds-pft-card__header { background: var(--ds-echos-slate-2); border-bottom: 3px solid var(--ds-echos-yellow); }
+.ds-echos-pricing .ds-pft-card__tier { color: var(--ds-white); }
+.ds-echos-pricing__card--premium { border-color: var(--ds-echos-yellow) !important; box-shadow: var(--ds-echos-glow); }
+.ds-echos-pricing__card--premium .ds-pft-card__header { background: var(--ds-echos-gold); }
+.ds-echos-pricing__card--premium .ds-pft-card__tier,
+.ds-echos-pricing__card--premium .ds-echos-pricing__card-price { color: var(--ds-echos-slate); }
+.ds-echos-pricing__card-price {
+    margin: 0.15em 0 0;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ds-echos-yellow);
+}
+.ds-echos-pricing .ds-pft-card__item--yes .ds-pft-card__feature {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ds-white);
+}
+.ds-echos-pricing .ds-pft-card__val--yes { background: none; -webkit-text-fill-color: currentColor; }
+.ds-echos-pricing__card-action { padding: 1.25em; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.07); }
+.ds-echos-pricing__card-action .ds-btn { width: 100%; font-size: 1rem; }
+
+/* ==========================================================================
+   6. 3-step integration (action-plan step cards in one row)
+   ========================================================================== */
+.ds-echos-steps__row {
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+.ds-echos-step {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    min-height: 240px;
+    padding: 2em;
+    background: rgba(242, 245, 251, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    transition: border-color 0.3s var(--ds-echos-ease), box-shadow 0.3s var(--ds-echos-ease);
+}
+.ds-echos-step:hover { border-color: var(--ds-echos-yellow); box-shadow: var(--ds-echos-glow); }
+.ds-echos-step__icon { display: inline-flex; width: 3.25rem; height: 3.25rem; margin-bottom: 0.25em; color: var(--ds-echos-yellow); }
+.ds-echos-step__icon img,
+.ds-echos-step__icon svg { width: 100%; height: 100%; max-width: none; object-fit: contain; }
+.ds-echos-step__icon--fa { align-items: center; }
+.ds-echos-step__icon--fa i { font-size: 2.6rem; line-height: 1; }
+.ds-echos-step__label {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ds-echos-yellow);
+}
+.ds-echos-step__title { font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 700; text-transform: none; }
+.ds-echos-step__text { margin: 0; font-size: 0.9rem; line-height: 1.7; opacity: 0.9; }
+.ds-echos-steps__arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75em;
+    font-size: 1.2em;
+    color: var(--ds-echos-yellow);
+}
+.ds-echos-solo-cta { margin-top: 2.75em; text-align: center; }
+
+/* ==========================================================================
+   7. Call to action (site split CTA, page-specific content)
+   ========================================================================== */
+.ds-echos-cta {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--ds-echos-slate);
+    background-size: cover;
+    background-position: center;
+}
+.ds-echos-cta__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(120deg, rgba(17, 22, 37, 0.95) 0%, rgba(30, 38, 56, 0.88) 100%);
+    border-top: 4px solid var(--ds-echos-yellow);
+}
+.ds-echos-cta__inner { position: relative; z-index: 1; }
+.ds-echos-cta__title { font-size: clamp(1.75rem, 2.8vw, 2.4rem); }
+.ds-echos-cta__features { list-style: none; }
+.ds-echos-cta .ds-cta-feature { border-bottom-color: var(--ds-echos-line); }
+.ds-echos-cta .ds-cta-feature__title { font-size: 1rem; }
+.ds-echos-cta__icon { width: 56px; height: 56px; color: var(--ds-echos-yellow); }
+/* Uploaded icons: tint SVGs gold instead of the Global CTA's white. */
+.ds-echos-cta .ds-echos-cta__icon img,
+.ds-echos-cta .ds-echos-cta__icon svg { filter: none; }
+.ds-echos-cta__icon--fa {
+    border: 2px solid var(--ds-echos-yellow);
+    border-radius: 50%;
+}
+.ds-echos-cta__icon--fa i { font-size: 1.5rem; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .ds-echos-features__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+    .ds-echos-steps__row { flex-direction: column; }
+    .ds-echos-step { flex: none; min-height: 0; }
+    .ds-echos-steps__arrow { justify-content: center; padding: 0.5em 0; }
+    .ds-echos-steps__arrow i { transform: rotate(90deg); }
+}
+
+@media (max-width: 767px) {
+    .ds-echos-hero__title { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+    .ds-echos-hero .ds-hero__accent-line { margin-top: 2.5rem; }
+    .ds-echos-compare__grid,
+    .ds-echos-features__grid { grid-template-columns: 1fr; }
+    .ds-echos-intro__logo { max-width: 16rem; }
+    .ds-echos-cta .ds-cta-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-echos-btn,
+    .ds-echos-btn::after,
+    .ds-echos-feature,
+    .ds-echos-step { transition: none; }
+}
