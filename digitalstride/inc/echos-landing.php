@@ -2,10 +2,13 @@
 /**
  * ECHO SEO Landing Page (page-templates/template-echos-landing.php).
  *
- * Product page for the ECHO SEO WordPress plugin. Seven fixed sections,
- * each in template-parts/echos/: hero, intro banner, partner / standalone
- * comparison, core features grid, plans & pricing table, 3-step
- * integration and a page-specific call to action (not the Global CTA).
+ * Product page for the ECHO SEO WordPress plugin, built from the site
+ * components so it reads as a Digital Stride page. Seven fixed sections,
+ * each in template-parts/echos/: hero (site sub-page hero), intro banner,
+ * partner / standalone comparison (DSD comparison cards), core features
+ * (Home Services click-to-open boxes), plans & pricing table, 3-step
+ * integration and a call to action in the Global CTA layout with this
+ * page's own copy.
  *
  * Fields are registered below with acf_add_local_field_group() and shown
  * on pages using the "ECHO SEO Landing Page" template. Like the other
@@ -14,9 +17,11 @@
  * complete. Sections are removed with the "Hide sections" checkboxes on
  * the Settings tab.
  *
- * Page CSS: assets/css/echos.css. The ECHO yellow and slate palette is
- * scoped to body.ds-page-echos, so the site variables are untouched. Link
- * helpers come from inc/aec-landing.php.
+ * Page CSS / JS: the shared AEC landing components (aec-landing.css / .js:
+ * segment boxes) plus assets/css/echos.css. ECHO yellow is used only where
+ * the mockup brands a detail as ECHO (logo, standalone card, Premium price,
+ * step arrows) and is scoped to body.ds-page-echos. Link helpers come from
+ * inc/aec-landing.php.
  */
 
 if (!defined('ABSPATH')) {
@@ -26,7 +31,7 @@ if (!defined('ABSPATH')) {
 define('DS_ECHOS_TEMPLATE', 'page-templates/template-echos-landing.php');
 
 /**
- * Launch copy used when a field is empty.
+ * Launch copy used when a field is empty (from the approved mockup).
  */
 function ds_echos_defaults($section) {
     $contact  = home_url('/contact-us/');
@@ -34,90 +39,93 @@ function ds_echos_defaults($section) {
 
     $defaults = [
         'hero' => [
-            'kicker'      => 'ECHO SEO',
-            'headline'    => 'Next-Gen Organic Growth: Powered by the ECHOes Engine',
-            'subheadline' => 'Built for construction, engineering, and home service platforms. ECHO SEO automates technical schema, instant indexing, 404 monitoring, and AI-first visibility directly inside WordPress.',
-            'button'      => ['title' => 'Deploy ECHOes for Your Site', 'url' => $echo_url, 'target' => '_blank'],
+            'kicker'      => 'ECHOs SEO',
+            'headline'    => 'Next-Gen Organic Growth: Powered by the ECHOs Engine',
+            'subheadline' => 'ECHOs blends technical site audits, automated schema, and AI/Generative Engine Optimization (GEO) to keep Digital Stride client and standalone business platforms ranking ahead of search algorithm changes.',
+            'button'      => ['title' => 'Deploy ECHOs for Your Site', 'url' => $echo_url, 'target' => '_blank'],
         ],
         'intro' => [
             'headline' => 'The AI-Ready SEO Engine Engineered for High-Performing Web Platforms',
-            'subtext'  => 'Powering Trades, AEC, and Regional Enterprise Websites.',
+            'subtext'  => 'Active across Digital Stride client sites in Construction, Home Services, Engineering, and Regional Business.',
         ],
         'compare' => [
             'headline'    => 'Tailored Value for Every Relationship',
-            'subheadline' => 'Whether you are an existing Digital Stride partner or a standalone business, ECHO SEO scales with your goals.',
+            'subheadline' => 'ECHOs is built directly into your Digital Stride web strategy, no extra plugin management required.',
             'p1_title'    => 'Included Partner Benefits',
-            'p1_desc'     => 'Active Digital Stride retainer partners get ECHO SEO Premium installed, configured and monitored by our team at no extra cost.',
+            'p1_desc'     => 'ECHOs is built directly into your Digital Stride web strategy, no extra plugin management required.',
             'p1_bullets'  => [
-                '<strong>ECHO SEO Premium included</strong> with every active growth retainer.',
-                '<strong>Done-for-you setup:</strong> schema, redirects, tracking and indexing configured by our team.',
-                '<strong>Monthly technical audits</strong> reviewed alongside your campaign reporting.',
-                '<strong>Priority technical support</strong> from the people who build your site.',
+                ['title' => 'Done-For-You Setups', 'desc' => 'Managed configuration of schema markup and technical audit rules by our strategy team.'],
+                ['title' => 'White-Label Executive Reports', 'desc' => 'Receive one-click PDF audit recaps and ranking summaries during monthly performance reviews.'],
+                ['title' => 'Continuous Deploy Protection', 'desc' => 'Automated audit checks catch broken tags or technical regressions whenever new pages go live.'],
             ],
             'p2_title'    => 'For Standalone Businesses',
-            'p2_desc'     => 'Not a retainer client? Install ECHO SEO on any WordPress site and grow at your own pace.',
+            'p2_desc'     => 'Future-proof your website’s search presence with automated auditing and AI search optimization.',
             'p2_bullets'  => [
-                '<strong>Free core plugin</strong> with LocalBusiness schema, redirects and 404 monitoring.',
-                '<strong>Upgrade to Premium</strong> any time for AI search readiness and advanced schema.',
-                '<strong>One-click PDF reports</strong> you can share with your team or clients.',
-                '<strong>Optional strategy support</strong> from Digital Stride whenever you need it.',
+                ['title' => 'AI & Generative Engine Optimization (GEO)', 'desc' => 'Prepares your website so modern AI search agents read and cite your site accurately.'],
+                ['title' => 'Weighted Audit Scoring', 'desc' => 'Prioritizes critical indexing issues over minor vanity suggestions so you can focus on what matters.'],
+                ['title' => 'Content Pipeline Capabilities', 'desc' => 'Accelerate article and blog creation directly aligned with high-intent search keywords.'],
             ],
         ],
         'features' => [
-            'kicker'   => 'Built For Your Growth Engine',
+            'kicker'   => 'Built for Your Exact Sector',
             'headline' => 'Tailored Solutions For Your Industry',
             'subtext'  => 'Turn-key technical features designed to remove friction and drive organic results.',
             'cards'    => [
-                ['title' => 'AI & GEO Search Readiness', 'description' => 'Generate llms.txt and structured data so AI assistants and generative search engines understand, cite and recommend your business.', 'highlight' => false],
-                ['title' => 'Weighted Technical Site Audits', 'description' => 'Every issue is scored by its real impact on rankings, so your team fixes what matters first instead of chasing noise.', 'highlight' => false],
-                ['title' => 'One-Click PDF Reporting', 'description' => 'Turn audit results into a clean, branded PDF report you can send to stakeholders in seconds.', 'highlight' => false],
-                ['title' => 'Deployment Regression Tracking', 'description' => 'Catch lost schema, broken redirects and new 404s right after a theme, plugin or content update goes live.', 'highlight' => false],
-                ['title' => 'Smart Keyword & Intent Matrix', 'description' => 'Map every service page to the searches and buyer intent it should win, and spot gaps before competitors do.', 'highlight' => false],
-                ['title' => 'Lightweight Core Web Vitals Compatibility', 'description' => 'Built lean to load nothing on the front end it doesn’t need, so your PageSpeed scores stay fast.', 'highlight' => true],
+                ['title' => 'AI & GEO Search Readiness', 'description' => 'Generates llms.txt and structured data so AI assistants and generative search engines understand, cite and recommend your business.', 'active' => false],
+                ['title' => 'Weighted Technical Site Audits', 'description' => 'Every issue is scored by its real impact on rankings, so your team fixes what matters first.', 'active' => false],
+                ['title' => 'One-Click PDF Reporting', 'description' => 'Turn audit results into a clean PDF report you can send to stakeholders in seconds.', 'active' => false],
+                ['title' => 'Deployment Regression Tracking', 'description' => 'Catch lost schema, broken redirects and new 404s right after a theme, plugin or content update goes live.', 'active' => false],
+                ['title' => 'Smart Keyword & Intent Matrix', 'description' => 'Map every service page to the searches and buyer intent it should win.', 'active' => false],
+                ['title' => 'Lightweight Core Web Vitals Compatibility', 'description' => 'Operates cleanly without bloat, integrating directly alongside Google Lighthouse performance scoring.', 'active' => true],
             ],
         ],
         'pricing' => [
-            'kicker'      => 'Built for the Trades. Engineered for Growth.',
-            'headline'    => 'Plans & Price',
-            'col1_header' => 'ECHO SEO Plan Features',
-            'col2_header' => 'ECHO SEO Free',
-            'col2_price'  => 'FREE',
-            'col2_button' => ['title' => 'Download', 'url' => $echo_url, 'target' => '_blank'],
-            'col3_header' => 'ECHO SEO Premium',
-            'col3_price'  => '$99 / year',
-            'col3_button' => ['title' => 'Get ECHO SEO Premium', 'url' => $echo_url, 'target' => '_blank'],
-            'rows'        => [
-                ['feature' => 'WordPress Compatible', 'col2' => 'check', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'LocalBusiness Schema', 'col2' => 'check', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => '301 Redirects & 404 Monitoring', 'col2' => 'check', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'Google Tag Manager & Meta Pixel Integration', 'col2' => 'check', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'IndexNow Instant Indexing', 'col2' => 'check', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'Google PageSpeed Insights API Checks', 'col2' => 'cross', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'llms.txt AI Search Readiness', 'col2' => 'cross', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'SEO Checklist & Import Manager', 'col2' => 'cross', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'Custom Technical Schema Deployment', 'col2' => 'cross', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-                ['feature' => 'Priority Technical Support', 'col2' => 'cross', 'col2_text' => '', 'col3' => 'check', 'col3_text' => ''],
-            ],
+            'kicker'       => 'Built for the Trades. Engineered for Growth.',
+            'headline'     => 'Plans & Price',
+            'col1_header'  => 'ECHO SEO Plan Features',
+            'col2_header'  => 'ECHO SEO Basic',
+            'col2_price'   => 'FREE',
+            'col2_button'  => ['title' => 'Download', 'url' => $echo_url, 'target' => '_blank'],
+            'col3_header'  => 'ECHO SEO Premium',
+            'col3_was'     => '$95.95 / year',
+            'col3_price'   => '$59.95 / year',
+            'col3_button'  => ['title' => 'Get ECHO SEO Premium', 'url' => $echo_url, 'target' => '_blank'],
+            'rows'         => array_map(function ($r) {
+                return ['feature' => $r[0], 'col2' => $r[1], 'col2_text' => '', 'col3' => $r[2], 'col3_text' => ''];
+            }, [
+                ['WordPress Compatible', 'cross', 'check'],
+                ['Simplified SEO', 'cross', 'check'],
+                ['Business and Service Schema', 'check', 'check'],
+                ['Bulk Editing of Page Meta Descriptions and Titles', 'check', 'check'],
+                ['Page Redirects', 'check', 'check'],
+                ['FAQ & Advanced Schema Markups', 'check', 'check'],
+                ['1-Click Yoast Transfer', 'check', 'check'],
+                ['404 Monitoring & Easy Redirects', 'check', 'check'],
+                ['Google Business Profile Management', 'cross', 'check'],
+                ['Google Business Profile Posting', 'cross', 'check'],
+                ['Internal Linking Mapping', 'cross', 'check'],
+                ['Bulk Editing of Post Meta Descriptions & Titles', 'cross', 'check'],
+            ]),
         ],
         'steps' => [
             'headline' => 'Simple 3-Step Integration Process',
             'steps'    => [
-                ['number' => 'Step 1', 'icon' => null, 'fa' => 'fa-solid fa-plug', 'title' => 'Download & Connect', 'description' => 'Install ECHO SEO from your WordPress dashboard and connect Google Search Console in a couple of clicks.'],
-                ['number' => 'Step 2', 'icon' => null, 'fa' => 'fa-solid fa-magnifying-glass-chart', 'title' => 'Audit & Align', 'description' => 'Run your first weighted audit, deploy schema and redirects, and align every page with the searches it should win.'],
-                ['number' => 'Step 3', 'icon' => null, 'fa' => 'fa-solid fa-chart-line', 'title' => 'Scale Organic Reach', 'description' => 'Instant indexing, regression tracking and AI search readiness keep your visibility growing with every update.'],
+                ['number' => 'Step 1', 'icon' => null, 'title' => 'Download & Connect', 'description' => 'Activate ECHOs on your WordPress or custom site build.', 'highlight' => true],
+                ['number' => 'Step 2', 'icon' => null, 'title' => 'Audit & Align', 'description' => 'Run automated site scans to resolve technical blockers and set GEO parameters.', 'highlight' => false],
+                ['number' => 'Step 3', 'icon' => null, 'title' => 'Scale Organic Reach', 'description' => 'Track rank updates, publish search-optimized content, and capture high-intent leads.', 'highlight' => false],
             ],
             'button'   => ['title' => 'Download ECHO SEO For Free', 'url' => $echo_url, 'target' => '_blank'],
         ],
         'cta' => [
             'headline'  => 'Ready to Build an AI-First Search Foundation?',
-            'subtext'   => 'Speak with the Digital Stride team to discover how ECHO SEO can be integrated into your website ecosystem.',
+            'subtext'   => 'Speak with Digital Stride today to discover how ECHOs can be integrated into your website ecosystem.',
             'primary'   => ['title' => 'Download ECHO SEO', 'url' => $echo_url, 'target' => '_blank'],
-            'secondary' => ['title' => 'Contact Strategy Team', 'url' => $contact, 'target' => ''],
+            'secondary' => ['title' => 'Contact Our Team', 'url' => $contact, 'target' => ''],
             'features'  => [
-                ['icon' => null, 'fa' => 'fa-solid fa-screwdriver-wrench', 'title' => 'Built for Services', 'desc' => 'Made for trades, AEC firms and local service brands.'],
-                ['icon' => null, 'fa' => 'fa-solid fa-ranking-star', 'title' => 'Rank Higher on Google', 'desc' => 'Technical SEO and schema handled automatically.'],
-                ['icon' => null, 'fa' => 'fa-solid fa-arrow-trend-up', 'title' => 'Higher Conversions', 'desc' => 'Faster pages and clearer search listings win more clicks.'],
-                ['icon' => null, 'fa' => 'fa-solid fa-camera', 'title' => 'Quality Photos', 'desc' => 'Image SEO that shows off your real work in search.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-screwdriver-wrench', 'title' => 'Built for Services', 'desc' => 'Marketing meant for those that serve and build our country.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-ranking-star', 'title' => 'Rank Higher on Google', 'desc' => 'Increase visibility on search engines like Google and drive more leads and revenue.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-gauge-high', 'title' => 'Higher Conversions', 'desc' => 'Improve your website’s conversions and effectiveness to drive more revenue.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-image', 'title' => 'Quality Photos', 'desc' => 'Photos of your greatest work, ready to submit for awards and social media.'],
             ],
         ],
     ];
@@ -167,56 +175,27 @@ function ds_echos_print_button($btn, $class) {
 }
 
 /**
- * Bullet text: plain text plus a few inline tags.
- */
-function ds_echos_inline($text) {
-    return wp_kses((string) $text, [
-        'strong' => [],
-        'b'      => [],
-        'em'     => [],
-        'i'      => [],
-        'br'     => [],
-        'span'   => ['class' => []],
-        'a'      => ['href' => [], 'target' => [], 'rel' => []],
-    ]);
-}
-
-/**
- * An icon: uploaded image (SVGs inline so CSS can tint them) or the
- * Font Awesome fallback.
- */
-function ds_echos_icon($image, $fa, $class) {
-    if (!empty($image['url'])) {
-        return '<span class="' . esc_attr($class) . '">' . ds_inline_svg($image) . '</span>';
-    }
-    if ($fa) {
-        return '<span class="' . esc_attr($class . ' ' . $class . '--fa') . '"><i class="' . esc_attr($fa) . '" aria-hidden="true"></i></span>';
-    }
-    return '';
-}
-
-/**
  * Pricing table cell: check, cross or custom text.
  */
 function ds_echos_cell($type, $text) {
     $text = trim((string) $text);
     if ($type === 'text' && $text !== '') {
-        return '<span class="ds-pft__text">' . esc_html($text) . '</span>';
+        return '<span class="ds-echos-table__text">' . esc_html($text) . '</span>';
     }
     if ($type === 'check') {
-        return '<span class="ds-echos-pricing__check"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="url(#ds-echos-gradient-gold)"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#111625" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
-            . '<span class="screen-reader-text">' . esc_html__('Included', 'digitalstride') . '</span>';
+        return '<span class="ds-echos-table__mark" aria-hidden="true">&#10003;</span><span class="screen-reader-text">' . esc_html__('Included', 'digitalstride') . '</span>';
     }
-    return '<span class="ds-pft__no"><i class="fa-solid fa-xmark" aria-hidden="true"></i></span>'
-        . '<span class="screen-reader-text">' . esc_html__('Not included', 'digitalstride') . '</span>';
+    return '<span class="ds-echos-table__mark ds-echos-table__mark--no" aria-hidden="true">&#10005;</span><span class="screen-reader-text">' . esc_html__('Not included', 'digitalstride') . '</span>';
 }
 
 /**
- * Page CSS.
+ * Page CSS / JS: the shared AEC landing components plus this page's own.
  */
 add_action('wp_enqueue_scripts', function () {
     if (!is_page_template(DS_ECHOS_TEMPLATE)) return;
-    wp_enqueue_style('ds-echos', ds_asset_url('assets/css/echos.css'), ['digitalstride-main'], null);
+    wp_enqueue_style('ds-aec-landing', ds_asset_url('assets/css/aec-landing.css'), ['digitalstride-main'], null);
+    wp_enqueue_style('ds-echos', ds_asset_url('assets/css/echos.css'), ['ds-aec-landing'], null);
+    wp_enqueue_script('ds-aec-landing', ds_asset_url('assets/js/aec-landing.js'), ['digitalstride-main'], null, true);
 });
 
 add_filter('body_class', function ($classes) {
@@ -275,9 +254,10 @@ add_action('acf/init', function () {
             'type'         => 'repeater',
             'layout'       => 'table',
             'button_label' => 'Add bullet',
-            'instructions' => 'Wrap a lead-in in <strong>…</strong> to make it bold. Leave empty to use the launch bullets.',
+            'instructions' => 'Bold title with a short description under it. Leave empty to use the launch bullets.',
             'sub_fields'   => [
-                ['key' => 'field_echos_' . $key . '_text', 'label' => 'Bullet text', 'name' => 'bullet_text', 'type' => 'text'],
+                ['key' => 'field_echos_' . $key . '_text', 'label' => 'Title', 'name' => 'bullet_text', 'type' => 'text', 'wrapper' => ['width' => '40']],
+                ['key' => 'field_echos_' . $key . '_desc', 'label' => 'Description', 'name' => 'bullet_desc', 'type' => 'text', 'wrapper' => ['width' => '60']],
             ],
         ];
     };
@@ -322,14 +302,14 @@ add_action('acf/init', function () {
             $tab('hero', 'Hero'),
             ['key' => 'field_echos_hero_msg', 'label' => '', 'name' => '', 'type' => 'message', 'message' => 'Every field on this page is optional: empty fields fall back to the launch copy.'],
             $text('hero_kicker', 'hero_kicker', 'Kicker', $hero['kicker']),
-            $text('hero_headline', 'hero_headline', 'Headline', $hero['headline'], 'text', ['instructions' => 'Allowed tags: <br>, <em>, <strong>, <span class="ds-echos-gold">.']),
+            $text('hero_headline', 'hero_headline', 'Headline', $hero['headline'], 'text', ['instructions' => 'Allowed tags: <br>, <em>, <strong>, <span>.']),
             $text('hero_subheadline', 'hero_subheadline', 'Subheadline', $hero['subheadline'], 'textarea'),
             $button('hero_button', 'hero_button', 'Button', $hero['button']['title']),
-            $image('hero_background_image', 'hero_background_image', 'Background image', 'Shown under a dark slate overlay. 1920×900 or larger.'),
+            $image('hero_background_image', 'hero_background_image', 'Background image', 'Shown under the brand gradient. Empty uses the site hero background. 1920×900 or larger.'),
 
             // 2. Intro banner
             $tab('intro', 'Intro Banner'),
-            $image('intro_logo', 'intro_logo', 'ECHO SEO logo', 'Without a logo the banner shows an ECHO SEO wordmark.'),
+            $image('intro_logo', 'intro_logo', 'ECHO SEO logo', 'Shown left of the headline. Without a logo the banner shows an ECHO SEO wordmark.'),
             $text('intro_headline', 'intro_headline', 'Headline', $intro['headline']),
             $text('intro_subtext', 'intro_subtext', 'Subtext', $intro['subtext']),
 
@@ -356,11 +336,11 @@ add_action('acf/init', function () {
                 'type'         => 'repeater',
                 'layout'       => 'block',
                 'button_label' => 'Add card',
-                'instructions' => 'Shown 3 per row on desktop (6 recommended). Leave empty to use the launch cards.',
+                'instructions' => 'Boxes show the title only; a click opens the description (as on the Home Services page). Shown 3 per row (6 recommended). Leave empty to use the launch cards.',
                 'collapsed'    => 'field_echos_s4_card_title',
                 'sub_fields'   => [
                     ['key' => 'field_echos_s4_card_title', 'label' => 'Title', 'name' => 'card_title', 'type' => 'text', 'wrapper' => ['width' => '70']],
-                    ['key' => 'field_echos_s4_card_highlight', 'label' => 'Highlight', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1, 'message' => 'Gold border & glow', 'wrapper' => ['width' => '30']],
+                    ['key' => 'field_echos_s4_card_highlight', 'label' => 'Open by default', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1, 'instructions' => 'Starts open with the highlighted border. Only the first one flagged opens.', 'wrapper' => ['width' => '30']],
                     ['key' => 'field_echos_s4_card_desc', 'label' => 'Description', 'name' => 'card_description', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
                 ],
             ],
@@ -374,6 +354,7 @@ add_action('acf/init', function () {
             $text('s5_col2_price', 's5_col2_price', 'Free column: price', $pricing['col2_price'], 'text', ['wrapper' => ['width' => '50']]),
             $button('s5_col2_button', 's5_col2_button', 'Free column: button', $pricing['col2_button']['title']),
             $text('s5_col3_header', 's5_col3_header', 'Premium column: header', $pricing['col3_header'], 'text', ['wrapper' => ['width' => '50']]),
+            $text('s5_col3_original_price', 's5_col3_original_price', 'Premium column: original price (struck through)', $pricing['col3_was'], 'text', ['wrapper' => ['width' => '50'], 'instructions' => 'Leave empty to use the launch price; enter "-" to hide it.']),
             $text('s5_col3_price', 's5_col3_price', 'Premium column: price', $pricing['col3_price'], 'text', ['wrapper' => ['width' => '50']]),
             $button('s5_col3_button', 's5_col3_button', 'Premium column: button', $pricing['col3_button']['title']),
             [
@@ -407,8 +388,9 @@ add_action('acf/init', function () {
                 'collapsed'    => 'field_echos_s6_step_title',
                 'sub_fields'   => [
                     ['key' => 'field_echos_s6_step_number', 'label' => 'Step label', 'name' => 'step_number', 'type' => 'text', 'placeholder' => 'Step 1', 'wrapper' => ['width' => '30']],
-                    ['key' => 'field_echos_s6_step_title', 'label' => 'Title', 'name' => 'step_title', 'type' => 'text', 'wrapper' => ['width' => '70']],
-                    ['key' => 'field_echos_s6_step_icon', 'label' => 'Icon', 'name' => 'step_icon', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'library' => 'all', 'instructions' => 'SVG recommended (tinted gold).', 'wrapper' => ['width' => '30']],
+                    ['key' => 'field_echos_s6_step_title', 'label' => 'Title', 'name' => 'step_title', 'type' => 'text', 'wrapper' => ['width' => '50']],
+                    ['key' => 'field_echos_s6_step_highlight', 'label' => 'Highlight', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1, 'message' => 'Orange border', 'wrapper' => ['width' => '20']],
+                    ['key' => 'field_echos_s6_step_icon', 'label' => 'Icon', 'name' => 'step_icon', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'library' => 'all', 'instructions' => 'Empty shows a numbered gear.', 'wrapper' => ['width' => '30']],
                     ['key' => 'field_echos_s6_step_desc', 'label' => 'Description', 'name' => 'step_description', 'type' => 'textarea', 'rows' => 3, 'new_lines' => '', 'wrapper' => ['width' => '70']],
                 ],
             ],
@@ -416,7 +398,7 @@ add_action('acf/init', function () {
 
             // 7. CTA
             $tab('cta', 'Call to Action'),
-            ['key' => 'field_echos_cta_msg', 'label' => '', 'name' => '', 'type' => 'message', 'message' => 'This page uses its own call to action instead of the Global CTA.'],
+            ['key' => 'field_echos_cta_msg', 'label' => '', 'name' => '', 'type' => 'message', 'message' => 'Uses the Global CTA layout with this page’s own copy and buttons. Empty highlights and background fall back to Theme Settings > Global CTA.'],
             $text('cta_headline', 'cta_headline', 'Headline', $cta['headline']),
             $text('cta_subtext', 'cta_subtext', 'Subtext', $cta['subtext'], 'textarea'),
             $button('cta_button_primary', 'cta_button_primary', 'Primary button (solid)', $cta['primary']['title']),
@@ -428,14 +410,14 @@ add_action('acf/init', function () {
                 'type'         => 'repeater',
                 'layout'       => 'table',
                 'button_label' => 'Add highlight',
-                'instructions' => 'Leave empty to use the launch highlights.',
+                'instructions' => 'Leave empty to use the Global CTA highlights.',
                 'sub_fields'   => [
                     ['key' => 'field_echos_cta_feature_icon', 'label' => 'Icon', 'name' => 'feature_icon', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'library' => 'all', 'wrapper' => ['width' => '20']],
                     ['key' => 'field_echos_cta_feature_title', 'label' => 'Title', 'name' => 'feature_title', 'type' => 'text', 'wrapper' => ['width' => '30']],
                     ['key' => 'field_echos_cta_feature_desc', 'label' => 'Description', 'name' => 'feature_desc', 'type' => 'text', 'wrapper' => ['width' => '50']],
                 ],
             ],
-            $image('cta_background_image', 'cta_background_image', 'Background image', 'Shown under a dark slate overlay.'),
+            $image('cta_background_image', 'cta_background_image', 'Background image', 'Shown under the brand gradient. Empty uses the Global CTA background.'),
 
             // Settings
             $tab('settings', 'Settings'),

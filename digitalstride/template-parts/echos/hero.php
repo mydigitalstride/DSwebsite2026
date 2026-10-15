@@ -2,8 +2,8 @@
 /**
  * ECHO SEO: Hero (hero_* fields).
  *
- * The site sub-page hero (accent line, kicker, headline, text, button) over
- * a dark slate overlay, with ECHO gold in place of the brand orange.
+ * The site sub-page hero: brand gradient over the background image, orange
+ * accent line, italic kicker, headline, text and the primary button.
  */
 $d     = ds_echos_defaults('hero');
 $kick  = get_field('hero_kicker') ?: $d['kicker'];
@@ -28,7 +28,7 @@ $title_tags = ['br' => [], 'em' => [], 'strong' => [], 'span' => ['class' => []]
                     <?php if ($text) : ?>
                         <div class="ds-hero__text ds-echos-hero__text"><?php echo wp_kses_post(wpautop($text)); ?></div>
                     <?php endif; ?>
-                    <?php ds_echos_print_button($btn, 'ds-btn ds-btn--hero ds-echos-btn'); ?>
+                    <?php ds_echos_print_button($btn, 'ds-btn ds-btn--primary ds-btn--hero'); ?>
                 </div>
             </div>
         </div>
