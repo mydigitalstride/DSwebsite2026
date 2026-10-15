@@ -28,11 +28,11 @@ if (!$items) {
                     $photo = $item['avatar'];
                     ?>
                     <div class="ds-testimonial-carousel__slide <?php echo $i === 0 ? 'is-active' : ''; ?>" aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>">
-                        <figure class="ds-testimonial ds-dsd-quote">
+                        <div class="ds-testimonial">
                             <span class="ds-testimonial__mark" aria-hidden="true">&ldquo;</span>
                             <blockquote class="ds-testimonial__quote"><?php echo esc_html($item['quote']); ?></blockquote>
                             <?php if ($item['name'] || $item['company'] || !empty($photo['url'])) : ?>
-                                <figcaption class="ds-testimonial__author ds-dsd-quote__author">
+                                <div class="ds-testimonial__author ds-dsd-quote__author">
                                     <?php if (!empty($photo['url'])) : ?>
                                         <img class="ds-dsd-quote__avatar" src="<?php echo esc_url($photo['sizes']['thumbnail'] ?? $photo['url']); ?>" alt="" width="64" height="64" loading="lazy">
                                     <?php endif; ?>
@@ -40,9 +40,9 @@ if (!$items) {
                                         <?php if ($item['name']) : ?><strong><?php echo esc_html($item['name']); ?></strong><?php endif; ?>
                                         <?php if ($item['company']) : ?><span><?php echo esc_html($item['company']); ?></span><?php endif; ?>
                                     </div>
-                                </figcaption>
+                                </div>
                             <?php endif; ?>
-                        </figure>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>

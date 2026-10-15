@@ -33,7 +33,7 @@
             "type": "textarea",
             "rows": 3,
             "new_lines": "",
-            "placeholder": "When you're running a trade, contracting, or real estate business…"
+            "placeholder": "When you partner with Digital Stride, you get more than growth marketing…"
         },
         {
             "key": "field_dsd_hero_cta_label",
@@ -58,18 +58,34 @@
             "instructions": "Defaults to /contact-us/."
         },
         {
-            "key": "field_dsd_hero_visual",
-            "label": "Dashboard visual (optional)",
-            "name": "hero_visual",
+            "key": "field_dsd_hero_logo",
+            "label": "DSD logo",
+            "name": "hero_logo",
             "type": "image",
             "return_format": "array",
             "preview_size": "medium",
             "library": "all",
-            "instructions": "A screenshot shown inside the DSD frame. Leave empty for the built-in dashboard preview. 16:10 works best."
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Shown on the light panel on the right. Leave empty for the built-in DSD wordmark."
+        },
+        {
+            "key": "field_dsd_hero_bg",
+            "label": "Background image",
+            "name": "hero_background_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Behind the blue gradient. Leave empty for the site blueprint background."
         },
         {
             "key": "field_dsd_hero_perks",
-            "label": "Perks ribbon",
+            "label": "Perks (row under the hero)",
             "name": "hero_perks",
             "type": "repeater",
             "layout": "table",
@@ -89,7 +105,7 @@
                     "wrapper": {
                         "width": "25"
                     },
-                    "instructions": "Leave empty for the default icon (lightning, phone, mail, thumbs-up)."
+                    "instructions": "Shown in the blue icon gradient. Leave empty for the default (lightning, phone, mail, thumbs-up)."
                 },
                 {
                     "key": "field_dsd_hero_perk_title",
@@ -103,10 +119,10 @@
                 },
                 {
                     "key": "field_dsd_hero_perk_sub",
-                    "label": "Subtitle",
+                    "label": "Text",
                     "name": "subtitle",
                     "type": "text",
-                    "placeholder": "Always-on analytics",
+                    "placeholder": "Live metric streams update instantly.",
                     "wrapper": {
                         "width": "40"
                     }
@@ -134,5 +150,5 @@
     "active": true,
     "description": "Hero split (copy left, dashboard frame right) and the 4-column perks ribbon on the DSD Dashboard Page template.",
     "show_in_rest": 0,
-    "modified": 1792010371
+    "modified": 1792073464
 }

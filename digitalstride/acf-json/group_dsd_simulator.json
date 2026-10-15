@@ -21,7 +21,7 @@
             "label": "Subheadline",
             "name": "sim_subheadline",
             "type": "text",
-            "placeholder": "Experience how easy it is to review inbound calls, tag lead statuses, and track revenue…"
+            "placeholder": "Click through the tabs below to test how easy it is to review leads…"
         },
         {
             "key": "field_dsd_sim_pipeline",
@@ -33,6 +33,27 @@
             "step": 1,
             "prepend": "$",
             "instructions": "What the “Total Revenue Pipeline Identified” counter shows on load. Tagging a lead Booked / Sold adds its job value; un-tagging one removes it."
+        },
+        {
+            "key": "field_dsd_sim_partner_label",
+            "label": "Partner prompt (below the simulator)",
+            "name": "sim_partner_label",
+            "type": "text",
+            "placeholder": "Already a Digital Stride Partner?",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_dsd_sim_partner_link",
+            "label": "Partner button",
+            "name": "sim_partner_link",
+            "type": "link",
+            "return_format": "array",
+            "wrapper": {
+                "width": "50"
+            },
+            "instructions": "Defaults to “Test Your Capabilities” → the partner portal login (https://partners.mydigitalstride.com/partner-login/)."
         }
     ],
     "location": [
@@ -44,7 +65,7 @@
             }
         ]
     ],
-    "menu_order": 1,
+    "menu_order": 3,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -53,5 +74,5 @@
     "active": true,
     "description": "Interactive Trade & Lead Simulator on the DSD Dashboard Page template. Sample leads live in inc/dsd-dashboard.php (ds_dsd_sim_leads).",
     "show_in_rest": 0,
-    "modified": 1792010371
+    "modified": 1792075182
 }

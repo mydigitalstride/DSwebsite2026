@@ -10,6 +10,13 @@
             "message": "Empty fields fall back to the launch copy (shown as placeholders)."
         },
         {
+            "key": "field_dsd_comp_eyebrow",
+            "label": "Eyebrow",
+            "name": "comp_eyebrow",
+            "type": "text",
+            "placeholder": "The Digital Stride Difference"
+        },
+        {
             "key": "field_dsd_comp_headline",
             "label": "Headline",
             "name": "comp_headline",
@@ -18,10 +25,10 @@
         },
         {
             "key": "field_dsd_comp_sub",
-            "label": "Subheadline",
+            "label": "Intro",
             "name": "comp_subheadline",
             "type": "text",
-            "placeholder": "Most agencies hide behind vanity metrics and end-of-month PDFs…"
+            "placeholder": "We built DSD to eliminate the anxiety, obscurity, and back-and-forth emails…"
         },
         {
             "key": "field_dsd_comp_old_title",
@@ -65,13 +72,26 @@
             "sub_fields": [
                 {
                     "key": "field_dsd_comp_old_item",
-                    "label": "Point",
+                    "label": "Title",
                     "name": "item",
                     "type": "text",
-                    "placeholder": "Results arrive weeks late in an end-of-month PDF"
+                    "placeholder": "Zero Phone Call Audit Access",
+                    "wrapper": {
+                        "width": "40"
+                    }
+                },
+                {
+                    "key": "field_dsd_comp_old_desc",
+                    "label": "Description",
+                    "name": "item_desc",
+                    "type": "text",
+                    "placeholder": "You have no idea if phone leads were actually qualified…",
+                    "wrapper": {
+                        "width": "60"
+                    }
                 }
             ],
-            "instructions": "Leave empty to show the launch copy. Focus on outcomes."
+            "instructions": "Leave empty to show the launch copy."
         },
         {
             "key": "field_dsd_comp_dsd_list",
@@ -85,10 +105,23 @@
             "sub_fields": [
                 {
                     "key": "field_dsd_comp_dsd_item",
-                    "label": "Point",
+                    "label": "Title",
                     "name": "item",
                     "type": "text",
-                    "placeholder": "Real-time ROI, 24/7, from any phone or job site"
+                    "placeholder": "Live Call Audio Recordings & Transcripts",
+                    "wrapper": {
+                        "width": "40"
+                    }
+                },
+                {
+                    "key": "field_dsd_comp_dsd_desc",
+                    "label": "Description",
+                    "name": "item_desc",
+                    "type": "text",
+                    "placeholder": "Hear exactly how every lead was handled…",
+                    "wrapper": {
+                        "width": "60"
+                    }
                 }
             ],
             "instructions": "Leave empty to show the launch copy."
@@ -103,7 +136,7 @@
             }
         ]
     ],
-    "menu_order": 2,
+    "menu_order": 1,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -112,5 +145,5 @@
     "active": true,
     "description": "Traditional Agency vs. Digital Stride + DSD cards on the DSD Dashboard Page template.",
     "show_in_rest": 0,
-    "modified": 1792010371
+    "modified": 1792073464
 }

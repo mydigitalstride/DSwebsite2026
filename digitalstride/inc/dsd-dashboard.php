@@ -3,8 +3,9 @@
  * Digital Stride Dashboard (DSD) page (page-dsd.php).
  *
  * DSD is positioned as a perk included with every growth partnership, not a
- * standalone product. Section order: hero + perks ribbon, the interactive
- * lead simulator, the agency comparison, industry solutions, testimonials.
+ * standalone product. Section order follows the approved mockup: hero, perks
+ * row, agency comparison, industry tabs, lead simulator (+ partner CTA),
+ * testimonials and the DSD call to action.
  *
  * Field groups (one per section, all shown on the "DSD Dashboard Page"
  * template): acf-json/group_dsd_hero.json, group_dsd_simulator.json,
@@ -13,7 +14,8 @@
  * falls back to the launch copy below, so a fresh page renders complete.
  *
  * Page CSS / JS: assets/css/dsd.css, assets/js/dsd.js. The testimonial
- * carousel (arrows, dots, pause button) is the site one in main.js.
+ * carousel (arrows, dots, pause button) is the site one in main.js, and
+ * the closing CTA reuses the Global CTA layout with DSD copy.
  */
 
 if (!defined('ABSPATH')) {
@@ -32,80 +34,89 @@ function ds_dsd_defaults($section) {
         'hero' => [
             'eyebrow'   => 'Digital Stride Dashboard (DSD)',
             'title'     => 'The Transparency You Deserve. No Status Meetings Required.',
-            'subtitle'  => 'When you’re running a trade, contracting, or real estate business, you don’t have time to wait for monthly PDFs or status calls. DSD gives you 24/7 real-time visibility into every lead, call, and dollar spent.',
+            'subtitle'  => 'When you partner with Digital Stride, you get more than growth marketing. You receive full, 24/7 access to DSD (Digital Stride Dashboard), your personal live control center for data and reports, task approvals, and real-time agency visibility.',
             'cta_label' => 'Unlock Your Benefits',
             'cta_url'   => $contact,
             'perks'     => [
-                ['icon' => null, 'fa' => 'fa-solid fa-bolt', 'title' => 'Zero Wait Time', 'subtitle' => 'Always-on analytics'],
-                ['icon' => null, 'fa' => 'fa-solid fa-phone-volume', 'title' => 'Every Call Recorded', 'subtitle' => 'Listen from the job site'],
-                ['icon' => null, 'fa' => 'fa-solid fa-envelope-open-text', 'title' => 'Instant Lead Alerts', 'subtitle' => 'Email & text the moment they land'],
-                ['icon' => null, 'fa' => 'fa-solid fa-thumbs-up', 'title' => '1-Click Approvals', 'subtitle' => 'Sign off on creative in seconds'],
+                ['icon' => null, 'fa' => 'fa-solid fa-bolt', 'title' => 'Zero Wait Time', 'subtitle' => 'Live metric streams update instantly.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-phone-volume', 'title' => 'Lead Feed & Audio Logs', 'subtitle' => 'Every call from Google Local Services Ads (LSA) is recorded and transcribed.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-envelope-open-text', 'title' => '80% Fewer Emails', 'subtitle' => 'Everything centralized in one place.'],
+                ['icon' => null, 'fa' => 'fa-solid fa-thumbs-up', 'title' => '1-Click Approvals', 'subtitle' => 'Approve copy & creative in seconds.'],
             ],
         ],
-        'simulator' => [
-            'headline'     => 'Test The DSD Trade Simulator',
-            'subheadline'  => 'Experience how easy it is to review inbound calls, tag lead statuses, and track revenue right from your phone or job site.',
-            'pipeline_val' => 124500,
-        ],
         'comparison' => [
+            'eyebrow'           => 'The Digital Stride Difference',
             'headline'          => 'Why Traditional Agency Reporting Fails',
-            'subheadline'       => 'Most agencies hide behind vanity metrics and end-of-month PDFs. Here is how we do it differently.',
+            'subheadline'       => 'We built DSD to eliminate the anxiety, obscurity, and back-and-forth emails of standard agency retainers.',
             'traditional_title' => 'Traditional Marketing Agencies',
             'dsd_title'         => 'Digital Stride + DSD Included',
             'dsd_badge'         => 'Included Free',
             'traditional'       => [
-                ['item' => 'Results arrive weeks late in an end-of-month PDF'],
-                ['item' => 'Vanity metrics: impressions, clicks and “reach”'],
-                ['item' => 'Endless status meetings just to get an update'],
-                ['item' => 'No idea which calls turned into paying jobs'],
-                ['item' => 'Creative approvals lost in long email threads'],
+                ['item' => 'Zero Phone Call Audit Access', 'item_desc' => 'You have no idea if phone leads were actually qualified or if the receptionist dropped the ball.'],
+                ['item' => 'Outdated Monthly PDF Reports', 'item_desc' => 'You receive metrics 30 days late, after ad dollars have already been wasted.'],
+                ['item' => 'Constant “Status Update” Meetings', 'item_desc' => 'Wasting valuable hours sitting in meetings just to ask “How are campaigns performing?”'],
+                ['item' => 'Slow Email Approval Bottlenecks', 'item_desc' => 'Creative sits in long email threads for days while campaigns wait to launch.'],
             ],
             'dsd'               => [
-                ['item' => 'Real-time ROI, 24/7, from any phone or job site'],
-                ['item' => 'Revenue tracked to the lead, job and ad that drove it'],
-                ['item' => 'Every inbound call recorded and ready to play back'],
-                ['item' => 'Full transparency on spend: no status calls required'],
-                ['item' => '1-click approvals for ads, pages and media'],
+                ['item' => 'Live Call Audio Recordings & Transcripts', 'item_desc' => 'Hear exactly how every lead was handled and whether it was qualified.'],
+                ['item' => 'Single Centralized Asset & Milestone Hub', 'item_desc' => 'Log in anytime to see real-time leads, conversion rates, and ROAS performance.'],
+                ['item' => 'Reclaim 5+ Hours Every Single Week', 'item_desc' => 'No status check calls needed. You have total answers at your fingertips 24/7.'],
+                ['item' => '1-Tap Field Asset Approvals', 'item_desc' => 'Approve ads, photos and pages from the job site in seconds.'],
             ],
         ],
         'industries' => [
+            'eyebrow'     => 'Built for Your Exact Sector',
             'headline'    => 'Tailored Solutions For Your Industry',
-            'subheadline' => 'DSD is configured around how your business actually wins work, so the numbers you see are the numbers you care about.',
+            'subheadline' => 'Select your sector to view custom DSD client portal perks.',
             'cards'       => [
                 [
-                    'industry_title' => 'HVAC, Plumbing, Roofing & Electrical',
-                    'industry_desc'  => 'Know which calls became booked jobs, and which ads paid for the truck roll.',
-                    'industry_icon'  => 'fa-solid fa-screwdriver-wrench',
+                    'industry_title' => 'Home Services & Trades',
+                    'panel_title'    => 'HVAC, Plumbing, Roofing, & Electrical Contractors',
+                    'industry_desc'  => 'Capture high-intent emergency service calls and replacement leads.',
                     'feature_points' => [
-                        ['point' => 'Real-time call recording & playback'],
-                        ['point' => 'Local Services Ads (LSA) lead tracking'],
-                        ['point' => 'Job-value attribution by campaign'],
+                        ['point' => 'LSA Call Recording', 'point_desc' => 'Listen to emergency repair calls to ensure your dispatch team converts incoming leads.', 'point_icon' => 'fa-solid fa-phone-volume'],
+                        ['point' => 'Local Services Radius', 'point_desc' => 'See cost per lead broken down by zip codes and service territories.', 'point_icon' => 'fa-solid fa-map-location-dot'],
+                        ['point' => 'Job Ticket Tracking', 'point_desc' => 'Log high-value system replacements vs. minor repair service tickets.', 'point_icon' => 'fa-solid fa-clipboard-list'],
                     ],
                 ],
                 [
                     'industry_title' => 'AEC & General Contractors',
+                    'panel_title'    => 'Architects, Engineers, Custom Home & Commercial Builders',
                     'industry_desc'  => 'Keep long sales cycles and big-ticket bids visible from first inquiry to signed contract.',
-                    'industry_icon'  => 'fa-solid fa-helmet-safety',
                     'feature_points' => [
-                        ['point' => 'Drone photo & video asset approvals'],
-                        ['point' => 'Commercial contract & bid tracking'],
-                        ['point' => 'Localized landing page reviews'],
+                        ['point' => 'Drone Asset Approvals', 'point_desc' => 'Review and approve drone photo and video of active projects from the job site.', 'point_icon' => 'fa-solid fa-camera'],
+                        ['point' => 'Commercial Contract Tracking', 'point_desc' => 'Follow bids and contract values from first inquiry through signed agreement.', 'point_icon' => 'fa-solid fa-file-signature'],
+                        ['point' => 'Local Landing Page Reviews', 'point_desc' => 'Sign off on localized service-area pages before they go live.', 'point_icon' => 'fa-solid fa-laptop-code'],
                     ],
                 ],
                 [
-                    'industry_title' => 'Realtors & Real Estate',
+                    'industry_title' => 'Realtors & Real Estate Agencies',
+                    'panel_title'    => 'Realtors, Brokers & Property Managers',
                     'industry_desc'  => 'See every buyer and seller inquiry the moment it lands, and how fast your team responded.',
-                    'industry_icon'  => 'fa-solid fa-house-chimney',
                     'feature_points' => [
-                        ['point' => 'Listing inquiry tracking'],
-                        ['point' => 'Meta retargeting lead feeds'],
-                        ['point' => 'Speed-to-lead notification logs'],
+                        ['point' => 'Listing Inquiry Tracking', 'point_desc' => 'See which listings and neighborhoods drive buyer and seller inquiries.', 'point_icon' => 'fa-solid fa-house-chimney'],
+                        ['point' => 'Meta Retargeting Feeds', 'point_desc' => 'Watch retargeted Facebook and Instagram leads arrive in real time.', 'point_icon' => 'fa-solid fa-bullseye'],
+                        ['point' => 'Speed-to-Lead Logs', 'point_desc' => 'Track how quickly every inquiry received a call back or reply.', 'point_icon' => 'fa-solid fa-stopwatch'],
                     ],
                 ],
             ],
         ],
+        'simulator' => [
+            'headline'      => 'Test The DSD Trade Simulator',
+            'subheadline'   => 'Click through the tabs below to test how easy it is to review leads, track ROI, and approve assets from your phone.',
+            'pipeline_val'  => 124500,
+            'partner_label' => 'Already a Digital Stride Partner?',
+            'partner_btn'   => 'Test Your Capabilities',
+            'partner_url'   => 'https://partners.mydigitalstride.com/partner-login/',
+        ],
         'testimonials' => [
             'title' => 'Partner Feedback',
+        ],
+        'cta' => [
+            'heading' => 'Ready For Full Growth Transparency?',
+            'text'    => "Partner with Digital Stride & Get DSD Included Free.\nBook a 15-minute introductory strategy session. We’ll audit your current growth channels and show you a live walkthrough of DSD tailored to your brand.",
+            'btn'     => 'Book Strategy Call + See DSD Live',
+            'url'     => $contact,
         ],
     ];
 
@@ -116,23 +127,44 @@ function ds_dsd_defaults($section) {
  * Sample leads shown in the simulator. Demo data only (555 numbers); edit
  * here or with the `ds_dsd_sim_leads` filter.
  *
- * category: trades | aec | realty. status: one of ds_dsd_statuses().
- * duration: call length in seconds for the simulated player.
+ * category: trades | aec | realty. type: Inbound Call | Web Form.
+ * source: Google LSA | Google PPC | Meta Retargeting.
+ * status: one of ds_dsd_statuses(). duration: call length in seconds.
  */
 function ds_dsd_sim_leads() {
     $leads = [
-        ['name' => 'Robert Miller', 'phone' => '(555) 234-8901', 'service' => 'Full Roof Replacement', 'value' => 18500, 'source' => 'Google PPC', 'status' => 'Estimate Scheduled', 'time' => '12m ago', 'category' => 'trades', 'duration' => 154],
-        ['name' => 'Sarah Jenkins', 'phone' => '(555) 876-5432', 'service' => 'Emergency HVAC Repair', 'value' => 1200, 'source' => 'LSA', 'status' => 'Booked / Sold', 'time' => '45m ago', 'category' => 'trades', 'duration' => 97],
-        ['name' => 'Dale Okafor', 'phone' => '(555) 410-7781', 'service' => 'Electrical Panel Upgrade', 'value' => 3400, 'source' => 'LSA', 'status' => 'New Lead', 'time' => '2h ago', 'category' => 'trades', 'duration' => 128],
-        ['name' => 'Apex Commercial Group', 'phone' => '(555) 901-2345', 'service' => 'Warehouse Buildout', 'value' => 125000, 'source' => 'Google PPC', 'status' => 'Estimate Scheduled', 'time' => '1h ago', 'category' => 'aec', 'duration' => 312],
-        ['name' => 'Linda Park', 'phone' => '(555) 332-6610', 'service' => 'Custom Home Build', 'value' => 640000, 'source' => 'Meta Retargeting', 'status' => 'New Lead', 'time' => '3h ago', 'category' => 'aec', 'duration' => 246],
-        ['name' => 'Harbor Dental Partners', 'phone' => '(555) 718-4402', 'service' => 'Office Remodel', 'value' => 86000, 'source' => 'Google PPC', 'status' => 'Booked / Sold', 'time' => '5h ago', 'category' => 'aec', 'duration' => 189],
-        ['name' => 'Marcus Thorne', 'phone' => '(555) 678-9012', 'service' => 'Seller Listing ($750k)', 'value' => 22500, 'source' => 'Meta Retargeting', 'status' => 'Booked / Sold', 'time' => '30m ago', 'category' => 'realty', 'duration' => 173],
-        ['name' => 'Priya Desai', 'phone' => '(555) 245-0937', 'service' => 'Buyer Consultation ($480k)', 'value' => 14400, 'source' => 'Google PPC', 'status' => 'New Lead', 'time' => '1h ago', 'category' => 'realty', 'duration' => 82],
-        ['name' => 'Westgate Properties LLC', 'phone' => '(555) 563-1184', 'service' => 'Property Management (24 units)', 'value' => 28800, 'source' => 'LSA', 'status' => 'Disqualified', 'time' => '4h ago', 'category' => 'realty', 'duration' => 61],
+        ['name' => 'David Miller', 'phone' => '(555) 234-8901', 'service' => 'Commercial HVAC Chiller Repair Quote Request', 'value' => 12000, 'type' => 'Inbound Call', 'source' => 'Google LSA', 'status' => 'Booked / Sold', 'time' => '10 mins ago', 'category' => 'trades', 'duration' => 154],
+        ['name' => 'Rachel Stevens', 'phone' => '(555) 876-5432', 'service' => 'Full Roof Replacement Consultation Request', 'value' => 18500, 'type' => 'Web Form', 'source' => 'Meta Retargeting', 'status' => 'New Lead', 'time' => '1 hr ago', 'category' => 'trades', 'duration' => 0],
+        ['name' => 'Linda Park', 'phone' => '(555) 332-6610', 'service' => 'Custom Home Build Consultation', 'value' => 640000, 'type' => 'Web Form', 'source' => 'Meta Retargeting', 'status' => 'New Lead', 'time' => '3 hrs ago', 'category' => 'aec', 'duration' => 0],
+        ['name' => 'Harbor Dental Partners', 'phone' => '(555) 718-4402', 'service' => 'Office Remodel', 'value' => 86000, 'type' => 'Inbound Call', 'source' => 'Google PPC', 'status' => 'Booked / Sold', 'time' => '5 hrs ago', 'category' => 'aec', 'duration' => 189],
+        ['name' => 'Brian Vance', 'phone' => '(555) 678-9012', 'service' => 'Home Listing Consultation – 4 Bed / 3 Bath', 'value' => 22500, 'type' => 'Inbound Call', 'source' => 'Google PPC', 'status' => 'Estimate Scheduled', 'time' => '3 hrs ago', 'category' => 'realty', 'duration' => 173],
+        ['name' => 'Westgate Properties LLC', 'phone' => '(555) 563-1184', 'service' => 'Property Management (24 units)', 'value' => 28800, 'type' => 'Inbound Call', 'source' => 'Google LSA', 'status' => 'Disqualified', 'time' => '4 hrs ago', 'category' => 'realty', 'duration' => 61],
     ];
 
     return apply_filters('ds_dsd_sim_leads', $leads);
+}
+
+/**
+ * Monthly ad spend per source for the simulator's "Job & Ad ROI" tab.
+ * Revenue is worked out live from the leads marked Booked / Sold.
+ */
+function ds_dsd_sim_spend() {
+    return apply_filters('ds_dsd_sim_spend', [
+        'Google LSA'       => 2400,
+        'Google PPC'       => 6800,
+        'Meta Retargeting' => 1900,
+    ]);
+}
+
+/**
+ * Sample assets for the simulator's "Field Approvals" tab.
+ */
+function ds_dsd_sim_approvals() {
+    return apply_filters('ds_dsd_sim_approvals', [
+        ['title' => 'Spring AC Tune-Up Ad', 'meta' => 'Meta · 3 creatives', 'icon' => 'fa-solid fa-rectangle-ad'],
+        ['title' => 'Drone Roof Footage – 412 Oak St', 'meta' => 'Video · 0:48', 'icon' => 'fa-solid fa-video'],
+        ['title' => 'Emergency Plumbing Landing Page', 'meta' => 'Web page · York, PA', 'icon' => 'fa-solid fa-laptop-code'],
+    ]);
 }
 
 function ds_dsd_statuses() {
@@ -143,7 +175,7 @@ function ds_dsd_industries() {
     return [
         'trades' => 'Home Services & Trades',
         'aec'    => 'AEC & Contractors',
-        'realty' => 'Realtors & Real Estate',
+        'realty' => 'Real Estate',
     ];
 }
 
@@ -153,6 +185,18 @@ function ds_dsd_industries() {
  */
 function ds_dsd_status_class($status) {
     return preg_replace('/[^a-z0-9]/', '-', strtolower($status));
+}
+
+/**
+ * Font Awesome icon in the site's blue icon gradient, or an uploaded
+ * SVG / image tinted with .ds-icon--blue-gradient (as on Home Services).
+ */
+function ds_dsd_icon($upload, $fa, $class = '') {
+    $class = trim('ds-dsd-icon ' . $class);
+    if (!empty($upload['url'])) {
+        return '<span class="' . esc_attr($class . ' ds-icon--blue-gradient') . '" aria-hidden="true">' . ds_inline_svg($upload) . '</span>';
+    }
+    return '<span class="' . esc_attr($class . ' ds-dsd-icon--fa') . '" aria-hidden="true"><i class="' . esc_attr($fa) . '"></i></span>';
 }
 
 /**
