@@ -226,26 +226,51 @@ function ds_dsd_rows($field, $fallback, array $required) {
 }
 
 /**
- * Partner Feedback quotes: this page's `testimonials` repeater, or the
- * global testimonials (Theme Settings > Testimonials) when it is empty.
+ * The launch row whose `$key` is closest to `$title` (ignoring case,
+ * punctuation and small typos), or null when none is close enough.
+ */
+function ds_dsd_closest($title, array $defaults, $key) {
+    $norm  = function ($text) { return preg_replace('/[^a-z0-9]/', '', strtolower(wp_strip_all_tags((string) $text))); };
+    $title = $norm($title);
+    if ($title === '') return null;
+
+    $best = null;
+    $best_score = 75; // minimum similarity, in percent
+    foreach ($defaults as $default) {
+        similar_text($title, $norm($default[$key] ?? ''), $score);
+        if ($score >= $best_score) {
+            $best_score = $score;
+            $best = $default;
+        }
+    }
+    return $best;
+}
+
+/**
+ * Fill empty keys of saved repeater rows from the launch copy, so a row
+ * saved before a sub-field existed (or left blank) doesn't show a title
+ * with no description. Only keys that are empty on the saved row change.
+ */
+function ds_dsd_fill_rows(array $rows, array $defaults, $title_key, array $fill_keys) {
+    foreach ($rows as $i => $row) {
+        $match = ds_dsd_closest($row[$title_key] ?? '', $defaults, $title_key);
+        if (!$match) continue;
+        foreach ($fill_keys as $key) {
+            if (empty($row[$key]) && !empty($match[$key])) {
+                $rows[$i][$key] = $match[$key];
+            }
+        }
+    }
+    return $rows;
+}
+
+/**
+ * Partner Feedback quotes: the site's global testimonials (Theme Settings >
+ * Testimonials), shown exactly as elsewhere on the site.
  */
 function ds_dsd_testimonials() {
-    $out = [];
-    foreach ((array) get_field('testimonials') as $item) {
-        if (empty($item['quote'])) continue;
-        $out[] = [
-            'quote'   => $item['quote'],
-            'name'    => $item['client_name'] ?? '',
-            'company' => $item['company_name'] ?? '',
-            'avatar'  => $item['avatar'] ?? null,
-        ];
-    }
-    if ($out || !function_exists('ds_get_testimonials')) return $out;
-
-    foreach (ds_get_testimonials() as $t) {
-        $out[] = ['quote' => $t['quote'], 'name' => $t['name'], 'company' => $t['title_company'], 'avatar' => null];
-    }
-    return $out;
+    $items = function_exists('get_field') ? get_field('gtm_items', 'option') : [];
+    return array_values(array_filter((array) $items, function ($item) { return !empty($item['quote']); }));
 }
 
 /**
