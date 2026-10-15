@@ -1,0 +1,84 @@
+{
+    "key": "group_dsd_testimonials",
+    "title": "DSD: Partner Feedback",
+    "fields": [
+        {
+            "key": "field_dsd_testi_title",
+            "label": "Section title",
+            "name": "testimonials_title",
+            "type": "text",
+            "placeholder": "Partner Feedback"
+        },
+        {
+            "key": "field_dsd_testi_items",
+            "label": "Testimonials",
+            "name": "testimonials",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Testimonial",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_testi_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_dsd_testi_name",
+                    "label": "Client name",
+                    "name": "client_name",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_dsd_testi_company",
+                    "label": "Company",
+                    "name": "company_name",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_dsd_testi_avatar",
+                    "label": "Avatar",
+                    "name": "avatar",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "wrapper": {
+                        "width": "30"
+                    }
+                }
+            ],
+            "collapsed": "field_dsd_testi_name",
+            "instructions": "Leave empty to use the global testimonials (Theme Settings > Testimonials)."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dsd.php"
+            }
+        ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Testimonial carousel on the DSD Dashboard Page template.",
+    "show_in_rest": 0,
+    "modified": 1792010371
+}

@@ -1,0 +1,116 @@
+{
+    "key": "group_dsd_comparison",
+    "title": "DSD: Agency Comparison",
+    "fields": [
+        {
+            "key": "field_dsd_comp_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy (shown as placeholders)."
+        },
+        {
+            "key": "field_dsd_comp_headline",
+            "label": "Headline",
+            "name": "comp_headline",
+            "type": "text",
+            "placeholder": "WHY TRADITIONAL AGENCY REPORTING FAILS"
+        },
+        {
+            "key": "field_dsd_comp_sub",
+            "label": "Subheadline",
+            "name": "comp_subheadline",
+            "type": "text",
+            "placeholder": "Most agencies hide behind vanity metrics and end-of-month PDFs…"
+        },
+        {
+            "key": "field_dsd_comp_old_title",
+            "label": "Left card title",
+            "name": "comp_traditional_title",
+            "type": "text",
+            "placeholder": "Traditional Marketing Agencies",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_dsd_comp_dsd_title",
+            "label": "Right card title",
+            "name": "comp_dsd_title",
+            "type": "text",
+            "placeholder": "Digital Stride + DSD Included",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_dsd_comp_badge",
+            "label": "Right card badge",
+            "name": "comp_dsd_badge",
+            "type": "text",
+            "placeholder": "Included Free",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_dsd_comp_old_list",
+            "label": "Traditional agency points (red ✕)",
+            "name": "traditional_agency_list",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Point",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_comp_old_item",
+                    "label": "Point",
+                    "name": "item",
+                    "type": "text",
+                    "placeholder": "Results arrive weeks late in an end-of-month PDF"
+                }
+            ],
+            "instructions": "Leave empty to show the launch copy. Focus on outcomes."
+        },
+        {
+            "key": "field_dsd_comp_dsd_list",
+            "label": "Digital Stride + DSD points (green ✓)",
+            "name": "dsd_agency_list",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Point",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_comp_dsd_item",
+                    "label": "Point",
+                    "name": "item",
+                    "type": "text",
+                    "placeholder": "Real-time ROI, 24/7, from any phone or job site"
+                }
+            ],
+            "instructions": "Leave empty to show the launch copy."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dsd.php"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Traditional Agency vs. Digital Stride + DSD cards on the DSD Dashboard Page template.",
+    "show_in_rest": 0,
+    "modified": 1792010371
+}

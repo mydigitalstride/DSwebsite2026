@@ -1,0 +1,107 @@
+{
+    "key": "group_dsd_industries",
+    "title": "DSD: Industry Solutions",
+    "fields": [
+        {
+            "key": "field_dsd_ind_msg",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Empty fields fall back to the launch copy (shown as placeholders)."
+        },
+        {
+            "key": "field_dsd_ind_headline",
+            "label": "Headline",
+            "name": "ind_headline",
+            "type": "text",
+            "placeholder": "TAILORED SOLUTIONS FOR YOUR INDUSTRY"
+        },
+        {
+            "key": "field_dsd_ind_sub",
+            "label": "Subheadline",
+            "name": "ind_subheadline",
+            "type": "text",
+            "placeholder": "DSD is configured around how your business actually wins work…"
+        },
+        {
+            "key": "field_dsd_ind_cards",
+            "label": "Industry cards",
+            "name": "ind_cards",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Industry",
+            "min": 0,
+            "max": 3,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_ind_card_title",
+                    "label": "Industry title",
+                    "name": "industry_title",
+                    "type": "text",
+                    "placeholder": "HVAC, Plumbing, Roofing & Electrical",
+                    "wrapper": {
+                        "width": "60"
+                    }
+                },
+                {
+                    "key": "field_dsd_ind_card_icon",
+                    "label": "Icon (Font Awesome class)",
+                    "name": "industry_icon",
+                    "type": "text",
+                    "placeholder": "fa-solid fa-screwdriver-wrench",
+                    "wrapper": {
+                        "width": "40"
+                    },
+                    "instructions": "Optional. Defaults to wrench / hard hat / house."
+                },
+                {
+                    "key": "field_dsd_ind_card_desc",
+                    "label": "Description",
+                    "name": "industry_desc",
+                    "type": "text",
+                    "placeholder": "Know which calls became booked jobs…"
+                },
+                {
+                    "key": "field_dsd_ind_card_points",
+                    "label": "Feature points",
+                    "name": "feature_points",
+                    "type": "repeater",
+                    "layout": "table",
+                    "button_label": "Add Point",
+                    "min": 0,
+                    "max": 0,
+                    "sub_fields": [
+                        {
+                            "key": "field_dsd_ind_card_point",
+                            "label": "Point",
+                            "name": "point",
+                            "type": "text",
+                            "placeholder": "Real-time call recording & playback"
+                        }
+                    ]
+                }
+            ],
+            "collapsed": "field_dsd_ind_card_title",
+            "instructions": "3 cards. Leave empty to show the launch copy."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dsd.php"
+            }
+        ]
+    ],
+    "menu_order": 3,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Tailored industry cards (Trades, AEC, Real Estate) on the DSD Dashboard Page template.",
+    "show_in_rest": 0,
+    "modified": 1792010371
+}
