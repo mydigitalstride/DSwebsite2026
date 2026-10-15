@@ -14,6 +14,8 @@ $sub   = get_field('ind_subheadline') ?: $d['subheadline'];
 $cards = ds_dsd_rows('ind_cards', $d['cards'], ['industry_title', 'panel_title']);
 if (!$cards) return;
 
+$icon_fallback = array_merge(...array_map(function ($c) { return array_column($c['feature_points'], 'point_icon'); }, $d['cards']));
+
 // Saved cards and tiles with blank text borrow the launch copy for the
 // same sector / tile title.
 foreach ($cards as $i => $card) {
