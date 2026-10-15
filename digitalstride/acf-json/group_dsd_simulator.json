@@ -53,7 +53,7 @@
             "wrapper": {
                 "width": "50"
             },
-            "instructions": "Defaults to “Test Your Capabilities” → the DSD portal (DSD_BASE_URL), or /contact-us/."
+            "instructions": "Defaults to “Test Your Capabilities” → the partner portal login (https://partners.mydigitalstride.com/partner-login/)."
         }
     ],
     "location": [
@@ -74,5 +74,5 @@
     "active": true,
     "description": "Interactive Trade & Lead Simulator on the DSD Dashboard Page template. Sample leads live in inc/dsd-dashboard.php (ds_dsd_sim_leads).",
     "show_in_rest": 0,
-    "modified": 1792073464
+    "modified": 1792075182
 }

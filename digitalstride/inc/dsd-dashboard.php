@@ -107,7 +107,7 @@ function ds_dsd_defaults($section) {
             'pipeline_val'  => 124500,
             'partner_label' => 'Already a Digital Stride Partner?',
             'partner_btn'   => 'Test Your Capabilities',
-            'partner_url'   => function_exists('ds_lead_config') && ds_lead_config('DSD_BASE_URL') ? ds_lead_config('DSD_BASE_URL') : $contact,
+            'partner_url'   => 'https://partners.mydigitalstride.com/partner-login/',
         ],
         'testimonials' => [
             'title' => 'Partner Feedback',
