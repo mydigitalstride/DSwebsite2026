@@ -619,6 +619,13 @@
 .ds-dsd-partner .ds-dsd-tag { margin-bottom: 0.8em; }
 
 /* ==========================================================================
+   Partner feedback (site testimonial carousel)
+   ========================================================================== */
+.ds-dsd-feedback .ds-section__heading { margin-bottom: 1.25em; }
+.ds-dsd-quote__author { display: inline-flex; align-items: center; gap: 1em; text-align: left; }
+.ds-dsd-quote__avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ds-orange); }
+
+/* ==========================================================================
    Closing CTA (Global CTA layout)
    ========================================================================== */
 .ds-dsd-cta .ds-cta-split__left { text-align: left; }

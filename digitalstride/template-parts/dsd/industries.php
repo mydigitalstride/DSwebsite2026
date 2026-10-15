@@ -14,17 +14,7 @@ $sub   = get_field('ind_subheadline') ?: $d['subheadline'];
 $cards = ds_dsd_rows('ind_cards', $d['cards'], ['industry_title', 'panel_title']);
 if (!$cards) return;
 
-// Saved cards and tiles with blank text borrow the launch copy for the
-// same sector / tile title.
-foreach ($cards as $i => $card) {
-    $match = ds_dsd_closest($card['industry_title'] ?? '', $d['cards'], 'industry_title');
-    if (!$match) continue;
-    foreach (['panel_title', 'industry_desc'] as $key) {
-        if (empty($card[$key])) $cards[$i][$key] = $match[$key];
-    }
-    $points = !empty($card['feature_points']) ? (array) $card['feature_points'] : $match['feature_points'];
-    $cards[$i]['feature_points'] = ds_dsd_fill_rows($points, $match['feature_points'], 'point', ['point_desc', 'point_icon']);
-}
+$icon_fallback = array_merge(...array_map(function ($c) { return array_column($c['feature_points'], 'point_icon'); }, $d['cards']));
 ?>
 <section class="ds-section ds-dsd-industries" aria-labelledby="dsd-ind-title" data-dsd-tabs>
     <div class="ds-container">

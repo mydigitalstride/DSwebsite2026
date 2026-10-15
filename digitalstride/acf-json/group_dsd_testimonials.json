@@ -10,11 +10,56 @@
             "placeholder": "Partner Feedback"
         },
         {
-            "key": "field_dsd_testi_msg",
-            "label": "",
-            "name": "",
-            "type": "message",
-            "message": "Quotes come from the site's testimonials (Theme Settings > Testimonials) and look the same as everywhere else."
+            "key": "field_dsd_testi_items",
+            "label": "Testimonials",
+            "name": "testimonials",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Testimonial",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_dsd_testi_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_dsd_testi_name",
+                    "label": "Client name",
+                    "name": "client_name",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_dsd_testi_company",
+                    "label": "Company",
+                    "name": "company_name",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_dsd_testi_avatar",
+                    "label": "Avatar",
+                    "name": "avatar",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "wrapper": {
+                        "width": "30"
+                    }
+                }
+            ],
+            "collapsed": "field_dsd_testi_name",
+            "instructions": "Leave empty to use the global testimonials (Theme Settings > Testimonials)."
         },
         {
             "key": "field_dsd_cta_msg",
@@ -66,5 +111,5 @@
     "active": true,
     "description": "Testimonial carousel and closing call to action on the DSD Dashboard Page template.",
     "show_in_rest": 0,
-    "modified": 1792076195
+    "modified": 1792073464
 }

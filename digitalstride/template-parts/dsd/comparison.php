@@ -5,13 +5,12 @@
  * Italic eyebrow, heading with the orange bar, intro, then two slate cards:
  * traditional agencies (red label, red crosses) and Digital Stride + DSD
  * (blue label, "Included Free" badge, checks in the site's blue gradient).
- * Each point is a bold title with a short description; a saved point with
- * no description borrows the launch one for the same title.
+ * Each point is a bold title with a short description.
  */
 $d     = ds_dsd_defaults('comparison');
 $f     = function ($name, $key) use ($d) { return get_field($name) ?: $d[$key]; };
-$bad   = ds_dsd_fill_rows(ds_dsd_rows('traditional_agency_list', $d['traditional'], ['item', 'item_desc']), $d['traditional'], 'item', ['item_desc']);
-$good  = ds_dsd_fill_rows(ds_dsd_rows('dsd_agency_list', $d['dsd'], ['item', 'item_desc']), $d['dsd'], 'item', ['item_desc']);
+$bad   = ds_dsd_rows('traditional_agency_list', $d['traditional'], ['item', 'item_desc']);
+$good  = ds_dsd_rows('dsd_agency_list', $d['dsd'], ['item', 'item_desc']);
 $tag   = $f('comp_eyebrow', 'eyebrow');
 $sub   = $f('comp_subheadline', 'subheadline');
 $badge = $f('comp_dsd_badge', 'dsd_badge');
