@@ -21,7 +21,7 @@ foreach ((array) (get_field('s4_feature_cards') ?: []) as $row) {
     ];
 }
 $cards = array_values(array_filter($cards, function ($c) { return trim((string) $c['title']) !== ''; }));
-if (!$cards) $cards = $d['cards'];
+$cards = $cards ? ds_echos_fill_rows($cards, $d['cards'], 'title', ['description']) : $d['cards'];
 
 // At most one box starts open: the first one flagged.
 $active = -1;

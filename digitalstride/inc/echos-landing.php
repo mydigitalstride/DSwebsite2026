@@ -19,8 +19,9 @@
  *
  * Page CSS / JS: the shared AEC landing components (aec-landing.css / .js:
  * segment boxes) plus assets/css/echos.css. ECHO yellow is used only where
- * the mockup brands a detail as ECHO (logo, standalone card, Premium price,
- * step arrows) and is scoped to body.ds-page-echos. Link helpers come from
+ * the mockup brands a detail as ECHO (logo, standalone card, Premium price)
+ * and is scoped to body.ds-page-echos. The hero, pricing table, steps and
+ * CTA use the service-page components unchanged. Link helpers come from
  * inc/aec-landing.php.
  */
 
@@ -145,6 +146,35 @@ function ds_echos_hidden($section) {
 }
 
 /**
+ * Fill empty fields of saved rows from the launch row with the closest
+ * title (as the DSD page does), so a point saved without a description
+ * still shows one. Rows whose title matches no launch row are left as is.
+ */
+function ds_echos_fill_rows(array $rows, array $defaults, $title_key, array $fill_keys) {
+    $norm = function ($text) { return preg_replace('/[^a-z0-9]/', '', strtolower(wp_strip_all_tags((string) $text))); };
+    foreach ($rows as $i => $row) {
+        // Closest launch title, ignoring case, punctuation and small typos.
+        $title = $norm($row[$title_key] ?? '');
+        $match = null;
+        $best  = 75; // minimum similarity, in percent
+        foreach ($title === '' ? [] : $defaults as $default) {
+            similar_text($title, $norm($default[$title_key] ?? ''), $score);
+            if ($score >= $best) {
+                $best  = $score;
+                $match = $default;
+            }
+        }
+        if (!$match) continue;
+        foreach ($fill_keys as $key) {
+            if (empty($row[$key]) && !empty($match[$key])) {
+                $rows[$i][$key] = $match[$key];
+            }
+        }
+    }
+    return $rows;
+}
+
+/**
  * A button group field ({text, url}) as [url, title, target].
  *
  * The text field wins over the link's own title; an empty group falls back
@@ -172,20 +202,6 @@ function ds_echos_print_button($btn, $class) {
     printf('<a href="%s" class="%s"', esc_url($btn['url']), esc_attr($class));
     ds_aec_target_attrs($btn['target']);
     printf('>%s</a>', esc_html($btn['title']));
-}
-
-/**
- * Pricing table cell: check, cross or custom text.
- */
-function ds_echos_cell($type, $text) {
-    $text = trim((string) $text);
-    if ($type === 'text' && $text !== '') {
-        return '<span class="ds-echos-table__text">' . esc_html($text) . '</span>';
-    }
-    if ($type === 'check') {
-        return '<span class="ds-echos-table__mark" aria-hidden="true">&#10003;</span><span class="screen-reader-text">' . esc_html__('Included', 'digitalstride') . '</span>';
-    }
-    return '<span class="ds-echos-table__mark ds-echos-table__mark--no" aria-hidden="true">&#10005;</span><span class="screen-reader-text">' . esc_html__('Not included', 'digitalstride') . '</span>';
 }
 
 /**
@@ -390,7 +406,7 @@ add_action('acf/init', function () {
                     ['key' => 'field_echos_s6_step_number', 'label' => 'Step label', 'name' => 'step_number', 'type' => 'text', 'placeholder' => 'Step 1', 'wrapper' => ['width' => '30']],
                     ['key' => 'field_echos_s6_step_title', 'label' => 'Title', 'name' => 'step_title', 'type' => 'text', 'wrapper' => ['width' => '50']],
                     ['key' => 'field_echos_s6_step_highlight', 'label' => 'Highlight', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1, 'message' => 'Orange border', 'wrapper' => ['width' => '20']],
-                    ['key' => 'field_echos_s6_step_icon', 'label' => 'Icon', 'name' => 'step_icon', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'library' => 'all', 'instructions' => 'Empty shows a numbered gear.', 'wrapper' => ['width' => '30']],
+                    ['key' => 'field_echos_s6_step_icon', 'label' => 'Icon', 'name' => 'step_icon', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'library' => 'all', 'instructions' => 'Optional icon above the step label.', 'wrapper' => ['width' => '30']],
                     ['key' => 'field_echos_s6_step_desc', 'label' => 'Description', 'name' => 'step_description', 'type' => 'textarea', 'rows' => 3, 'new_lines' => '', 'wrapper' => ['width' => '70']],
                 ],
             ],

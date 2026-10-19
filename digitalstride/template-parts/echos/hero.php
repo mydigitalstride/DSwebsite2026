@@ -2,8 +2,9 @@
 /**
  * ECHO SEO: Hero (hero_* fields).
  *
- * The site sub-page hero: brand gradient over the background image, orange
- * accent line, italic kicker, headline, text and the primary button.
+ * The site hero, exactly as on the service pages (flex-hero.php): brand
+ * gradient over the background image, orange accent line, italic
+ * subheading, headline, text and the primary hero button.
  */
 $d     = ds_echos_defaults('hero');
 $kick  = get_field('hero_kicker') ?: $d['kicker'];
@@ -22,11 +23,11 @@ $title_tags = ['br' => [], 'em' => [], 'strong' => [], 'span' => ['class' => []]
                 <div class="ds-hero__accent-line"></div>
                 <div class="ds-hero__title-text">
                     <?php if ($kick) : ?>
-                        <p class="ds-hero__subheading ds-echos-hero__kicker"><?php echo esc_html($kick); ?></p>
+                        <p class="ds-hero__subheading"><?php echo esc_html($kick); ?></p>
                     <?php endif; ?>
-                    <h1 class="ds-hero__heading ds-echos-hero__title"><?php echo wp_kses($title, $title_tags); ?></h1>
+                    <h1 class="ds-hero__heading"><?php echo wp_kses($title, $title_tags); ?></h1>
                     <?php if ($text) : ?>
-                        <div class="ds-hero__text ds-echos-hero__text"><?php echo wp_kses_post(wpautop($text)); ?></div>
+                        <div class="ds-hero__text"><?php echo wp_kses_post(wpautop($text)); ?></div>
                     <?php endif; ?>
                     <?php ds_echos_print_button($btn, 'ds-btn ds-btn--primary ds-btn--hero'); ?>
                 </div>
