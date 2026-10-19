@@ -1,6 +1,6 @@
 /* ==========================================================================
    ECHO SEO Landing Page (page-templates/template-echos-landing.php)
-   A Digital Stride page built from the site components: the site hero,
+   A Digital Stride page built from the site components: the Home Services hero,
    DSD comparison cards, Home Services segment boxes (aec-landing.css /
    .js), the service-page Pricing Feature Table and Action Plan, and the
    Global CTA block. The hero, pricing, steps and CTA use main.css as is;
@@ -31,6 +31,10 @@
    and the CTA keeps the Global CTA bar. - */
 .ds-echos-compare .ds-section__heading::after,
 .ds-echos-steps .ds-section__heading::after { background: var(--ds-echos-warm); }
+
+/* - Closing CTA: the Global CTA block, with the heading set as on the
+   other landing pages (left-aligned, uppercase) even when it wraps. - */
+.ds-page-echos .ds-cta-split .ds-section__heading { text-align: left; text-transform: uppercase; }
 
 /* - Shared: centred heading block - */
 .ds-echos-head { text-align: center; max-width: 60rem; margin: 0 auto 2.5em; }
