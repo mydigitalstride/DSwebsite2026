@@ -6,6 +6,8 @@
  * slate cards, each with a label, a short description and a list of bold
  * points with a line of text. Left (partner) card uses the DSD blue label
  * and blue gradient checks; right (standalone) card uses ECHO yellow.
+ * A saved point without a description borrows the launch one for the same
+ * title.
  */
 $d     = ds_echos_defaults('compare');
 $title = get_field('s3_headline') ?: $d['headline'];
@@ -17,7 +19,7 @@ $rows = function ($name, $fallback) {
         $title = trim((string) ($row['bullet_text'] ?? ''));
         if ($title !== '') $out[] = ['title' => $title, 'desc' => trim((string) ($row['bullet_desc'] ?? ''))];
     }
-    return $out ?: $fallback;
+    return $out ? ds_echos_fill_rows($out, $fallback, 'title', ['desc']) : $fallback;
 };
 
 $cards = [

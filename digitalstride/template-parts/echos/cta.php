@@ -2,9 +2,8 @@
 /**
  * ECHO SEO: Call to action (cta_* fields).
  *
- * The Global CTA layout (brand gradient over the background, heading with
- * the yellow-orange bar, solid + outline buttons, icon highlights on the
- * right) with this page's own copy and buttons. Empty highlights and
+ * The Global CTA block (flex-global_cta.php), same markup and styles, with
+ * this page's own heading, text and buttons. Empty highlights and
  * background fall back to Theme Settings > Global CTA, then to launch
  * highlights with Font Awesome icons.
  */
@@ -28,7 +27,7 @@ if (!$items) {
 }
 if (!$items) $items = $d['features'];
 ?>
-<section class="ds-section ds-section--cta-banner ds-cta-split ds-echos-cta"
+<section class="ds-section ds-section--cta-banner ds-cta-split"
     <?php echo !empty($bg['url']) ? 'style="background-image:url(' . esc_url($bg['url']) . ');background-size:cover;background-position:center;"' : ''; ?>>
 
     <div class="ds-cta-banner__overlay"></div>
@@ -53,7 +52,7 @@ if (!$items) $items = $d['features'];
                     <?php if (!empty($item['icon'])) : ?>
                         <div class="ds-cta-feature__icon"><?php echo ds_inline_svg($item['icon']); ?></div>
                     <?php elseif (!empty($item['fa'])) : ?>
-                        <div class="ds-cta-feature__icon ds-echos-cta__fa"><i class="<?php echo esc_attr($item['fa']); ?>" aria-hidden="true"></i></div>
+                        <div class="ds-cta-feature__icon"><i class="<?php echo esc_attr($item['fa']); ?>" aria-hidden="true"></i></div>
                     <?php endif; ?>
                     <div class="ds-cta-feature__body">
                         <h6 class="ds-cta-feature__title"><?php echo esc_html($item['title']); ?></h6>
