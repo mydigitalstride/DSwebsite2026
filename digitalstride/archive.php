@@ -6,6 +6,7 @@ get_header();
 ?>
 
 <section class="ds-hero ds-hero--archive">
+    <?php echo ds_hero_bg_img(); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container">
         <div class="ds-hero__content">

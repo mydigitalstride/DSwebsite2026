@@ -11,7 +11,8 @@ $label = get_field('hero_cta_text') ?: $d['cta_text'];
 $url   = get_field('hero_cta_url') ?: $d['cta_url'];
 $bg    = get_field('hero_background_image');
 ?>
-<section class="ds-hero ds-aec-hero ds-rlt-hero"<?php if (!empty($bg['url'])) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
+<section class="ds-hero ds-aec-hero ds-rlt-hero">
+    <?php echo ds_hero_bg_img($bg ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container ds-hero__inner">
         <div class="ds-hero__content">

@@ -408,10 +408,17 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     align-items: center;
     min-height: 80vh;
     background-color: var(--ds-navy-gradient);
-    background-image: url('/wp-content/uploads/2026/05/Digital-Stride-Schematic-of-Building.png');
-    background-size: cover;
-    background-position: center;
     overflow: hidden;
+}
+/* Background photo: an <img> (ds_hero_bg_img) so it loads early and responsively. */
+.ds-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
 }
 .ds-hero__overlay {
     position: absolute;

@@ -7,7 +7,8 @@ get_header();
 
 <?php while (have_posts()) : the_post(); ?>
 
-<section class="ds-hero ds-hero--post" <?php if (has_post_thumbnail()) : ?>style="background-image:url(<?php echo esc_url(get_the_post_thumbnail_url(null, 'hero-bg')); ?>)"<?php endif; ?>>
+<section class="ds-hero ds-hero--post">
+    <?php echo ds_hero_bg_img(get_post_thumbnail_id() ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container">
         <div class="ds-hero__content">
