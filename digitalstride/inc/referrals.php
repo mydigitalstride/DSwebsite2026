@@ -65,17 +65,38 @@ add_action('init', function () {
  * server enforces the cap the visitor was shown.
  */
 function ds_ref_settings($post_id) {
-    $settings = ['reward' => DS_REF_DEFAULT_REWARD, 'max' => DS_REF_DEFAULT_MAX, 'notify' => ''];
+    $settings = ['reward' => DS_REF_DEFAULT_REWARD, 'max' => DS_REF_DEFAULT_MAX, 'notify' => []];
     $rows = $post_id && function_exists('get_field') ? get_field('page_sections', $post_id) : null;
     foreach ((array) $rows as $row) {
         if (($row['acf_fc_layout'] ?? '') !== 'referral_form') continue;
         if (is_numeric($row['reward_amount'] ?? '') && $row['reward_amount'] >= 0) $settings['reward'] = (float) $row['reward_amount'];
         if (!empty($row['max_referrals']) && (int) $row['max_referrals'] > 0) $settings['max'] = min(50, (int) $row['max_referrals']);
-        if (!empty($row['notify_email']) && is_email($row['notify_email'])) $settings['notify'] = $row['notify_email'];
+        $settings['notify'] = ds_ref_parse_emails($row['notify_email'] ?? '');
         break;
     }
     return $settings;
 }
+
+/**
+ * The "Send Referrals To" field: one or more addresses separated by commas,
+ * semicolons, spaces or new lines. Returns the valid ones.
+ */
+function ds_ref_parse_emails($raw) {
+    $list = preg_split('/[\s,;]+/', (string) $raw, -1, PREG_SPLIT_NO_EMPTY);
+    return array_values(array_unique(array_filter(array_map('sanitize_email', $list), 'is_email')));
+}
+
+/**
+ * Check "Send Referrals To" in the editor: name any address that isn't
+ * valid instead of rejecting the whole list.
+ */
+add_filter('acf/validate_value/key=field_rf_notify', function ($valid, $value) {
+    if ($valid !== true || trim((string) $value) === '') return $valid;
+    $bad = array_filter(preg_split('/[\s,;]+/', (string) $value, -1, PREG_SPLIT_NO_EMPTY), function ($email) {
+        return !is_email($email);
+    });
+    return $bad ? sprintf('Not a valid email address: %s. Separate several addresses with commas.', implode(', ', $bad)) : $valid;
+}, 10, 2);
 
 /** "$20" / "$12.50" */
 function ds_ref_money($amount) {
@@ -283,8 +304,9 @@ function ds_ref_handle_submit() {
 
 /** One email to the team per submission. */
 function ds_ref_notify(array $referrer, array $people, array $settings) {
-    $to = apply_filters('ds_referral_notify_email', $settings['notify'] ?: get_option('admin_email'));
-    if (!is_email($to)) return false;
+    $to = apply_filters('ds_referral_notify_email', $settings['notify'] ?: [get_option('admin_email')]);
+    $to = array_filter((array) $to, 'is_email');
+    if (!$to) return false;
 
     $lines = [
         'Referred by: ' . $referrer['name'],

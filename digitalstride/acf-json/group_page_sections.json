@@ -3742,6 +3742,54 @@
                             }
                         },
                         {
+                            "key": "field_rf_details_heading",
+                            "label": "\"Your Details\" Heading",
+                            "name": "details_heading",
+                            "type": "text",
+                            "default_value": "Your details",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_details_help",
+                            "label": "\"Your Details\" Help Text",
+                            "name": "details_help",
+                            "type": "text",
+                            "default_value": "So we know who to thank and where to send your reward.",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_people_heading",
+                            "label": "\"People You're Referring\" Heading",
+                            "name": "people_heading",
+                            "type": "text",
+                            "default_value": "Who are you referring?",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_add_button",
+                            "label": "\"Add Another Person\" Button",
+                            "name": "add_button_label",
+                            "type": "text",
+                            "default_value": "Add another person",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
                             "key": "field_rf_terms",
                             "label": "Fine Print",
                             "name": "terms",
@@ -3777,8 +3825,9 @@
                             "key": "field_rf_notify",
                             "label": "Send Referrals To",
                             "name": "notify_email",
-                            "type": "email",
-                            "instructions": "Who gets an email for each submission. Leave empty to use the site admin email. Every referral is also saved under Referrals in the admin menu, where you track meetings and payouts."
+                            "type": "text",
+                            "instructions": "Email address(es) that get each submission. Separate several with commas. Leave empty to use the site admin email. Every referral is also saved under Referrals in the admin menu, where you track meetings and payouts.",
+                            "placeholder": "you@example.com, teammate@example.com"
                         }
                     ]
                 },
@@ -4083,5 +4132,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1792457139
+    "modified": 1792458747
 }
