@@ -3664,6 +3664,124 @@
                         }
                     ]
                 },
+                "layout_referral_form": {
+                    "key": "layout_referral_form",
+                    "name": "referral_form",
+                    "label": "Referral Form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_referral_form",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Refer a Friend, Earn {reward}",
+                            "instructions": "Use {reward}, {max} and {total} to show the reward, the cap and the most someone can earn."
+                        },
+                        {
+                            "key": "field_rf_intro",
+                            "label": "Intro Text",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "default_value": "Know a business that could use a hand with its marketing? Send them our way. You'll earn {reward} for every person we meet with — they don't have to buy anything. Refer up to {max} people (up to {total}).",
+                            "instructions": "Use {reward}, {max} and {total} to show the reward, the cap and the most someone can earn."
+                        },
+                        {
+                            "key": "field_rf_reward",
+                            "label": "Reward per Referral ($)",
+                            "name": "reward_amount",
+                            "type": "number",
+                            "default_value": 20,
+                            "min": 0,
+                            "step": "0.01",
+                            "prepend": "$",
+                            "instructions": "Paid once you meet with the referred person. Saved with each referral, so changing it later doesn't change rewards already on file.",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_max",
+                            "label": "Max Referrals per Person",
+                            "name": "max_referrals",
+                            "type": "number",
+                            "default_value": 15,
+                            "min": 1,
+                            "max": 50,
+                            "step": 1,
+                            "instructions": "How many people one referrer can send in total, across all their submissions (matched by their email).",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_rf_terms",
+                            "label": "Fine Print",
+                            "name": "terms",
+                            "type": "textarea",
+                            "rows": 2,
+                            "default_value": "Rewards are paid once we meet with your referral. Up to {max} referrals ({total}) per person. Duplicate referrals and existing clients are not eligible.",
+                            "instructions": "Shown under the form. Use {reward}, {max} and {total} to show the reward, the cap and the most someone can earn."
+                        },
+                        {
+                            "key": "field_rf_button",
+                            "label": "Button Label",
+                            "name": "button_label",
+                            "type": "text",
+                            "default_value": "Send My Referrals"
+                        },
+                        {
+                            "key": "field_rf_success_heading",
+                            "label": "Thank-you Heading",
+                            "name": "success_heading",
+                            "type": "text",
+                            "default_value": "Thank you for the referrals!"
+                        },
+                        {
+                            "key": "field_rf_success_text",
+                            "label": "Thank-you Text",
+                            "name": "success_text",
+                            "type": "textarea",
+                            "rows": 2,
+                            "default_value": "We'll reach out to them soon. Once we meet, we'll send your {reward}.",
+                            "instructions": "Use {reward}, {max} and {total} to show the reward, the cap and the most someone can earn."
+                        },
+                        {
+                            "key": "field_rf_notify",
+                            "label": "Send Referrals To",
+                            "name": "notify_email",
+                            "type": "email",
+                            "instructions": "Who gets an email for each submission. Leave empty to use the site admin email. Every referral is also saved under Referrals in the admin menu, where you track meetings and payouts."
+                        }
+                    ]
+                },
                 "layout_proposal_templates": {
                     "key": "layout_proposal_templates",
                     "name": "proposal_templates",
@@ -3965,5 +4083,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1791571250
+    "modified": 1792457139
 }
