@@ -22,6 +22,10 @@ $fill       = function ($text) use ($money, $max, $reward) {
 $heading         = $fill(get_sub_field('heading') ?: 'Refer a Friend, Earn {reward}');
 $intro           = $fill(get_sub_field('intro') ?: "Know a business that could use a hand with its marketing? Send them our way. You'll earn {reward} for every person we meet with — they don't have to buy anything. Refer up to {max} people (up to {total}).");
 $terms           = $fill(get_sub_field('terms') ?: 'Rewards are paid once we meet with your referral. Up to {max} referrals ({total}) per person. Duplicate referrals and existing clients are not eligible.');
+$details_heading = get_sub_field('details_heading') ?: 'Your details';
+$details_help    = $fill(get_sub_field('details_help') ?: 'So we know who to thank and where to send your reward.');
+$people_heading  = get_sub_field('people_heading') ?: 'Who are you referring?';
+$add_label       = get_sub_field('add_button_label') ?: 'Add another person';
 $button_label    = get_sub_field('button_label') ?: 'Send My Referrals';
 $success_heading = get_sub_field('success_heading') ?: 'Thank you for the referrals!';
 $success_text    = $fill(get_sub_field('success_text') ?: "We'll reach out to them soon. Once we meet, we'll send your {reward}.");
@@ -111,8 +115,10 @@ $render_person = function ($i, $number) use ($person_fields, $prefix, $messages)
                     </p>
 
                     <fieldset class="ds-referral__group">
-                        <legend class="ds-referral__group-title">Your details</legend>
-                        <p class="ds-survey__help ds-referral__group-help">So we know who to thank and where to send your reward.</p>
+                        <legend class="ds-referral__group-title"><?php echo esc_html($details_heading); ?></legend>
+                        <?php if ($details_help) : ?>
+                            <p class="ds-survey__help ds-referral__group-help"><?php echo esc_html($details_help); ?></p>
+                        <?php endif; ?>
                         <div class="ds-lead__fields">
                             <?php foreach ($referrer_fields as $f) : $id = $prefix . '-' . $f['name']; ?>
                                 <div class="ds-lead__field<?php echo $f['name'] === 'referrer_phone' ? ' ds-lead__field--wide' : ''; ?>" data-name="<?php echo esc_attr($f['name']); ?>">
@@ -135,7 +141,7 @@ $render_person = function ($i, $number) use ($person_fields, $prefix, $messages)
 
                     <div class="ds-referral__group">
                         <div class="ds-referral__people-head">
-                            <h3 class="ds-referral__group-title">Who are you referring?</h3>
+                            <h3 class="ds-referral__group-title"><?php echo esc_html($people_heading); ?></h3>
                             <p class="ds-referral__tally" aria-live="polite">
                                 <span class="ds-referral__count">1</span> of <?php echo esc_html($max); ?> ·
                                 up to <strong class="ds-referral__total"><?php echo esc_html($money); ?></strong>
@@ -146,7 +152,7 @@ $render_person = function ($i, $number) use ($person_fields, $prefix, $messages)
                         </div>
                         <template class="ds-referral__template"><?php $render_person('__i__', '__n__'); ?></template>
                         <button type="button" class="ds-btn ds-btn--outline ds-referral__add" hidden>
-                            <i class="fa-solid fa-plus" aria-hidden="true"></i> Add another person
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i> <?php echo esc_html($add_label); ?>
                         </button>
                         <p class="ds-survey__help ds-referral__limit" hidden>That's the most you can add — <?php echo esc_html($max); ?> people.</p>
                     </div>
