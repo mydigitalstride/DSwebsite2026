@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <section class="ds-hero">
+    <?php echo ds_hero_bg_img(); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container">
         <div class="ds-hero__content" style="text-align:center;max-width:100%">

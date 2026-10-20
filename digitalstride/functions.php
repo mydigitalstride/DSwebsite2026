@@ -30,7 +30,8 @@ add_action('after_setup_theme', function () {
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Merriweather+Sans:wght@300;400;500;600;700&display=swap',
+        // Only the weights the theme CSS uses (300, 400, 600, 700).
+        'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Merriweather+Sans:wght@300;400;600;700&display=swap',
         [],
         null
     );
@@ -38,6 +39,25 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('digitalstride-main', ds_asset_url('assets/css/digitalstride-main.min.css'), ['google-fonts', 'font-awesome'], null);
     wp_enqueue_script('digitalstride-main', ds_asset_url('assets/js/main.js'), [], null, true);
 });
+
+// ── Faster first paint ───────────────────────────────
+// Open the font / icon CDN connections before the stylesheets ask for them.
+add_filter('wp_resource_hints', function ($urls, $relation) {
+    if ($relation === 'preconnect') {
+        $urls[] = 'https://fonts.googleapis.com';
+        $urls[] = ['href' => 'https://fonts.gstatic.com', 'crossorigin'];
+        $urls[] = ['href' => 'https://cdnjs.cloudflare.com', 'crossorigin'];
+    }
+    return $urls;
+}, 10, 2);
+
+// Font Awesome (~100 KB of CSS) only draws icons, so it must not hold up the
+// first paint: load it as a print stylesheet and switch it on once it arrives.
+add_filter('style_loader_tag', function ($tag, $handle) {
+    if ($handle !== 'font-awesome' || is_admin()) return $tag;
+    $async = preg_replace('/media=([\'"])all\1/', 'media="print" onload="this.media=\'all\'"', $tag, 1);
+    return $async === $tag ? $tag : $async . '<noscript>' . $tag . '</noscript>';
+}, 10, 2);
 
 // ── ACF Local JSON ───────────────────────────────────
 // Field groups are defined in /acf-json/*.json (one file per group).

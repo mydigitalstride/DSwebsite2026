@@ -17,7 +17,8 @@ $audience_mode = get_sub_field('audience_on_select') ?: 'reveal';
 $service_ctas  = ds_is_service_page();
 ?>
 
-<section class="ds-hero <?php echo $has_carousel ? 'ds-hero--split' : ''; ?>"<?php if ($bg) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
+<section class="ds-hero <?php echo $has_carousel ? 'ds-hero--split' : ''; ?>">
+    <?php echo ds_hero_bg_img($bg ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container ds-hero__inner">
         <div class="ds-hero__content">

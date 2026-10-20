@@ -168,6 +168,67 @@ function ds_video_source_type( $mime ) {
 }
 
 /**
+ * Default hero background, used when a hero has no image of its own.
+ */
+const DS_HERO_DEFAULT_BG = '/wp-content/uploads/2026/05/Digital-Stride-Schematic-of-Building.png';
+
+/**
+ * Helper: hero background as a real <img> instead of a CSS background.
+ *
+ * The hero image is usually the page's Largest Contentful Paint. As a CSS
+ * background the browser only finds it after the stylesheet has loaded, and
+ * it always gets the full-size upload. As an <img> it is found in the HTML,
+ * fetched first (fetchpriority), and phones pick a smaller size from srcset.
+ *
+ * @param array|int|string|null $image ACF image array, attachment ID, URL, or empty for the default.
+ * @return string <img> markup (already escaped), or '' when there is nothing to show.
+ */
+function ds_hero_bg_img( $image = null ) {
+    $id  = 0;
+    $url = '';
+    if ( is_array( $image ) ) {
+        $id  = (int) ( $image['ID'] ?? $image['id'] ?? 0 );
+        $url = $image['url'] ?? '';
+    } elseif ( is_numeric( $image ) ) {
+        $id = (int) $image;
+    } elseif ( is_string( $image ) ) {
+        $url = $image;
+    }
+
+    if ( ! $id && ! $url ) {
+        $url = home_url( DS_HERO_DEFAULT_BG );
+        $id  = (int) get_transient( 'ds_hero_default_bg_id' );
+        if ( ! $id ) {
+            // -1 caches "not in the media library" so the lookup runs once a day at most.
+            $id = attachment_url_to_postid( $url ) ?: -1;
+            set_transient( 'ds_hero_default_bg_id', $id, DAY_IN_SECONDS );
+        }
+        $id = max( 0, $id );
+    }
+
+    $attrs = [
+        'class'         => 'ds-hero__bg',
+        'alt'           => '',
+        'sizes'         => '100vw',
+        'loading'       => 'eager',
+        'fetchpriority' => 'high',
+        'decoding'      => 'async',
+    ];
+
+    if ( $id && wp_attachment_is_image( $id ) ) {
+        return wp_get_attachment_image( $id, 'full', false, $attrs );
+    }
+    if ( ! $url ) return '';
+
+    $html = '<img src="' . esc_url( $url ) . '"';
+    unset( $attrs['sizes'] );
+    foreach ( $attrs as $name => $value ) {
+        $html .= ' ' . $name . '="' . esc_attr( $value ) . '"';
+    }
+    return $html . '>';
+}
+
+/**
  * Helper: normalise one carousel repeater row into a predictable array.
  *
  * Rows saved before video support existed have no 'media_type', so anything
@@ -276,9 +337,23 @@ function ds_render_media_carousel( $slides, $args = [] ) {
                      <?php echo $waits ? 'data-wait="1"' : ''; ?>>
 
                     <?php if ( $item['type'] === 'image' ) : ?>
-                        <img src="<?php echo esc_url( $item['image']['url'] ); ?>"
-                             alt="<?php echo esc_attr( $item['image']['alt'] ?: $item['caption'] ); ?>"
-                             loading="<?php echo $active ? 'eager' : 'lazy'; ?>">
+                        <?php
+                        $img_id    = (int) ( $item['image']['ID'] ?? 0 );
+                        $img_attrs = [
+                            'alt'     => $item['image']['alt'] ?: $item['caption'],
+                            // Full width when stacked on phones / tablets, a quarter of the hero beside the text.
+                            'sizes'   => '(max-width: 1024px) 100vw, 25vw',
+                            'loading' => $active ? 'eager' : 'lazy',
+                        ];
+                        if ( $active ) $img_attrs['fetchpriority'] = 'high';
+                        ?>
+                        <?php if ( $img_id && wp_attachment_is_image( $img_id ) ) : ?>
+                            <?php echo wp_get_attachment_image( $img_id, 'large', false, $img_attrs ); ?>
+                        <?php else : ?>
+                            <img src="<?php echo esc_url( $item['image']['url'] ); ?>"
+                                 alt="<?php echo esc_attr( $img_attrs['alt'] ); ?>"
+                                 loading="<?php echo $active ? 'eager' : 'lazy'; ?>">
+                        <?php endif; ?>
 
                     <?php elseif ( $item['type'] === 'video-file' ) : ?>
                         <video class="ds-hero__slide-video"

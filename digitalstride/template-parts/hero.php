@@ -7,10 +7,10 @@ $subheading = get_field('hero_subheading');
 $text       = get_field('hero_text');
 $cta        = get_field('hero_cta');
 $bg_image   = get_field('hero_background');
-$bg_style   = $bg_image ? 'background-image: url(' . esc_url($bg_image['url']) . ');' : '';
 ?>
 
-<section class="ds-hero" <?php echo $bg_style ? 'style="' . esc_attr($bg_style) . '"' : ''; ?>>
+<section class="ds-hero">
+    <?php echo ds_hero_bg_img($bg_image ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container">
         <div class="ds-hero__content">

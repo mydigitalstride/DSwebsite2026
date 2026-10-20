@@ -19,7 +19,8 @@ $bg       = get_field('hero_background_image');
 
 $title_tags = ['br' => [], 'em' => [], 'strong' => [], 'span' => ['class' => []]];
 ?>
-<section class="ds-hero ds-hero--split ds-dsd-hero"<?php if (!empty($bg['url'])) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
+<section class="ds-hero ds-hero--split ds-dsd-hero">
+    <?php echo ds_hero_bg_img($bg ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container ds-hero__inner">
         <div class="ds-hero__content">

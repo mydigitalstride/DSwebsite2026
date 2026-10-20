@@ -13,7 +13,8 @@ $btn2    = ds_aec_link(get_field('hero_secondary_cta_link') ?: $d['secondary']['
 if ($btn1 && get_field('hero_primary_cta_label')) $btn1['title'] = get_field('hero_primary_cta_label');
 if ($btn2 && get_field('hero_secondary_cta_label')) $btn2['title'] = get_field('hero_secondary_cta_label');
 ?>
-<section class="ds-hero ds-aec-hero ds-hs-hero"<?php if (!empty($bg['url'])) : ?> style="background-image:url(<?php echo esc_url($bg['url']); ?>)"<?php endif; ?>>
+<section class="ds-hero ds-aec-hero ds-hs-hero">
+    <?php echo ds_hero_bg_img($bg ?: null); ?>
     <div class="ds-hero__overlay"></div>
     <div class="ds-container ds-hero__inner">
         <div class="ds-hero__content">
