@@ -3302,6 +3302,76 @@ button.ds-audience-btn { line-height: inherit; font-family: inherit; }
     .ds-lead__success { padding: 2.5em 1.25em; }
 }
 
+/* - Referral Form (template-parts/flex-referral_form.php, inc/referrals.php) - */
+.ds-referral [hidden] { display: none !important; }
+.ds-referral { scroll-margin-top: 120px; }
+.ds-referral fieldset { border: 0; min-width: 0; }
+.ds-referral__group { margin-bottom: 2em; }
+.ds-referral__group-title {
+    font-family: var(--font-heading);
+    font-size: 1.35em;
+    font-weight: 700;
+    margin: 0 0 0.35em;
+    padding: 0;
+}
+.ds-referral__group-help { margin: 0 0 1.25em; }
+.ds-referral__people-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5em 1.5em;
+    margin-bottom: 1em;
+}
+.ds-referral__tally { font-size: 0.95em; opacity: 0.85; margin: 0; }
+.ds-referral__tally strong { color: var(--ds-yellow); font-weight: 700; }
+.ds-referral__person {
+    position: relative;
+    padding: 1.25em 1.5em 1.5em;
+    margin-bottom: 1.25em;
+    background: var(--ds-transparent-white);
+    border-left: 3px solid var(--ds-orange);
+    border-radius: 6px;
+}
+.ds-referral__person-title {
+    float: left;
+    width: 100%;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+    padding: 0;
+}
+.ds-referral__person-title + * { clear: both; }
+.ds-referral__remove {
+    position: absolute;
+    top: 1em;
+    right: 1.25em;
+    background: none;
+    border: 0;
+    color: var(--ds-white);
+    opacity: 0.75;
+    font: inherit;
+    font-size: 0.85em;
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+}
+.ds-referral__remove:hover { opacity: 1; color: var(--ds-orange); }
+.ds-referral__remove:focus-visible { outline: 2px solid var(--ds-orange); outline-offset: 2px; }
+.ds-referral__person .ds-lead__fields { clear: both; }
+.ds-referral__add { margin-top: 0.25em; }
+.ds-referral__limit { margin: 0.5em 0 0; }
+.ds-referral__terms { font-size: 0.85em; opacity: 0.7; margin: 0; }
+.ds-referral .ds-survey__form-error { margin: 0 0 1.25em; }
+.ds-referral textarea.ds-survey__input { resize: vertical; }
+
+@media (max-width: 640px) {
+    .ds-referral__person { padding: 1em 1em 1.25em; }
+    .ds-referral__add, .ds-referral .ds-lead__actions .ds-btn { width: 100%; }
+}
+
 /* ==========================================================================
    Accessibility
    ========================================================================== */

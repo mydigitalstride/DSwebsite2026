@@ -1451,6 +1451,174 @@
         });
     });
 
+    // Referral form — the referrer plus one row per person, "Add another person"
+    // up to data-max. Saved by inc/referrals.php. Without JS one person posts.
+    document.querySelectorAll('.ds-referral').forEach(function (wrap) {
+        var form      = wrap.querySelector('.ds-referral__form');
+        var people    = wrap.querySelector('.ds-referral__people');
+        var tpl       = wrap.querySelector('.ds-referral__template');
+        var addBtn    = wrap.querySelector('.ds-referral__add');
+        var limitNote = wrap.querySelector('.ds-referral__limit');
+        var countEl   = wrap.querySelector('.ds-referral__count');
+        var totalEl   = wrap.querySelector('.ds-referral__total');
+        var submitBtn = wrap.querySelector('.ds-lead__submit');
+        var formError = wrap.querySelector('.ds-survey__form-error');
+        var success   = wrap.querySelector('.ds-lead__success');
+        var endpoint  = form.getAttribute('action'); // "action" field shadows form.action
+        var btnLabel  = submitBtn.textContent;
+        var max       = parseInt(wrap.getAttribute('data-max'), 10) || 15;
+        var reward    = parseFloat(wrap.getAttribute('data-reward')) || 0;
+        var nextIndex = 1; // row indexes only need to be unique, not consecutive
+        var emailRe   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        form.noValidate = true; // JS takes over; native validation stays as the no-JS fallback
+
+        function money(n) {
+            return '$' + (n % 1 ? n.toFixed(2) : String(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function rows() {
+            return Array.prototype.slice.call(people.querySelectorAll('.ds-referral__person'));
+        }
+
+        // Renumber the rows and refresh the tally / add button.
+        function refresh() {
+            var list = rows();
+            list.forEach(function (row, n) {
+                row.querySelector('.ds-referral__person-num').textContent = n + 1;
+                var remove = row.querySelector('.ds-referral__remove');
+                remove.hidden = list.length === 1;
+                remove.setAttribute('aria-label', 'Remove person ' + (n + 1));
+            });
+            countEl.textContent = list.length;
+            totalEl.textContent = money(reward * list.length);
+            addBtn.hidden = list.length >= max;
+            limitNote.hidden = list.length < max;
+        }
+
+        addBtn.addEventListener('click', function () {
+            if (rows().length >= max) return;
+            var html = tpl.innerHTML.replace(/__i__/g, String(nextIndex++)).replace(/__n__/g, String(rows().length + 1));
+            people.insertAdjacentHTML('beforeend', html);
+            refresh();
+            var added = rows().pop();
+            added.querySelector('input').focus();
+        });
+
+        people.addEventListener('click', function (e) {
+            var btn = e.target.closest('.ds-referral__remove');
+            if (!btn) return;
+            var row  = btn.closest('.ds-referral__person');
+            var list = rows();
+            var at   = list.indexOf(row);
+            row.remove();
+            refresh();
+            // Keep keyboard focus nearby: the row that took its place, else the add button.
+            var next = rows()[Math.min(at, rows().length - 1)];
+            (next ? next.querySelector('input') : addBtn).focus();
+        });
+
+        function fieldFor(name) {
+            return form.querySelector('.ds-lead__field[data-name="' + name + '"]');
+        }
+
+        function setInvalid(field, invalid, message) {
+            if (!field) return;
+            var input = field.querySelector('input, textarea');
+            var error = field.querySelector('.ds-survey__error');
+            if (!error.hasAttribute('data-default')) error.setAttribute('data-default', error.textContent);
+            error.textContent = message || error.getAttribute('data-default');
+            field.classList.toggle('has-error', invalid);
+            error.hidden = !invalid;
+            if (invalid) input.setAttribute('aria-invalid', 'true');
+            else input.removeAttribute('aria-invalid');
+        }
+
+        function focusFirstError() {
+            var first = form.querySelector('.ds-lead__field.has-error input, .ds-lead__field.has-error textarea');
+            if (first) first.focus();
+        }
+
+        function val(field) {
+            return field.querySelector('input, textarea').value.trim();
+        }
+
+        function validate() {
+            var ok = true;
+            function check(field, bad, message) {
+                setInvalid(field, bad, message);
+                if (bad) ok = false;
+            }
+            var myEmail = val(fieldFor('referrer_email')).toLowerCase();
+            var myPhone = val(fieldFor('referrer_phone'));
+            check(fieldFor('referrer_name'), val(fieldFor('referrer_name')) === '');
+            check(fieldFor('referrer_email'), !emailRe.test(myEmail));
+            check(fieldFor('referrer_phone'), myPhone !== '' && myPhone.replace(/\D/g, '').length < 7);
+
+            var seen = {};
+            rows().forEach(function (row) {
+                var get = function (key) { return row.querySelector('.ds-lead__field[data-key="' + key + '"]'); };
+                var email = val(get('email')).toLowerCase();
+                var phone = val(get('phone'));
+                var emailMsg = !emailRe.test(email) ? null
+                    : email === myEmail ? "You can't refer yourself."
+                    : seen[email] ? "You've already listed this person." : '';
+                check(get('name'), val(get('name')) === '');
+                check(get('email'), emailMsg !== '', emailMsg);
+                check(get('phone'), phone !== '' && phone.replace(/\D/g, '').length < 7);
+                if (email) seen[email] = true;
+            });
+            focusFirstError();
+            return ok;
+        }
+
+        function fail(message) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = btnLabel;
+            formError.textContent = message || "Sorry, something went wrong on our end. Please try again, or call or email us.";
+            formError.hidden = false;
+            if (!form.querySelector('.ds-lead__field.has-error')) formError.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+
+        form.addEventListener('input', function (e) {
+            var field = e.target.closest('.ds-lead__field');
+            if (field && field.classList.contains('has-error')) setInvalid(field, false);
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            formError.hidden = true;
+            if (!validate()) return;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+
+            var data = new FormData(form);
+            data.set('ds_ajax', '1');
+            data.set('page_url', window.location.href);
+
+            fetch(endpoint, { method: 'POST', body: data, credentials: 'same-origin' })
+                .then(function (res) { return res.json(); })
+                .then(function (res) {
+                    if (!res.success) throw res;
+                    form.hidden = true;
+                    success.hidden = false;
+                    success.focus();
+                    var top = wrap.getBoundingClientRect().top + window.pageYOffset - 120;
+                    window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+                })
+                .catch(function (err) {
+                    var errors = err && err.data && err.data.errors;
+                    if (errors) {
+                        Object.keys(errors).forEach(function (name) { setInvalid(fieldFor(name), true, errors[name]); });
+                        focusFirstError();
+                    }
+                    fail(err && err.data && err.data.message);
+                });
+        });
+
+        refresh();
+    });
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function (e) {
