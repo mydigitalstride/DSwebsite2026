@@ -566,3 +566,35 @@ function ds_asset_url($rel) {
 
     return set_url_scheme(trailingslashit($uploads['baseurl']) . 'ds-assets/' . $name);
 }
+
+/**
+ * Sender for the site's emails (referrals, leads, survey, site audit).
+ *
+ * WordPress sends as "WordPress <wordpress@domain>" unless told otherwise.
+ * Only that default is replaced, so an SMTP plugin's own From setting still
+ * wins. Override in wp-config.php:
+ *   define('DS_MAIL_FROM', 'hello@example.com');
+ *   define('DS_MAIL_FROM_NAME', 'Digital Stride');
+ * Without DS_MAIL_FROM the admin email (Settings > General) is used, but
+ * only when it is on this site's domain: sending as an address on another
+ * domain (e.g. Gmail) fails SPF/DMARC and lands in spam.
+ */
+function ds_mail_from_address() {
+    if (defined('DS_MAIL_FROM') && is_email(DS_MAIL_FROM)) return DS_MAIL_FROM;
+    $admin = get_option('admin_email');
+    $host  = strtolower(preg_replace('/^www\./i', '', (string) wp_parse_url(home_url(), PHP_URL_HOST)));
+    $at    = strtolower(substr(strrchr((string) $admin, '@'), 1));
+    if (is_email($admin) && $host && ($at === $host || substr($host, -strlen('.' . $at)) === '.' . $at)) return $admin;
+    return '';
+}
+
+add_filter('wp_mail_from', function ($from) {
+    if (stripos((string) $from, 'wordpress@') !== 0) return $from; // already set by a plugin or header
+    return ds_mail_from_address() ?: $from;
+}, 20);
+
+add_filter('wp_mail_from_name', function ($name) {
+    if ($name !== 'WordPress') return $name;
+    if (defined('DS_MAIL_FROM_NAME') && DS_MAIL_FROM_NAME) return DS_MAIL_FROM_NAME;
+    return wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES) ?: $name;
+}, 20);
