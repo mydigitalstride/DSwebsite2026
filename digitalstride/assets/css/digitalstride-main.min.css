@@ -978,7 +978,7 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-values-layout__image img { width: 100%; height: auto; display: block; border-radius: 4px; }
 /* Scroll-in slide from the left: main.js adds --animate (JS on, motion allowed) and is-visible when in view */
 .ds-values-layout__image--animate:not(.is-visible) { opacity: 0; }
-.ds-values-layout__image--animate.is-visible { animation: ds-slide-in-left 0.8s cubic-bezier(0.22,1,0.36,1) both; }
+.ds-values-layout__image--animate.is-visible { animation: ds-slide-in-left 1.4s cubic-bezier(0.22,1,0.36,1) both; }
 @keyframes ds-slide-in-left { from { opacity: 0; transform: translateX(-120px); } }
 
 /* - CTA Banner - */
