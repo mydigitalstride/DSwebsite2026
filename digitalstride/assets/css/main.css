@@ -711,6 +711,9 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-logo-carousel__slide img { max-width: 150px; max-height: 150px; object-fit: contain; }
 
 /* - Stats - */
+/* Same vertical rhythm as the promo sections that follow it on Home */
+.ds-section.ds-section--stats { padding: clamp(4rem, 8vw, 6rem) 0; }
+.ds-section--stats .ds-stats { margin-top: clamp(2.5rem, 5vw, 4rem); }
 .ds-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 2em; text-align: center; }
 .ds-stat__icon { margin: 0 auto 1em; }
 .ds-stat__icon img, .ds-stat__icon svg { width: 52px; height: 52px; max-width: 5rem; display: block; }
