@@ -1791,4 +1791,22 @@
         });
     });
 
+    // "Why Digital Stride" stats: pop each icon + label in, left to right, once in view.
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+        var statsObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                statsObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.ds-stats').forEach(function (stats) {
+            stats.querySelectorAll('.ds-stat').forEach(function (stat, i) {
+                stat.style.setProperty('--ds-stat-i', i);
+            });
+            stats.classList.add('ds-stats--animate');
+            statsObserver.observe(stats);
+        });
+    }
+
 })();
