@@ -5,7 +5,7 @@
  * titles left and reveals its content panel on the right.
  * Mobile: standard stacked accordion, all closed by default.
  */
-$heading    = get_sub_field('heading');
+$heading    = get_sub_field('heading') ?: 'Our Services';
 $intro_text = get_sub_field('intro_text');
 
 $services_data = [];

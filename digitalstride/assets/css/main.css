@@ -3717,18 +3717,17 @@ summary:focus-visible,
 .ds-promo__head { text-align: center; max-width: 60rem; margin: 0 auto; }
 .ds-promo__caption {
     font-family: var(--font-heading);
-    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 0.75em;
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 0.5em;
 }
 .ds-promo__heading {
     font-size: clamp(1.75rem, 3.2vw, 2.75rem);
     font-weight: 600;
     letter-spacing: 0.02em;
 }
-.ds-promo__heading::after { width: clamp(8rem, 17vw, 17rem); background: var(--ds-promo-warm); margin-top: 0.75em; }
+.ds-promo__heading::after { background: var(--ds-promo-warm); margin-top: 0.75em; }
 .ds-promo__text {
     max-width: 42em;
     margin: 1.75em auto 0;
@@ -3759,14 +3758,24 @@ summary:focus-visible,
 }
 .ds-promo__feature-text { max-width: 22em; margin: 0 auto; font-size: 0.95rem; line-height: 1.6; color: var(--ds-promo-muted); }
 
-/* ECHOs: logo centred above the heading block */
-.ds-promo__logo { width: clamp(9rem, 16vw, 13rem); margin: 0 auto clamp(1.5rem, 3vw, 2.25rem); }
+/* ECHOs: logo beside the heading block, the pair centred together */
+.ds-promo__intro--logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 5vw, 5rem);
+    max-width: 75rem;
+    margin: 0 auto;
+}
+.ds-promo__intro--logo .ds-promo__head { flex: 0 1 46rem; margin: 0; }
+.ds-promo__logo { flex: 0 0 auto; width: clamp(12rem, 20vw, 18rem); }
 .ds-promo__logo img { display: block; width: 100%; height: auto; }
 .ds-promo--echos .ds-promo__heading::after { display: none; }
 .ds-promo--echos .ds-promo__text { margin-top: 1.25em; }
 
 /* ECHOs: boxed cards */
 .ds-promo__card {
+    position: relative;
     padding: 1.5em 1.5em 1.75em;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3774,13 +3783,35 @@ summary:focus-visible,
 }
 .ds-promo__card:hover {
     transform: translateY(-4px);
-    border-color: var(--ds-orange);
+    border-color: transparent;
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
 }
+/* Yellow → orange gradient border, faded in on hover */
+.ds-promo__card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 2px;
+    background: var(--ds-promo-warm);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.ds-promo__card:hover::before { opacity: 1; }
 .ds-promo__card-head { display: flex; align-items: center; gap: 0.75em; margin-bottom: 0.6em; }
 .ds-promo__card-icon { width: 2.25rem; height: 2.25rem; flex: none; }
 .ds-promo__card-icon.ds-gradient-icon--fa i { font-size: 1.85rem; }
+/* ECHOs card icons are solid brand orange rather than the blue gradient */
+.ds-promo__card-icon.ds-gradient-icon--fa i { background: none; color: var(--ds-orange); -webkit-text-fill-color: var(--ds-orange); }
+.ds-promo__card-icon svg path,
+.ds-promo__card-icon svg circle,
+.ds-promo__card-icon svg rect,
+.ds-promo__card-icon svg polygon,
+.ds-promo__card-icon svg ellipse { fill: var(--ds-orange); }
 .ds-promo__card-title { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: 0.02em; }
 .ds-promo__card-text { font-size: 0.9rem; line-height: 1.6; color: var(--ds-promo-muted); }
 
@@ -3799,6 +3830,9 @@ summary:focus-visible,
     .ds-promo__icon.ds-gradient-icon--fa i { font-size: 6.25rem; }
 }
 @media (max-width: 768px) {
+    .ds-promo__intro--logo { flex-direction: column; gap: 2rem; }
+    .ds-promo__intro--logo .ds-promo__head { flex-basis: auto; }
+    .ds-promo__logo { width: clamp(10rem, 40vw, 14rem); }
     .ds-promo__features { grid-template-columns: 1fr; max-width: 34rem; gap: 2em; }
     .ds-promo__features--boxed { gap: 1.25em; }
     .ds-promo__ctas .ds-btn { flex: 1 1 100%; text-align: center; }
