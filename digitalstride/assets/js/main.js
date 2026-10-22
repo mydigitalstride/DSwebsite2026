@@ -560,13 +560,20 @@
             tabs.forEach(function (t, i) { t.setAttribute('aria-expanded', i === index && !isOpen ? 'true' : 'false'); });
         }
 
+        // Once a visitor picks a tab, each picture slides in from the right as its
+        // panel is shown (display:none -> block replays the CSS animation).
+        function enableSlide() {
+            if (!reduceMotion) widget.classList.add('ds-industry-tabs--animate');
+        }
+
         tabs.forEach(function (tab, i) {
             tab.addEventListener('click', function () {
+                enableSlide();
                 if (isMobile()) { toggleMobile(i); } else { activateDesktop(i); }
             });
         });
 
-        dsTabKeys(tabs, activateDesktop);
+        dsTabKeys(tabs, function (i) { enableSlide(); activateDesktop(i); });
         applyMode();
 
         var wasMobile = isMobile();
@@ -1791,37 +1798,32 @@
         });
     });
 
-    // "Why Digital Stride" stats: pop each icon + label in, left to right, once in view.
-    if (!reduceMotion && 'IntersectionObserver' in window) {
-        var statsObserver = new IntersectionObserver(function (entries) {
+    // Scroll-in animations: tag each match with animateClass (CSS hides it), then
+    // add is-visible once it scrolls into view. Skipped for reduced-motion visitors.
+    function revealOnScroll(selector, animateClass, setup) {
+        if (reduceMotion || !('IntersectionObserver' in window)) return;
+        var observer = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 entry.target.classList.add('is-visible');
-                statsObserver.unobserve(entry.target);
+                observer.unobserve(entry.target);
             });
         }, { threshold: 0.3 });
-        document.querySelectorAll('.ds-stats').forEach(function (stats) {
-            stats.querySelectorAll('.ds-stat').forEach(function (stat, i) {
-                stat.style.setProperty('--ds-stat-i', i);
-            });
-            stats.classList.add('ds-stats--animate');
-            statsObserver.observe(stats);
+        document.querySelectorAll(selector).forEach(function (el) {
+            if (setup) setup(el);
+            el.classList.add(animateClass);
+            observer.observe(el);
         });
     }
 
-    // Core Values picture: slide in from the left once in view.
-    if (!reduceMotion && 'IntersectionObserver' in window) {
-        var valuesImageObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('is-visible');
-                valuesImageObserver.unobserve(entry.target);
-            });
-        }, { threshold: 0.3 });
-        document.querySelectorAll('.ds-values-layout__image').forEach(function (image) {
-            image.classList.add('ds-values-layout__image--animate');
-            valuesImageObserver.observe(image);
+    // "Why Digital Stride" stats: pop each icon + label in, left to right.
+    revealOnScroll('.ds-stats', 'ds-stats--animate', function (stats) {
+        stats.querySelectorAll('.ds-stat').forEach(function (stat, i) {
+            stat.style.setProperty('--ds-stat-i', i);
         });
-    }
+    });
+
+    // Core Values picture: slide in from the left.
+    revealOnScroll('.ds-values-layout__image', 'ds-values-layout__image--animate');
 
 })();
