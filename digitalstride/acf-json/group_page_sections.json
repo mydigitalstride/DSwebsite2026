@@ -4239,7 +4239,7 @@
                             "name": "primary_button",
                             "type": "link",
                             "return_format": "array",
-                            "instructions": "Orange gradient button. Suggested: Explore Partner Dashboard → the DSD page",
+                            "instructions": "Orange gradient button. Leave empty to use: Explore Partner Dashboard → the DSD page",
                             "wrapper": {
                                 "width": "50",
                                 "class": "",
@@ -4252,7 +4252,7 @@
                             "name": "secondary_button",
                             "type": "link",
                             "return_format": "array",
-                            "instructions": "White outlined button. Suggested: Become a Partner to Unlock All Features → Contact page",
+                            "instructions": "White outlined button. Leave empty to use: Become a Partner to Unlock All Features → Contact page",
                             "wrapper": {
                                 "width": "50",
                                 "class": "",
@@ -4389,7 +4389,7 @@
                             "name": "primary_button",
                             "type": "link",
                             "return_format": "array",
-                            "instructions": "Orange gradient button. Suggested: Explore ECHO SEO → the ECHOs page",
+                            "instructions": "Orange gradient button. Leave empty to use: Explore ECHO SEO → the ECHOs page",
                             "wrapper": {
                                 "width": "50",
                                 "class": "",
@@ -4402,7 +4402,7 @@
                             "name": "secondary_button",
                             "type": "link",
                             "return_format": "array",
-                            "instructions": "White outlined button. Suggested: Deploy ECHOs For Your Site → Contact page",
+                            "instructions": "White outlined button. Leave empty to use: Deploy ECHOs For Your Site → Contact page",
                             "wrapper": {
                                 "width": "50",
                                 "class": "",
@@ -4441,5 +4441,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1792682270
+    "modified": 1792683101
 }

@@ -3672,7 +3672,7 @@ summary:focus-visible,
    Promo sections: DSD Dashboard (flex-dsd_promo) + ECHOs SEO (flex-echos_promo)
    ========================================================================== */
 .ds-promo {
-    --ds-promo-muted: rgba(242, 245, 251, 0.78);
+    --ds-promo-muted: #D1D5DB;
     --ds-promo-warm: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange));
     --ds-promo-blue: linear-gradient(90deg, var(--ds-blue-gradient) 0%, var(--ds-logo-blue) 100%);
     --ds-promo-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -3707,10 +3707,11 @@ summary:focus-visible,
 .ds-promo__head { text-align: center; max-width: 60rem; margin: 0 auto; }
 .ds-promo__caption {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-    font-style: italic;
-    font-weight: 600;
-    margin-bottom: 0.5em;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75em;
 }
 .ds-promo__heading {
     font-size: clamp(1.75rem, 3.2vw, 2.75rem);
@@ -3748,32 +3749,23 @@ summary:focus-visible,
 }
 .ds-promo__feature-text { max-width: 22em; margin: 0 auto; font-size: 0.95rem; line-height: 1.6; color: var(--ds-promo-muted); }
 
-/* ECHOs: logo beside the heading block, the pair centred together */
-.ds-promo__intro--logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(2rem, 5vw, 5rem);
-    max-width: 75rem;
-    margin: 0 auto;
-}
-.ds-promo__intro--logo .ds-promo__head { flex: 0 1 46rem; margin: 0; }
-.ds-promo__logo { flex: 0 0 auto; width: clamp(12rem, 20vw, 18rem); }
-.ds-promo__logo img { width: 100%; height: auto; }
+/* ECHOs: logo centred above the heading block */
+.ds-promo__logo { width: clamp(9rem, 16vw, 13rem); margin: 0 auto clamp(1.5rem, 3vw, 2.25rem); }
+.ds-promo__logo img { display: block; width: 100%; height: auto; }
 .ds-promo--echos .ds-promo__heading::after { display: none; }
 .ds-promo--echos .ds-promo__text { margin-top: 1.25em; }
 
 /* ECHOs: boxed cards */
 .ds-promo__card {
     padding: 1.5em 1.5em 1.75em;
-    background: rgba(242, 245, 251, 0.08);
-    border: 1px solid rgba(242, 245, 251, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s var(--ds-promo-ease), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .ds-promo__card:hover {
     transform: translateY(-4px);
     border-color: var(--ds-orange);
-    background: rgba(242, 245, 251, 0.11);
+    background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
 }
 .ds-promo__card-head { display: flex; align-items: center; gap: 0.75em; margin-bottom: 0.6em; }
@@ -3792,14 +3784,18 @@ summary:focus-visible,
 }
 
 @media (max-width: 1024px) {
-    .ds-promo__features { grid-template-columns: 1fr; max-width: 34rem; }
-    .ds-promo__intro--logo { flex-direction: column; gap: 2rem; }
-    .ds-promo__intro--logo .ds-promo__head { flex-basis: auto; }
+    .ds-promo__features { gap: 1.25em; }
+    .ds-promo__icon { width: 7rem; height: 7rem; }
+    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 6.25rem; }
+}
+@media (max-width: 768px) {
+    .ds-promo__features { grid-template-columns: 1fr; max-width: 34rem; gap: 2em; }
+    .ds-promo__features--boxed { gap: 1.25em; }
+    .ds-promo__ctas .ds-btn { flex: 1 1 100%; text-align: center; }
 }
 @media (max-width: 600px) {
-    .ds-promo__icon { width: 6.5rem; height: 6.5rem; }
-    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 5.75rem; }
-    .ds-promo__ctas .ds-btn { flex: 1 1 100%; }
+    .ds-promo__icon { width: 6rem; height: 6rem; }
+    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 5.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {
     .ds-promo__card, .ds-promo__card:hover { transition: none; transform: none; }
