@@ -1014,6 +1014,7 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 .ds-cta-split__left { display: flex; flex-direction: column; align-items: flex-start; }
 .ds-cta-split .ds-section__heading::after { background: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)); }
+.ds-section--partners .ds-section__heading::after { background: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)); }
 .ds-cta-split__text { line-height: 1.8; margin-bottom: 2em; opacity: 0.9; text-align: left; }
 .ds-cta-split__right {
     display: flex;
