@@ -2495,6 +2495,10 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     display: block;
 }
 .ds-industry-tabs__mobile-panel { display: none; }
+/* Slide in from the right (same motion as the Core Values picture) when a tab is picked: main.js adds --animate */
+.ds-section--industry-tabs { overflow-x: clip; }
+.ds-industry-tabs--animate .ds-industry-tabs__img-wrap { animation: ds-slide-in-right 1.4s cubic-bezier(0.22,1,0.36,1) both; }
+@keyframes ds-slide-in-right { from { opacity: 0; transform: translateX(120px); } }
 @media (max-width: 1100px) {
     .ds-industry-tabs__panel-inner { grid-template-columns: 1fr; }
     .ds-industry-tabs__img-wrap { height: 280px; }
