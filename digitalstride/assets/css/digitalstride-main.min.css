@@ -716,6 +716,16 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-stat__icon img, .ds-stat__icon svg { width: 52px; height: 52px; max-width: 5rem; display: block; }
 .ds-stat__value { font-family: var(--font-heading); font-size: 1.5em; font-weight: 700; }
 .ds-stat__label { font-size: 0.9em; opacity: 0.8; }
+/* Scroll-in pop: main.js adds --animate (JS on, motion allowed) and is-visible when in view */
+.ds-stats--animate:not(.is-visible) .ds-stat__icon,
+.ds-stats--animate:not(.is-visible) .ds-stat__value,
+.ds-stats--animate:not(.is-visible) .ds-stat__label { opacity: 0; }
+.ds-stats--animate.is-visible .ds-stat__icon,
+.ds-stats--animate.is-visible .ds-stat__value,
+.ds-stats--animate.is-visible .ds-stat__label { animation: ds-stat-pop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; animation-delay: calc(var(--ds-stat-i, 0) * 0.3s); }
+.ds-stats--animate.is-visible .ds-stat__value,
+.ds-stats--animate.is-visible .ds-stat__label { animation-delay: calc(var(--ds-stat-i, 0) * 0.3s + 0.12s); }
+@keyframes ds-stat-pop { from { opacity: 0; transform: translateY(24px) scale(0.6); } }
 
 /* - Accordion - */
 .ds-accordion__item {
