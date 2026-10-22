@@ -3760,8 +3760,8 @@ summary:focus-visible,
 
 /* DSD: unboxed columns with large icons */
 .ds-promo__feature { text-align: center; }
-.ds-promo__icon { width: 9rem; height: 9rem; margin-bottom: 1.5em; }
-.ds-promo__icon.ds-gradient-icon--fa i { font-size: 8rem; }
+.ds-promo__icon { width: 4.5rem; height: 4.5rem; margin-bottom: 1.25em; }
+.ds-promo__icon.ds-gradient-icon--fa i { font-size: 4rem; }
 .ds-promo__feature-title {
     font-size: clamp(1.25rem, 1.8vw, 1.6rem);
     font-weight: 600;
@@ -3838,8 +3838,6 @@ summary:focus-visible,
 
 @media (max-width: 1024px) {
     .ds-promo__features { gap: 1.25em; }
-    .ds-promo__icon { width: 7rem; height: 7rem; }
-    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 6.25rem; }
 }
 @media (max-width: 768px) {
     .ds-promo__intro--logo { flex-direction: column; gap: 2rem; }
@@ -3850,8 +3848,8 @@ summary:focus-visible,
     .ds-promo__ctas .ds-btn { flex: 1 1 100%; text-align: center; }
 }
 @media (max-width: 600px) {
-    .ds-promo__icon { width: 6rem; height: 6rem; }
-    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 5.25rem; }
+    .ds-promo__icon { width: 4rem; height: 4rem; }
+    .ds-promo__icon.ds-gradient-icon--fa i { font-size: 3.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
     .ds-promo__card, .ds-promo__card:hover { transition: none; transform: none; }
