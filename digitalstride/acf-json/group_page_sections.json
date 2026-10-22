@@ -3974,7 +3974,7 @@
                             "type": "repeater",
                             "layout": "block",
                             "button_label": "Add Item",
-                            "instructions": "Leave empty to show the default industries with placeholder text.",
+                            "instructions": "Leave empty to show the default industries with placeholder text. Add a Link to make an item a clickable box that highlights on hover.",
                             "sub_fields": [
                                 {
                                     "key": "field_wewh_item_title",
@@ -3989,6 +3989,14 @@
                                     "type": "wysiwyg",
                                     "toolbar": "basic",
                                     "media_upload": 0
+                                },
+                                {
+                                    "key": "field_wewh_item_link",
+                                    "label": "Link",
+                                    "name": "link",
+                                    "type": "link",
+                                    "return_format": "array",
+                                    "instructions": "Optional. When set, the whole box links here (e.g. Real Estate → the Realtors landing page)."
                                 }
                             ]
                         },
@@ -4441,5 +4449,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1792683101
+    "modified": 1792685118
 }

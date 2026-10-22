@@ -24,10 +24,12 @@ if (!$items) {
     $items  = array_map(function ($title) use ($filler) {
         return ['title' => $title, 'body' => $filler];
     }, ['Real Estate', 'E-Commerce', 'Insurance', 'Non-Profits', 'Professional Services', 'More']);
+    $items[0]['link'] = ['title' => 'Real Estate', 'url' => ds_template_page_url('page-realtors.php', '/realtors/'), 'target' => ''];
 }
 
 // Industry titles show as plain boxes that can't be opened while their
 // content is still being written. Set to false to make them expandable again.
+// An item with a Link is always a clickable box, locked or not.
 $accordion_locked = true;
 
 // Clients carousel: Theme Settings → Clients. Falls back to the Partners logos
@@ -53,6 +55,10 @@ if ($show_clients && function_exists('get_field')) {
 .ds-who-else .ds-accordion--centered .ds-accordion__header { justify-content: center; text-align: center; }
 .ds-who-else .ds-accordion--centered .ds-accordion__body { text-align: center; }
 .ds-who-else .ds-accordion--locked .ds-accordion__header { pointer-events: none; cursor: default; }
+.ds-who-else .ds-accordion__item--link { display: block; color: inherit; text-decoration: none; cursor: pointer; }
+.ds-who-else .ds-accordion__item--link .ds-accordion__header { pointer-events: none; }
+.ds-who-else .ds-accordion__item--link:hover,
+.ds-who-else .ds-accordion__item--link:focus-visible { border-image: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)) 1; outline: none; }
 .ds-who-else__clients { margin-top: 4em; }
 @media (max-width: 1024px) {
     .ds-who-else { flex-direction: column; gap: 2em; }
@@ -77,6 +83,12 @@ if ($show_clients && function_exists('get_field')) {
                 <div class="ds-accordion ds-accordion--centered<?php echo $accordion_locked ? ' ds-accordion--locked' : ''; ?>">
                     <?php foreach ($items as $item) : ?>
                         <?php if (empty($item['title'])) continue; ?>
+                        <?php if (!empty($item['link']['url'])) : ?>
+                            <a href="<?php echo esc_url($item['link']['url']); ?>" class="ds-accordion__item ds-accordion__item--link"<?php echo !empty($item['link']['target']) ? ' target="' . esc_attr($item['link']['target']) . '" rel="noopener"' : ''; ?>>
+                                <span class="ds-accordion__header"><span><?php echo esc_html($item['title']); ?></span></span>
+                            </a>
+                            <?php continue; ?>
+                        <?php endif; ?>
                         <div class="ds-accordion__item">
                             <?php if ($accordion_locked) : ?>
                                 <div class="ds-accordion__header"><span><?php echo esc_html($item['title']); ?></span></div>
