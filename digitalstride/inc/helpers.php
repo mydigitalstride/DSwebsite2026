@@ -131,6 +131,23 @@ function ds_gradient_heading($heading, $highlight, $class = 'ds-text-gradient') 
 }
 
 /**
+ * Helper: permalink of the first published page using a page template,
+ * or home_url($fallback) when no page uses it yet.
+ */
+function ds_template_page_url($template, $fallback = '/') {
+    $ids = get_posts([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => $template,
+        'posts_per_page' => 1,
+        'fields'         => 'ids',
+        'no_found_rows'  => true,
+    ]);
+    return $ids ? get_permalink($ids[0]) : home_url($fallback);
+}
+
+/**
  * Helper: the "features" repeater of the current flex row as plain arrays,
  * falling back to $defaults when no rows have been added yet.
  *

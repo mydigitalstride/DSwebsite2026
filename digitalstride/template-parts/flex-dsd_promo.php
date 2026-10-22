@@ -1,7 +1,7 @@
 <?php
 /**
  * Flex Layout: DSD Dashboard Promo
- * Italic caption, heading with a blue-gradient word and the orange bar,
+ * Uppercase caption, heading with a blue-gradient word and the orange bar,
  * intro, three unboxed icon columns, then a primary + outline button.
  * Used on: Home
  */
@@ -9,8 +9,8 @@ $caption   = get_sub_field('caption');
 $heading   = get_sub_field('heading');
 $highlight = get_sub_field('heading_highlight');
 $text      = get_sub_field('text');
-$primary   = get_sub_field('primary_button');
-$secondary = get_sub_field('secondary_button');
+$primary   = get_sub_field('primary_button') ?: ['title' => 'Explore Partner Dashboard', 'url' => ds_template_page_url('page-dsd.php', '/dsd/'), 'target' => ''];
+$secondary = get_sub_field('secondary_button') ?: ['title' => 'Become a Partner to Unlock All Features', 'url' => home_url('/contact-us/'), 'target' => ''];
 $features  = ds_promo_features([
     ['fa' => 'fa-solid fa-phone',            'title' => 'Real-Time Lead Tracking', 'text' => 'Listen to call recordings, review form submissions, and track booked estimates.'],
     ['fa' => 'fa-solid fa-handshake-simple', 'title' => 'Direct Task Board',      'text' => 'Submit changes, review and approve creative assets, and chat directly with our team.'],

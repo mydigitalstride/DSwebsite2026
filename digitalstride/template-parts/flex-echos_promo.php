@@ -1,16 +1,17 @@
 <?php
 /**
  * Flex Layout: ECHOs SEO Promo
- * ECHOs logo beside a centred caption / heading / intro (stacked on
- * mobile), three boxed feature cards, then a primary + outline button.
+ * ECHOs logo centred above the caption / heading / intro, three boxed
+ * feature cards, then a primary + outline button.
  * Used on: Home
  */
 $logo      = get_sub_field('logo');
 $caption   = get_sub_field('caption');
 $heading   = get_sub_field('heading');
 $text      = get_sub_field('text');
-$primary   = get_sub_field('primary_button');
-$secondary = get_sub_field('secondary_button');
+$echos_url = ds_template_page_url('page-templates/template-echos-landing.php', '/echo-seo/');
+$primary   = get_sub_field('primary_button') ?: ['title' => 'Explore ECHO SEO', 'url' => $echos_url, 'target' => ''];
+$secondary = get_sub_field('secondary_button') ?: ['title' => 'Deploy ECHOs For Your Site', 'url' => home_url('/contact-us/'), 'target' => ''];
 $features  = ds_promo_features([
     ['fa' => 'fa-solid fa-map-location-dot', 'title' => 'Automated Local Schema', 'text' => 'Generate precise trade schema to help Google identify your exact service areas.'],
     ['fa' => 'fa-solid fa-magnifying-glass', 'title' => 'Trade Keyword Mapping',  'text' => 'Target high-intent search terms tailored specifically for contractors and AEC firms.'],
@@ -21,19 +22,17 @@ $id = 'ds-echos-promo-' . get_row_index();
 
 <section class="ds-section ds-promo ds-promo--echos"<?php if ($heading) : ?> aria-labelledby="<?php echo esc_attr($id); ?>"<?php endif; ?>>
     <div class="ds-container">
-        <div class="ds-promo__intro<?php echo $logo ? ' ds-promo__intro--logo' : ''; ?>">
+        <div class="ds-promo__head">
             <?php if ($logo) : ?>
                 <div class="ds-promo__logo">
                     <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt'] ?: 'ECHOs SEO'); ?>"<?php if (!empty($logo['width'])) : ?> width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>"<?php endif; ?> loading="lazy">
                 </div>
             <?php endif; ?>
-            <div class="ds-promo__head">
-                <?php if ($caption) : ?><p class="ds-promo__caption"><?php echo esc_html($caption); ?></p><?php endif; ?>
-                <?php if ($heading) : ?>
-                    <h2 class="ds-section__heading ds-section__heading--center ds-promo__heading" id="<?php echo esc_attr($id); ?>"><?php echo esc_html($heading); ?></h2>
-                <?php endif; ?>
-                <?php if ($text) : ?><p class="ds-promo__text"><?php echo esc_html($text); ?></p><?php endif; ?>
-            </div>
+            <?php if ($caption) : ?><p class="ds-promo__caption"><?php echo esc_html($caption); ?></p><?php endif; ?>
+            <?php if ($heading) : ?>
+                <h2 class="ds-section__heading ds-section__heading--center ds-promo__heading" id="<?php echo esc_attr($id); ?>"><?php echo esc_html($heading); ?></h2>
+            <?php endif; ?>
+            <?php if ($text) : ?><p class="ds-promo__text"><?php echo esc_html($text); ?></p><?php endif; ?>
         </div>
 
         <ul class="ds-promo__features ds-promo__features--boxed">
