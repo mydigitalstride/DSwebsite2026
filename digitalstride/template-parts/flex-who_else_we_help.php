@@ -43,6 +43,7 @@ if ($show_clients && function_exists('get_field')) {
    Column split and accordion sizing match the Core Values section. */
 .ds-who-else { display: flex; gap: 4em; align-items: flex-start; }
 .ds-who-else__content { flex: 0 0 35%; min-width: 0; }
+.ds-section--who-else .ds-section__heading::after { background: linear-gradient(90deg, var(--ds-yellow), var(--ds-orange)); }
 .ds-who-else__text { font-size: 1.1em; line-height: 1.6; }
 .ds-who-else__text p { margin: 0; }
 .ds-who-else__text p + p { margin-top: 1.25em; }

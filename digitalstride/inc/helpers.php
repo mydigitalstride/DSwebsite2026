@@ -148,6 +148,20 @@ function ds_template_page_url($template, $fallback = '/') {
 }
 
 /**
+ * Helper: an ACF link with any missing part filled from the defaults, so a
+ * cleared field (which ACF may save as an array of empty strings) or a URL
+ * saved without link text still renders a button.
+ */
+function ds_link_with_default($link, $title, $url) {
+    $link = is_array($link) ? $link : [];
+    return [
+        'title'  => trim((string) ($link['title'] ?? '')) ?: $title,
+        'url'    => trim((string) ($link['url'] ?? '')) ?: $url,
+        'target' => $link['target'] ?? '',
+    ];
+}
+
+/**
  * Helper: the "features" repeater of the current flex row as plain arrays,
  * falling back to $defaults when no rows have been added yet.
  *
