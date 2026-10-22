@@ -4103,6 +4103,315 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_dsd_promo": {
+                    "key": "layout_dsd_promo",
+                    "name": "dsd_promo",
+                    "label": "DSD Dashboard Promo",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_dsd_promo",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_dsdp_caption",
+                            "label": "Caption",
+                            "name": "caption",
+                            "type": "text",
+                            "default_value": "Client & Partner Portal Advantage"
+                        },
+                        {
+                            "key": "field_dsdp_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Total Transparency with DSD",
+                            "wrapper": {
+                                "width": "70",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_dsdp_highlight",
+                            "label": "Gradient Word(s)",
+                            "name": "heading_highlight",
+                            "type": "text",
+                            "default_value": "DSD",
+                            "instructions": "Part of the heading shown in the blue gradient. Added to the end if it isn't in the heading.",
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_dsdp_text",
+                            "label": "Description",
+                            "name": "text",
+                            "type": "textarea",
+                            "rows": 3,
+                            "new_lines": "",
+                            "default_value": "No inflated vanity metrics or delayed monthly PDF recaps. Digital Stride partners receive 24/7 access to DSD (Digital Stride Dashboard), our live executive dashboard designed to give contractors total visibility into leads, ROI, and campaign momentum."
+                        },
+                        {
+                            "key": "field_dsdp_features",
+                            "label": "Features",
+                            "name": "features",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Feature",
+                            "min": 0,
+                            "max": 3,
+                            "instructions": "Up to three columns. Leave empty to use the launch copy (Real-Time Lead Tracking, Direct Task Board, All-in-One Channel Metrics).",
+                            "sub_fields": [
+                                {
+                                    "key": "field_dsdp_f_icon",
+                                    "label": "Icon (SVG upload)",
+                                    "name": "icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "mime_types": "svg",
+                                    "instructions": "Optional. Tinted in the site's blue icon gradient automatically.",
+                                    "wrapper": {
+                                        "width": "33",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_dsdp_f_icon_fa",
+                                    "label": "Or Font Awesome icon",
+                                    "name": "icon_fa",
+                                    "type": "text",
+                                    "placeholder": "fa-solid fa-phone",
+                                    "instructions": "Used when no SVG is uploaded. Any Font Awesome 6 class, e.g. fa-solid fa-chart-pie.",
+                                    "wrapper": {
+                                        "width": "33",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_dsdp_f_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "34",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_dsdp_f_text",
+                                    "label": "Description",
+                                    "name": "text",
+                                    "type": "textarea",
+                                    "rows": 2,
+                                    "new_lines": ""
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_dsdp_primary",
+                            "label": "Primary Button",
+                            "name": "primary_button",
+                            "type": "link",
+                            "return_format": "array",
+                            "instructions": "Orange gradient button. Suggested: Explore Partner Dashboard → the DSD page",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_dsdp_secondary",
+                            "label": "Secondary Button",
+                            "name": "secondary_button",
+                            "type": "link",
+                            "return_format": "array",
+                            "instructions": "White outlined button. Suggested: Become a Partner to Unlock All Features → Contact page",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_echos_promo": {
+                    "key": "layout_echos_promo",
+                    "name": "echos_promo",
+                    "label": "ECHOs SEO Promo",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_audience_echos_promo",
+                            "label": "Show to",
+                            "name": "audience",
+                            "type": "select",
+                            "instructions": "Everyone: always shown. AEC / Home Services: hidden once a visitor picks the other industry. Search engines see the page before any pick, so keep the un-picked page readable.",
+                            "choices": {
+                                "all": "Everyone",
+                                "aec": "AEC",
+                                "home_services": "Home Services"
+                            },
+                            "default_value": "all",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "wrapper": {
+                                "width": "",
+                                "class": "ds-audience-field",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_echp_logo",
+                            "label": "ECHOs Logo",
+                            "name": "logo",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "instructions": "Shown beside the heading on desktop, above it on mobile."
+                        },
+                        {
+                            "key": "field_echp_caption",
+                            "label": "Caption",
+                            "name": "caption",
+                            "type": "text",
+                            "default_value": "Free SEO Extension & Audit Tool"
+                        },
+                        {
+                            "key": "field_echp_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "SEO Engineered for Engineers, Construction & Home Services."
+                        },
+                        {
+                            "key": "field_echp_text",
+                            "label": "Description",
+                            "name": "text",
+                            "type": "textarea",
+                            "rows": 3,
+                            "new_lines": "",
+                            "default_value": "Standard SEO plugins aren't built for contractors. ECHOs automatically handles local schema markup, high-intent service keywords, and AI search readiness for AEC and trades sites."
+                        },
+                        {
+                            "key": "field_echp_features",
+                            "label": "Features",
+                            "name": "features",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Feature",
+                            "min": 0,
+                            "max": 3,
+                            "instructions": "Up to three columns. Leave empty to use the launch copy (Automated Local Schema, Trade Keyword Mapping, AI Search Optimization).",
+                            "sub_fields": [
+                                {
+                                    "key": "field_echp_f_icon",
+                                    "label": "Icon (SVG upload)",
+                                    "name": "icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "mime_types": "svg",
+                                    "instructions": "Optional. Tinted in the site's blue icon gradient automatically.",
+                                    "wrapper": {
+                                        "width": "33",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_echp_f_icon_fa",
+                                    "label": "Or Font Awesome icon",
+                                    "name": "icon_fa",
+                                    "type": "text",
+                                    "placeholder": "fa-solid fa-phone",
+                                    "instructions": "Used when no SVG is uploaded. Any Font Awesome 6 class, e.g. fa-solid fa-chart-pie.",
+                                    "wrapper": {
+                                        "width": "33",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_echp_f_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "34",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_echp_f_text",
+                                    "label": "Description",
+                                    "name": "text",
+                                    "type": "textarea",
+                                    "rows": 2,
+                                    "new_lines": ""
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_echp_primary",
+                            "label": "Primary Button",
+                            "name": "primary_button",
+                            "type": "link",
+                            "return_format": "array",
+                            "instructions": "Orange gradient button. Suggested: Explore ECHO SEO → the ECHOs page",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_echp_secondary",
+                            "label": "Secondary Button",
+                            "name": "secondary_button",
+                            "type": "link",
+                            "return_format": "array",
+                            "instructions": "White outlined button. Suggested: Deploy ECHOs For Your Site → Contact page",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             }
         }
@@ -4132,5 +4441,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1792458747
+    "modified": 1792682270
 }

@@ -91,6 +91,76 @@ function ds_render_global_cta() {
 }
 
 /**
+ * Helper: an icon in the site's blue icon gradient. Uploaded SVGs are
+ * inlined and filled with #ds-gradient-blue; otherwise a Font Awesome
+ * glyph gets the same gradient clipped to it.
+ *
+ * @param array|null $upload ACF image array (SVG).
+ * @param string     $fa     Font Awesome classes, used when nothing is uploaded.
+ * @param string     $class  Extra classes for the wrapper.
+ * @return string
+ */
+function ds_gradient_icon($upload, $fa, $class = '') {
+    $class = trim('ds-gradient-icon ' . $class);
+    if (!empty($upload['url'])) {
+        return '<span class="' . esc_attr($class . ' ds-icon--blue-gradient') . '" aria-hidden="true">' . ds_inline_svg($upload) . '</span>';
+    }
+    if (!$fa) return '';
+    return '<span class="' . esc_attr($class . ' ds-gradient-icon--fa') . '" aria-hidden="true"><i class="' . esc_attr($fa) . '"></i></span>';
+}
+
+/**
+ * Helper: escape a heading and wrap one phrase of it in the blue text
+ * gradient. The phrase is appended when the heading doesn't contain it.
+ */
+function ds_gradient_heading($heading, $highlight, $class = 'ds-text-gradient') {
+    $heading   = (string) $heading;
+    $highlight = trim((string) $highlight);
+    if ($highlight === '') return esc_html($heading);
+
+    $pos  = stripos($heading, $highlight);
+    $wrap = function ($text) use ($class) {
+        return '<span class="' . esc_attr($class) . '">' . esc_html($text) . '</span>';
+    };
+    if ($pos === false) {
+        return esc_html(rtrim($heading)) . ($heading !== '' ? ' ' : '') . $wrap($highlight);
+    }
+    return esc_html(substr($heading, 0, $pos))
+        . $wrap(substr($heading, $pos, strlen($highlight)))
+        . esc_html(substr($heading, $pos + strlen($highlight)));
+}
+
+/**
+ * Helper: the "features" repeater of the current flex row as plain arrays,
+ * falling back to $defaults when no rows have been added yet.
+ *
+ * @param array $defaults Rows of ['fa', 'title', 'text'].
+ * @return array Rows of ['icon', 'fa', 'title', 'text'].
+ */
+function ds_promo_features(array $defaults) {
+    $rows = [];
+    if (have_rows('features')) {
+        $i = 0;
+        while (have_rows('features')) {
+            the_row();
+            $row = [
+                'icon'  => get_sub_field('icon'),
+                'fa'    => trim((string) get_sub_field('icon_fa')) ?: ($defaults[$i]['fa'] ?? 'fa-solid fa-check'),
+                'title' => get_sub_field('title'),
+                'text'  => get_sub_field('text'),
+            ];
+            $i++;
+            if ($row['title'] || $row['text']) $rows[] = $row;
+        }
+    }
+    if ($rows) return $rows;
+
+    return array_map(function ($row) {
+        return ['icon' => null] + $row;
+    }, $defaults);
+}
+
+/**
  * Helper: build an autoplay-friendly embed URL for a YouTube or Vimeo link.
  *
  * Returns '' when the URL is not a recognised provider, so callers can fall
