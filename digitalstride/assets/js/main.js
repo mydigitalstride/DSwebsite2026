@@ -1809,4 +1809,19 @@
         });
     }
 
+    // Core Values picture: slide in from the left once in view.
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+        var valuesImageObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                valuesImageObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.ds-values-layout__image').forEach(function (image) {
+            image.classList.add('ds-values-layout__image--animate');
+            valuesImageObserver.observe(image);
+        });
+    }
+
 })();
