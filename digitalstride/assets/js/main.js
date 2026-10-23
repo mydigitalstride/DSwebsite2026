@@ -1823,6 +1823,13 @@
         });
     });
 
+    // DSD promo: pop each feature icon in, left to right, like the stats above.
+    revealOnScroll('.ds-promo--dsd .ds-promo__features', 'ds-promo__features--animate', function (list) {
+        list.querySelectorAll('.ds-promo__feature').forEach(function (feature, i) {
+            feature.style.setProperty('--ds-stat-i', i);
+        });
+    });
+
     // Core Values picture: slide in from the left.
     revealOnScroll('.ds-values-layout__image', 'ds-values-layout__image--animate');
 
