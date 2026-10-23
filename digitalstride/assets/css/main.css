@@ -1838,9 +1838,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-lightbox__prev { left: 1.5rem; top: 50%; transform: translateY(-50%); }
 .ds-lightbox__next { right: 1.5rem; top: 50%; transform: translateY(-50%); }
 
-@media (max-width: 768px) {
-    .ds-gallery--cols-3 { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 480px) {
     .ds-gallery--cols-2,
     .ds-gallery--cols-3 { grid-template-columns: 1fr; }
