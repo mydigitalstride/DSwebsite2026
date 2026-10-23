@@ -7,7 +7,7 @@
 $heading    = get_sub_field('heading');
 $subheading = get_sub_field('subheading');
 $text       = get_sub_field('text');
-$columns    = get_sub_field('columns') ?: 3;
+$columns    = min((int) (get_sub_field('columns') ?: 3), 3);
 
 $images = [];
 if (have_rows('images')) :
@@ -34,7 +34,6 @@ if (!$images) return;
         <?php if ($text) : ?>
             <div class="ds-section__intro"><?php echo wp_kses_post($text); ?></div>
         <?php endif; ?>
-    </div>
 
     <div class="ds-gallery ds-gallery--cols-<?php echo esc_attr($columns); ?>">
         <?php foreach ($images as $item) :
@@ -59,6 +58,7 @@ if (!$images) return;
                 </a>
             </div>
         <?php endforeach; ?>
+    </div>
     </div>
 </section>
 

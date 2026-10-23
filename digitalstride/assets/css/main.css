@@ -1721,24 +1721,21 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 
 /* - Gallery Grid - */
-.ds-section--gallery { padding-bottom: 0; }
+.ds-section--gallery .ds-section__intro { max-width: none; margin: 0 0 2.5em; text-align: left; }
 .ds-gallery {
     display: grid;
-    gap: 6px;
+    gap: 1rem;
     margin-top: 2.5em;
-    padding-bottom: 4rem;
 }
 .ds-gallery--cols-2 { grid-template-columns: repeat(2, 1fr); }
 .ds-gallery--cols-3 { grid-template-columns: repeat(3, 1fr); }
-.ds-gallery--cols-4 { grid-template-columns: repeat(4, 1fr); }
 
 .ds-gallery__item {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     background: var(--ds-bg);
 }
-.ds-gallery__item:nth-child(n+4) { aspect-ratio: 4 / 3; }
 
 .ds-gallery__link {
     display: block;
@@ -1842,14 +1839,11 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-lightbox__next { right: 1.5rem; top: 50%; transform: translateY(-50%); }
 
 @media (max-width: 768px) {
-    .ds-gallery--cols-3,
-    .ds-gallery--cols-4 { grid-template-columns: repeat(2, 1fr); }
-    .ds-gallery__item { aspect-ratio: 4 / 3 !important; }
+    .ds-gallery--cols-3 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
     .ds-gallery--cols-2,
-    .ds-gallery--cols-3,
-    .ds-gallery--cols-4 { grid-template-columns: 1fr; }
+    .ds-gallery--cols-3 { grid-template-columns: 1fr; }
 }
 
 /* - Icon List - */
