@@ -615,7 +615,8 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 
 /* - Sections - */
-.ds-section { padding: 3rem 0; }
+/* Every section gets the same top and bottom padding, on every page and at every width. */
+.ds-section { padding: 60px 0; }
 
 .ds-section__heading { margin-bottom: 0.5em; }
 .ds-section__heading::after {
@@ -711,8 +712,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 .ds-logo-carousel__slide img { max-width: 150px; max-height: 150px; object-fit: contain; }
 
 /* - Stats - */
-/* Same vertical rhythm as the promo sections that follow it on Home */
-.ds-section.ds-section--stats { padding: clamp(4rem, 8vw, 6rem) 0; }
 .ds-section--stats .ds-stats { margin-top: clamp(2.5rem, 5vw, 4rem); }
 .ds-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 2em; text-align: center; }
 .ds-stat__icon { margin: 0 auto 1em; }
@@ -1721,12 +1720,10 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
 }
 
 /* - Gallery Grid - */
-.ds-section--gallery { padding-bottom: 0; }
 .ds-gallery {
     display: grid;
     gap: 6px;
     margin-top: 2.5em;
-    padding-bottom: 4rem;
 }
 .ds-gallery--cols-2 { grid-template-columns: repeat(2, 1fr); }
 .ds-gallery--cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -2576,7 +2573,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-cta-banner--split { text-align: center; }
     .ds-cta-banner--split .ds-cta-banner__text { margin: 0 auto 0.5em; }
     .ds-cta-banner--split .ds-hero__carousel { flex: 1 1 auto; width: 100%; min-height: 300px; }
-    .ds-section { padding: 4em 0; }
     .ds-grid--3 { grid-template-columns: repeat(2, 1fr); }
     .ds-grid--4 { grid-template-columns: repeat(2, 1fr); }
     .ds-stats { grid-template-columns: repeat(2, 1fr); }
@@ -2612,7 +2608,6 @@ h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; }
     .ds-hero__carousel { min-height: 350px; margin-right: 0; }
     .ds-hero__carousel-track { min-height: 250px; }
     .ds-cta-banner--split .ds-hero__carousel { min-height: 250px; }
-    .ds-section { padding: 3em 0; }
     .ds-grid--2, .ds-grid--3, .ds-grid--4 { grid-template-columns: 1fr; }
     .ds-stats { grid-template-columns: repeat(2, 1fr); }
     .ds-footer__top { grid-template-columns: 1fr; padding: 2em 1.5rem; }

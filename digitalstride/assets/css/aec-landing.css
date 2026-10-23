@@ -23,15 +23,6 @@
     margin-bottom: 0.25em;
 }
 
-/* - Section spacing - */
-/* More breathing room than the site default (3rem) between every block. */
-.ds-page-aec .ds-main > .ds-section,
-.ds-page-hs .ds-main > .ds-section,
-.ds-page-rlt .ds-main > .ds-section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
-.ds-page-aec .ds-main > .ds-hero + .ds-section,
-.ds-page-hs .ds-main > .ds-hero + .ds-section,
-.ds-page-rlt .ds-main > .ds-hero + .ds-section { padding-top: clamp(5rem, 10vw, 8rem); }
-
 /* - Hero - */
 .ds-aec-hero { min-height: 60vh; }
 /* Dark overlay so the white type stands out over any photo; a hint of the

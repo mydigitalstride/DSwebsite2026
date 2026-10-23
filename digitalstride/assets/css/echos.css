@@ -23,9 +23,6 @@
     --ds-echos-yellow: #F5B800;
 }
 
-/* - Section spacing: as on the other landing pages - */
-.ds-page-echos .ds-main > .ds-section:not(.ds-cta-split) { padding: clamp(4rem, 8vw, 6.5rem) 0; }
-
 /* - Heading underline bars alternate yellow-orange / brand blue, section
    by section: Comparison is warm, Features and Pricing blue, Steps warm,
    and the CTA keeps the Global CTA bar. - */
