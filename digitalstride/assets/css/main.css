@@ -3753,6 +3753,15 @@ summary:focus-visible,
 .ds-promo__feature { text-align: center; }
 .ds-promo__icon { width: 4.5rem; height: 4.5rem; margin-bottom: 1.25em; }
 .ds-promo__icon.ds-gradient-icon--fa i { font-size: 4rem; }
+/* Scroll-in pop, same as the Why Digital Stride stats: main.js adds --animate and is-visible */
+.ds-promo__features--animate:not(.is-visible) .ds-promo__icon,
+.ds-promo__features--animate:not(.is-visible) .ds-promo__feature-title,
+.ds-promo__features--animate:not(.is-visible) .ds-promo__feature-text { opacity: 0; }
+.ds-promo__features--animate.is-visible .ds-promo__icon,
+.ds-promo__features--animate.is-visible .ds-promo__feature-title,
+.ds-promo__features--animate.is-visible .ds-promo__feature-text { animation: ds-stat-pop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; animation-delay: calc(var(--ds-stat-i, 0) * 0.3s); }
+.ds-promo__features--animate.is-visible .ds-promo__feature-title,
+.ds-promo__features--animate.is-visible .ds-promo__feature-text { animation-delay: calc(var(--ds-stat-i, 0) * 0.3s + 0.12s); }
 .ds-promo__feature-title {
     font-size: clamp(1.25rem, 1.8vw, 1.6rem);
     font-weight: 600;
