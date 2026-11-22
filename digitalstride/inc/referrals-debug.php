@@ -32,12 +32,16 @@ add_action('save_post_page', function ($post_id) {
 
     $report = [
         'time'             => current_time('mysql'),
+        'page'             => '#' . (int) $post_id . ' ' . get_the_title($post_id),
         'acf_version'      => defined('ACF_VERSION') ? ACF_VERSION : (function_exists('acf') ? acf()->version : 'not loaded'),
         'acf_pro'          => defined('ACF_PRO') ? 'yes' : 'no',
         'post_vars'        => count($_POST, COUNT_RECURSIVE),
         'max_input_vars'   => ini_get('max_input_vars'),
         'acf_nonce'        => empty($_POST['_acf_nonce']) ? 'MISSING' : 'present',
         'page_sections_posted' => isset($_POST['acf']['field_page_sections']) ? 'yes' : 'NO',
+        'layouts_posted'   => implode(', ', array_map(function ($row) {
+            return is_array($row) ? (string) ($row['acf_fc_layout'] ?? '?') : '?';
+        }, (array) ($_POST['acf']['field_page_sections'] ?? []))) ?: '(none)',
         'referral_rows_posted' => [],
     ];
     foreach (ds_ref_debug_posted_rows() as $row_id => $row) {
